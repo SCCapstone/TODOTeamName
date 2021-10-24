@@ -38,3 +38,4 @@ This section is pending
 
 # Authors
 Garrison Davis - grd1@email.sc.edu
+Carol Juneau - cjuneau@email.sc.edu
