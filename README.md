@@ -11,9 +11,12 @@ In order to build this project you first have to install:
 
 ## Setup
 
-In order to log in as an admin you will need to type :
-python manage.py createsuperuser in the console. 
-You will be prompted to create a log in info. 
+In order to log in as an admin you will need to execute the following commands in the console :
+python manage.py migrate 
+python manage.py createsuperuser 
+
+The first command will create the database tables, including where your user info will be stored.
+The second command will prompt you to create a log in info. 
 
 ## Running
 
