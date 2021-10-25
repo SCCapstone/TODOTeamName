@@ -49,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'django_demo.urls'
+ROOT_URLCONF = 'todo_team_name.urls'
 
 TEMPLATES = [
     {
@@ -67,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'django_demo.wsgi.application'
+WSGI_APPLICATION = 'todo_team_name.wsgi.application'
 
 
 # Database
