@@ -44,3 +44,4 @@ Garrison Davis - grd1@email.sc.edu
 Isaac Luther - iluther@email.sc.edu  
 Eiman Najjar - enajjar@email.sc.edu  
 Carol Juneau - cjuneau@email.sc.edu  
+Matthew Lewis - mrl4@email.sc.edu
