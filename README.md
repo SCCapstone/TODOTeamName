@@ -8,6 +8,7 @@ In order to build this project you first have to install:
 
 * [Django](https://docs.djangoproject.com/en/3.2/topics/install/)
 * [Python](https://www.python.org/downloads/)
+* [PostgreSQL](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 
 ## Setup
 
