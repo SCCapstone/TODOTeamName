@@ -19,6 +19,9 @@ python manage.py createsuperuser
 The first command will create the database tables, including where your user info will be stored.
 The second command will prompt you to create a log in info. 
 
+To set up the database, you will need to run the database creation script by executing the following in the console. Make sure that you've added Postgres to your PATH
+psql databasecreation.sql
+
 ## Running
 
 To launch the server you need to type:
