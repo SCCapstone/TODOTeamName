@@ -1,0 +1,41 @@
+{% extends 'recipeForum/home.html' %}
+
+<!-- TODO: Matthew - Just make sure this is connected correctly (I think it should be though) -->
+
+{% block content %}
+<h1 class = 'title'>{{ post.title }}</h1>
+<small>Posted at {{ post.date_added }}</small>
+
+<p><strong>{{ post.intro }}</strong></p>
+
+<p>{{ post.body }}</p>
+
+<hr>
+<h2 class = "subtitle">Comments</h2>
+{% for comment in post.comments.all %}
+<article class = "media">
+  <div class = "media-content">
+    <p>
+      <strong> {{comment.name }}</strong><small>&nbsp;&nbsp;&nbsp;{{ comment.date_added }}</small>
+      <br>
+      {{ comment.body }}
+    </p>
+  </div>
+</article>
+{% empty %}
+<div class ="comments">
+  <p>Be the first to leave a comment!!</p>
+</div>
+{% endfor %}
+<hr>
+
+<h2 class ="subtitle">Add comment</h2>
+<form method = "post" action = ".">
+  {% csrf_token %}
+
+  {{ form.as_p }}
+  <div class = "field">
+    <button class = "button is-success">Submit</button>
+  </div>
+</form>
+{% endblock %}
