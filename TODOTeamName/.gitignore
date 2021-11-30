@@ -4,6 +4,7 @@
 __pycache__
 db.sqlite3
 media
+.DS_Store
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
