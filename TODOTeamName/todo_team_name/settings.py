@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'meal_planner_main',
     'todo_team_name.apps.TodoTeamNameConfig',
     'django.contrib.admin',
     'django.contrib.auth',
