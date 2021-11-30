@@ -8,6 +8,7 @@ In order to build this project you first have to install:
 
 * [Django](https://docs.djangoproject.com/en/3.2/topics/install/)
 * [Python](https://www.python.org/downloads/)
+* [PostgreSQL](https://www.postgresql.org/download/)
 
 ## Setup
 
@@ -20,6 +21,7 @@ The second command will prompt you to create a log in info.
 
 ## Running
 
+You need to first initialize the database by running the databaseinitialization.sql script in psql
 To launch the server you need to type:
 python manage.py runserver in to console.
 After this visit your localhost in a webbrowser of choice. 
