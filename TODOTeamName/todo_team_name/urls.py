@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, url
+from django.urls import path
 from meal_planner_main import views
 
 
@@ -29,5 +29,4 @@ urlpatterns = [
     path('pantry/', views.pantry),
     path('recipes/', views.recipes),
     path('admin/', admin.site.urls),
-    url(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),
 ]
