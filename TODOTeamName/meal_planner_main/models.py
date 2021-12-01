@@ -34,3 +34,8 @@ class forumPost(models.Model):
         date_added = models.DateTimeField('date published')
         slug = models.CharField(max_length=200)
 
+class ScheduledRecipe(models.Model):
+        title = models.CharField(max_length=200)
+        description = models.TextField()
+        recipeId = models.CharField(max_length= 200)
+        scheduled_date = models.DateField()
