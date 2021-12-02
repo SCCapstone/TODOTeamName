@@ -20,7 +20,8 @@
     {% endfor %}
 </ul>
 <!-- TODO: Isaac - Create database for grocery items |
-           Matthew - Add html page to views/urls/models and ensure it can pull from database -->
+           Matthew - Add html page to views/urls/models and ensure it can pull from database
+           Garrison - Fix items not showing after entry-->
 
 <form action="/addGroceryItem/" method = "post">{% csrf_token %}
     <input type="text" name="content">
