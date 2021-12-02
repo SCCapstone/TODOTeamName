@@ -32,6 +32,7 @@ ALLOWED_HOSTS = ['django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.
 
 INSTALLED_APPS = [
     'meal_planner_main',
+    'crispy_forms',
     'todo_team_name.apps.TodoTeamNameConfig',
     'django.contrib.admin',
     'django.contrib.auth',
