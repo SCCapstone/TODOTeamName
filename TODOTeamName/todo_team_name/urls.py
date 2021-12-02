@@ -1,4 +1,4 @@
-"""django_demo URL Configuration
+"""todo_team_name URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/3.2/topics/http/urls/
@@ -29,5 +29,4 @@ urlpatterns = [
     path('pantry/', views.pantry),
     path('recipes/', views.recipes),
     path('admin/', admin.site.urls),
-    re_path(r'^calendar/$', views.CalendarView.as_view(), name='calendar'),
 ]
