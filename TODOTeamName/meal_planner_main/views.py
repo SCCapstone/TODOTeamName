@@ -6,6 +6,12 @@ from django.utils.safestring import mark_safe
 from .models import *
 from .utils import Calendar
 from django.http import HttpResponse
+
+headers = {
+    'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    'x-rapidapi-key': "4b462de572msh59ab5fee0c2b937p1a5096jsn62e9e0262449"
+    }
+
 # Create your views here.
 def home(request):
 	return render(request, 'todo_team_name/homePage.html')
@@ -32,7 +38,10 @@ def pantry(request):
 	return render(request, 'todo_team_name/pantryMain.html')
 
 def recipes(request):
-	return render(request, 'todo_team_name/recipesMain.html')
+	url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
+	querystring = {"number":"3"}
+	response = requests.request("GET", url, headers=headers, params=querystring)
+	return render(request, 'todo_team_name/recipesMain.html', {'list' : json.loads(response.text)})
 
 class CalendarView(generic.ListView):
 	model = ScheduledRecipe
