@@ -25,13 +25,14 @@ SECRET_KEY = 'django-insecure-h)-jo=v_z1ls%tf*$wsyo^5c^yy!6w!ve204=)#k&&mp41y1#(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.0.0.1']
+ALLOWED_HOSTS = ['django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.0.0.1', 'localhost']
 
 
 # Application definition
 
 INSTALLED_APPS = [
     'meal_planner_main',
+    'crispy_forms',
     'todo_team_name.apps.TodoTeamNameConfig',
     'django.contrib.admin',
     'django.contrib.auth',
