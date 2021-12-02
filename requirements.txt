@@ -1,5 +1,4 @@
 Django==3.2.8
-<<<<<<< HEAD
 psycopg2-binary==2.9.2
 requests==2.26.0
 django-crispy-forms
