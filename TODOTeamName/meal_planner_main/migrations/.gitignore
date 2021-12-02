@@ -1,2 +1,0 @@
-# We should be ignoring everything in migrations! They should be done locally.
-*.py
