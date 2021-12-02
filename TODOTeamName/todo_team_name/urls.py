@@ -29,4 +29,5 @@ urlpatterns = [
     path('pantry/', views.pantry),
     path('recipes/', views.recipes),
     path('admin/', admin.site.urls),
+    path('addGroceryItem/', views.groceryListView)
 ]
