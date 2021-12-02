@@ -19,7 +19,7 @@ from meal_planner_main import views
 
 
 urlpatterns = [
-    path('', views.home),
+    path('', views.homePage),
     path('createAccount/', views.createAccount),
     path('login/', views.login),
     path('calendar/', views.calendar),

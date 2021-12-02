@@ -7,7 +7,7 @@ from .models import *
 from .utils import Calendar
 from django.http import HttpResponse
 # Create your views here.
-def home(request):
+def homePage(request):
 	return render(request, 'todo_team_name/homePage.html')
 
 def createAccount(request):
