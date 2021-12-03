@@ -57,7 +57,7 @@ def healthForum(request):
 	return render(request, 'todo_team_name/healthForumMain.html')
 
 def forumPost(request):
-	return render(request, 'todo_team_name/healthForumPost_detail.html')
+	return render(request, 'todo_team_name/healthForumPost.html')
 
 def pantry(request):
 	return render(request, 'todo_team_name/pantryMain.html')
@@ -71,7 +71,7 @@ def recipes(request):
 
 def frontpage(request):
 	posts = Post.objects.all()
-	return render(request, 'meal_planner_main/homePage.html',{'posts': posts})
+	return render(request, 'todo_team_name/healthForumMain.html',{'posts': posts})
 
 #def post_detail(request, slug):
 #	post = Post.objects.get(slug = slug)
