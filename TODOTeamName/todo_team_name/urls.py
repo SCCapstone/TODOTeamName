@@ -23,7 +23,8 @@ from meal_planner_main.views import frontpage
 
 app_name = 'meal_planner_main'
 urlpatterns = [
-    path('', views.homePage, name = 'home'),
+    path('', views.default, name = 'default'),
+    path('home/', views.homePage, name = 'home'),
     path('createAccount/', views.createAccount, name = 'createAccount'),
     path('login/', views.login, name = 'login'),
     path('calendar/', views.calendar, name = 'calendar'),
