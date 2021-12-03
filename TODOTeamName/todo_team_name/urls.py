@@ -34,7 +34,7 @@ urlpatterns = [
     path('pantry/', views.pantry, name = 'pantry'),
     path('recipes/', views.recipes, name = 'recipes'),
     path('admin/', admin.site.urls),
-    path('addGroceryItem/', views.groceryListView, name = 'gadd')
+    path('addGroceryItem/', views.groceryListView, name = 'gadd'),
     path('deleteGroceryItem/', views.remove, name="deleteGI"),
     #url(r'^homePage/$', views.homePage, name='index'),
     #url(r'^calendar/$', views.CalendarView.as_view(), name='calendar')
