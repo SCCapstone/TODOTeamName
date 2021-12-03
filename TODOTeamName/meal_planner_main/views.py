@@ -8,6 +8,14 @@ from .models import *
 from .forms import *
 from .utils import Calendar
 from django.http import HttpResponse
+import requests
+import json
+
+headers = {
+    'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
+    'x-rapidapi-key': "4b462de572msh59ab5fee0c2b937p1a5096jsn62e9e0262449"
+    }
+
 # Create your views here.
 
 
@@ -16,9 +24,26 @@ def homePage(request):
 	return render(request, 'todo_team_name/homePage.html')
 
 def createAccount(request):
-	return render(request, 'todo_team_name/accountCreation.html')
+	if request.method == "POST":
+		name = request.POST.get("name")
+		uname = request.POST.get("uname")
+		email = request.POST.get("email")
+		password = request.POST.get("password")
+		#TODO-pass info into database
+		return render(request, 'todo_team_name/accountCreation.html')
+
+	else:
+		return render(request, 'todo_team_name/accountCreation.html')
 
 def login(request):
+	if request.method == "POST":
+		uname = request.POST.get("uname")
+		password = request.POST.get("password")
+		if True:
+			return redirect('home')
+		else:
+			return render(request, 'todo_team_name/accountLogin.html')
+
 	return render(request, 'todo_team_name/accountLogin.html')
 
 def calendar(request):
@@ -38,7 +63,11 @@ def pantry(request):
 	return render(request, 'todo_team_name/pantryMain.html')
 
 def recipes(request):
-	return render(request, 'todo_team_name/recipesMain.html')
+	url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
+	querystring = {"number":"3"}
+	response = requests.request("GET", url, headers=headers, params=querystring)
+	print(response.text)
+	return render(request, 'todo_team_name/recipesMain.html', {'list' : json.loads(response.text)})
 
 def frontpage(request):
 	posts = Post.objects.all()

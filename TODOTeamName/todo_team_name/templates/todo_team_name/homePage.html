@@ -1,125 +1,14 @@
- <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
-
-</head>
-<body>
-<nav class = "navbar is-info">
-    <div class ="navbar-brand">
-        <a href = "/" class=" "navbar-item style ="color:black;"><strong>Welcome the Health Forum!!!</strong></a>
-    </div>
-</nav>
-
-<section class = "section">
-    <dov class ="comtainer">
-        {% block content %}
-        {% endblock %}
-    </dov>
-</section>
-</body>
-</html>
 
 
+{% extends "todo_team_name/base.html" %}
 
 
+{% block title %}Meal Planner{% endblock title %}
 
+{% block content %}
 
-<!--{% load crispy_forms_tags %}
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
+<h1>Meal Planner Home Page</h1>
+<p>Welcome to our Meal Planner app!</p>
 
-<head>
-
-    <meta charset="utf-8">
-    <title>{{item_name}}</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-    <style>
-  .card {
-
-   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5),
-               0 6px 20px 0 rgba(0,0,0,0.39);
-   background: lightpink;
-   margin-bottom : 5%;
-   border-radius: 25px;
-   padding : 2%;
-   overflow: auto;
-   resize: both;
-   text-overflow: ellipsis;
-  }
-  .card:hover{
-    background: lightblue;
-  }
-
-  .submit_form{
-
-    text-align: center;
-    padding: 3%;
-    background: pink;
-    border-radius: 25px;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4),
-                0 6px 20px 0 rgba(0,0,0,0.36);
-  }
-  </style>
-
-</head>
-
-<body  class="container-fluid">
-
-{% if messages %}
-{% for message in messages %}
-<div class="alert alert-info">
-    <strong>{{message}}</strong>
-</div>
-{% endfor %}
-{% endif %}
-
-<center class="row">
-    <h1><i>Welcome to your grocery list</i></h1>
-    <hr />
-</center>
-
-
-<div class="row">
-
-    <div class="col-md-8">
-
-        {% for i in item_list%}
-        <div class="card">
-            <center><b>{{i.item_name}}</b></center>
-            <hr/>
-            {{i.date}}
-            <hr/>
-            {{i.details}}
-            <br />
-            <br />
-            <form action="/del/{{i.id}}" method="POST" style=" padding-right: 4%; padding-bottom: 3%;">
-                {% csrf_token %}
-                <button value="remove" type="submit"  class="btn btn-primary" style="float: right;"><span class="glyphicon glyphicon-trash"></span> &nbsp; remove</button>
-            </form>
-        </div>
-        {% endfor%}
-    </div>
-    <div class="col-md-1"> </div>
-    <div class="col-md-3" >
-        <div  class="submit_form">
-            <form  method="POST">
-                {% csrf_token %}
-                {{forms|crispy}}
-                <center>
-                    <input type="submit" class="btn btn-default" value="submit" />
-                </center>
-            </form>
-        </div>
-    </div>
-</div>
-</body>
-
-</html>-->
-
+{% endblock content %}
 

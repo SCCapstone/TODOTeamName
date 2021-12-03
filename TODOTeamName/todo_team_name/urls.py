@@ -23,21 +23,20 @@ from meal_planner_main.views import frontpage
 
 app_name = 'meal_planner_main'
 urlpatterns = [
-    path('', views.homePage),
-    path('createAccount/', views.createAccount),
-    path('login/', views.login),
-    path('calendar/', views.calendar),
-    path('forum/', include('meal_planner_main.urls')),
-    path('post/', views.forumPost),
-   # path('<slug:slug>/',post_detail, name ='post_detail'),
-    path('groceries/', views.groceryListMain),
-    path('pantry/', views.pantry),
-    path('recipes/', views.recipes),
+    path('', views.homePage, name = 'home'),
+    path('createAccount/', views.createAccount, name = 'createAccount'),
+    path('login/', views.login, name = 'login'),
+    path('calendar/', views.calendar, name = 'calendar'),
+    path('forum/', include('meal_planner_main.urls'), name = 'forum'),
+    path('post/', views.forumPost, name = 'fpost'),
+   #path('<slug:slug>/',post_detail, name ='post_detail'),
+    path('groceries/', views.groceryListView, name = 'groceries'),
+    path('pantry/', views.pantry, name = 'pantry'),
+    path('recipes/', views.recipes, name = 'recipes'),
     path('admin/', admin.site.urls),
-    path('addGroceryItem/', views.groceryListMain),
+    path('addGroceryItem/', views.groceryListView, name = 'gadd')
     path('deleteGroceryItem/', views.remove, name="deleteGI"),
     #url(r'^homePage/$', views.homePage, name='index'),
     #url(r'^calendar/$', views.CalendarView.as_view(), name='calendar')
-
 ]
 

@@ -1,5 +1,12 @@
-{'% extends 'cal/base.html' %}
+{% extends "todo_team_name/base.html" %}
 
-{'% block content %}
-    {'{ calendar }}
-{'% endblock %}
+{% block title %}Calendar{% endblock title %}
+
+{% block content %}
+<!-- TODO: Garrison - make page to extend from -->
+
+<h1>This is the Calendar Page!</h1>
+{{calendar}}
+
+{% endblock content %}
+
