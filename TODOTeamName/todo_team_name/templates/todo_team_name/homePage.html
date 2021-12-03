@@ -1,22 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Home Page</title>
+{% extends "todo_team_name/base.html" %}
 
-</head>
-<body>
-<nav class = "navbar is-info">
-    <div class ="navbar-brand">
-        <a href = "/" class=" "navbar-item style ="color:black;"><strong>Welcome the Health Forum!!!</strong></a>
-    </div>
-</nav>
+{% block title %}Meal Planner{% endblock title %}
 
-<section class = "section">
-    <dov class ="comtainer">
-        {% block content %}
-        {% endblock %}
-    </dov>
-</section>
-</body>
-</html>
+{% block content %}
+
+<h1>Meal Planner Home Page</h1>
+<p>Welcome to our Meal Planner app!</p>
+
+{% endblock content %}
