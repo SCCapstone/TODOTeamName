@@ -3,10 +3,10 @@
 {% block title %}Create an Account{% endblock title %}
 
 {% block content %}
-<!-- TODO add form action page to give this functionality -->
 
 <h1>Create an Account</h1>
-<form>
+<form method="POST">
+    {% csrf_token %}
     <div>
         <label for="name">Name:</label>
     </div>

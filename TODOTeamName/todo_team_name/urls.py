@@ -19,15 +19,15 @@ from meal_planner_main import views
 
 
 urlpatterns = [
-    path('', views.homePage, name='homePage'),
+    path('', views.homePage, name = 'home'),
+    path('createAccount/', views.createAccount, name = 'createAccount'),
+    path('login/', views.login, name = 'login'),
+    path('calendar/', views.calendar, name = 'calendar'),
+    path('forum/', views.healthForum, name = 'forum'),
+    path('post/', views.forumPost, name = 'fpost'),
+    path('groceries/', views.groceryListView, name = 'groceries'),
+    path('pantry/', views.pantry, name = 'pantry'),
+    path('recipes/', views.recipes, name = 'recipes'),
     path('admin/', admin.site.urls),
-    path('createAccount/', views.createAccount, name='createAccount'),
-    path('login/', views.login, name='login'),
-    path('calendar/', views.calendar, name='calendar'),
-    path('forum/', views.healthForum, name='forum'),
-    path('post/', views.forumPost, name='post'),
-    path('groceries/', views.groceryListView, name='groceries'),
-    path('pantry/', views.pantry, name='pantry'),
-    path('recipes/', views.recipes, name='recipes'),
-    path('addGroceryItem/', views.groceryListView, name='addGroceryItem')
+    path('addGroceryItem/', views.groceryListView, name = 'gadd')
 ]

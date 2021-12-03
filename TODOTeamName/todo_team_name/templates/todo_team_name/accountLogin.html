@@ -3,10 +3,10 @@
 {% block title %}Login{% endblock title %}
 
 {% block content %}
-<!-- TODO add form action page to give this functionality -->
 
 <h1>Login</h1>
-<form>
+<form method="POST">
+    {% csrf_token %}
     <div>
         <label for="uname">Username:</label>
     </div>
@@ -20,8 +20,5 @@
         <input type="password" id="password" name="password" placeholder="********" required>
     </div>
     <div>
-        <input type="submit" value="Submit">
-    </div>
-</form>
 
 {% endblock content %} 
