@@ -22,20 +22,46 @@ class siteUser(models.Model):
 class Recipe(models.Model):
         author = models.ManyToManyField(siteUser, related_name='recipe_list')
         recipe_name = models.CharField(max_length=200)
-        recipe_ingredients = models.JSONField(null=True) 
+        recipe_ingredients = models.JSONField(null=True)
         date_added = models.DateTimeField('date published')
         allergens_in_item = models.ManyToManyField(allergies, related_name = 'recipes_with_allergens')
         #TODO- allergy flags?
 
-class forumPost(models.Model):
-        author = models.ForeignKey(siteUser, on_delete=models.CASCADE)
-        title = models.CharField(max_length=200)
-        intro = models.CharField(max_length=200)
-        date_added = models.DateTimeField('date published')
-        slug = models.CharField(max_length=200)
+
 
 class ScheduledRecipe(models.Model):
         title = models.CharField(max_length=200)
         description = models.TextField()
         recipeId = models.CharField(max_length= 200)
         scheduled_date = models.DateField()
+
+class GroceryList(models.Model):
+        item_name = models.CharField(max_length = 200)
+        ingredients = models.TextField()
+        calories = models.IntegerField()
+        item_id = models.CharField(max_length = 200)
+        date = models.DateTimeField()
+
+        def __str__(self):
+                return self.item_name
+
+
+class Post(models.Model):
+        title = models.CharField(max_length = 255)
+        slug = models.SlugField()
+        intro = models.TextField()
+        body = models.TextField()
+        date_added = models.DateTimeField(auto_now_add = True)
+
+        class Meta:
+                ordering = ['date_added']
+
+class Comment(models.Model):
+        post = models.ForeignKey(Post, related_name = 'comments', on_delete=models.CASCADE)
+        name = models.CharField(max_length = 255)
+        email = models.EmailField()
+        body = models.TextField()
+        date_added = models.DateTimeField(auto_now_add = True)
+
+        class Meta:
+                ordering = ['date_added']

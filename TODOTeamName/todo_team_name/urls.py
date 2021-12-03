@@ -14,20 +14,30 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, re_path, include
+from django.conf.urls import url
 from meal_planner_main import views
+from meal_planner_main.views import frontpage
 
 
+
+app_name = 'meal_planner_main'
 urlpatterns = [
     path('', views.homePage),
     path('createAccount/', views.createAccount),
     path('login/', views.login),
     path('calendar/', views.calendar),
-    path('forum/', views.healthForum),
+    path('forum/', include('meal_planner_main.urls')),
     path('post/', views.forumPost),
-    path('groceries/', views.groceryListView),
+   # path('<slug:slug>/',post_detail, name ='post_detail'),
+    path('groceries/', views.groceryListMain),
     path('pantry/', views.pantry),
     path('recipes/', views.recipes),
     path('admin/', admin.site.urls),
-    path('addGroceryItem/', views.groceryListView)
+    path('addGroceryItem/', views.groceryListMain),
+    path('deleteGroceryItem/', views.remove, name="deleteGI"),
+    #url(r'^homePage/$', views.homePage, name='index'),
+    #url(r'^calendar/$', views.CalendarView.as_view(), name='calendar')
+
 ]
+
