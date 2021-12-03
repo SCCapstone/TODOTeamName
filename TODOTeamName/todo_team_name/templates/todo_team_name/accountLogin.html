@@ -6,8 +6,10 @@
 </head>
 <body>
     <h1>This is the Account Login Page!</h1>
-    <!-- TODO add action page: <form action="/action_page.php" -->
-    <form>
+    <!-- TODO add action page: <form action="/action_page.php" 
+    NOTE: Matthew Lewis  added POST to do all the work in views, can be edited later if necessary-->
+    <form method = "POST">
+        {% csrf_token %}
         <label for="uname">Username:</label><br>
         <input type="text" id="uname" name="uname" placeholder="jdoe1" required><br>
         <label for="password">Password:</label><br>

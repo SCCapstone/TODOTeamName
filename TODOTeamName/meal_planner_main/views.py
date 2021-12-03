@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from datetime import *
 from django.views import generic
 from django.utils.safestring import mark_safe
@@ -6,6 +6,8 @@ from django.utils.safestring import mark_safe
 from .models import *
 from .utils import Calendar
 from django.http import HttpResponse
+import requests
+import json
 
 headers = {
     'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
@@ -17,9 +19,26 @@ def homePage(request):
 	return render(request, 'todo_team_name/homePage.html')
 
 def createAccount(request):
-	return render(request, 'todo_team_name/accountCreation.html')
+	if request.method == "POST":
+		name = request.POST.get("name")
+		uname = request.POST.get("uname")
+		email = request.PosT.get("email")
+		password = request.POST.get("password")
+		#TODO-pass info into database
+		return render(request, 'todo_team_name/accountCreation.html')
+
+	else:
+		return render(request, 'todo_team_name/accountCreation.html')
 
 def login(request):
+	if request.method == "POST":
+		uname = request.POST.get("uname")
+		password = request.POST.get("password")
+		if True:
+			return redirect('home')
+		else:
+			return render(request, 'todo_team_name/accountLogin.html')
+
 	return render(request, 'todo_team_name/accountLogin.html')
 
 def calendar(request):
@@ -41,6 +60,7 @@ def recipes(request):
 	url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
 	querystring = {"number":"3"}
 	response = requests.request("GET", url, headers=headers, params=querystring)
+	print(response.text)
 	return render(request, 'todo_team_name/recipesMain.html', {'list' : json.loads(response.text)})
 
 class CalendarView(generic.ListView):
