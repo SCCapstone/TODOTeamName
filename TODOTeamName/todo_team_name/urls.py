@@ -19,8 +19,9 @@ from meal_planner_main import views
 
 
 urlpatterns = [
-    path('', views.homePage, name = 'home'),
-    path('createAccount/', views.createAccount),
+    path('', views.default, name = 'default'),
+    path('home/', views.homePage, name = 'home'),
+    path('createAccount/', views.createAccount, name = 'signup'),
     path('login/', views.login, name = 'login'),
     path('calendar/', views.calendar, name = 'calendar'),
     path('forum/', views.healthForum, name = 'forum'),
