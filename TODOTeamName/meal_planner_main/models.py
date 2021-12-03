@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.postgres.fields import ArrayField
+from django.contrib.postgres.fields import ArrayField, JSONField
 from django.contrib.auth.models import User
 # Create your models here.
 
@@ -13,7 +13,7 @@ class allergies(models.Model):
 class siteUser(models.Model):
         user = models.OneToOneField(User, on_delete=models.CASCADE)
         grocery_list = models.ManyToManyField(groceryItems, related_name='users_who_own')
-        pantry_list = models.JSONField(null=True)
+        pantry_list = JSONField(null=True)
         allergy_list = models.ManyToManyField(allergies, related_name='allergic_users')
         #TODO - isaac - Add friends list
         #TODO - isaac - add Allergies
@@ -22,7 +22,7 @@ class siteUser(models.Model):
 class Recipe(models.Model):
         author = models.ManyToManyField(siteUser, related_name='recipe_list')
         recipe_name = models.CharField(max_length=200)
-        recipe_ingredients = models.JSONField(null=True) 
+        recipe_ingredients = JSONField(null=True) 
         date_added = models.DateTimeField('date published')
         allergens_in_item = models.ManyToManyField(allergies, related_name = 'recipes_with_allergens')
         #TODO- allergy flags?
