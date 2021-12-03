@@ -1,9 +1,13 @@
-{% extends 'todo_team_name/homePage.html' %}
+{% extends "todo_team_name/base.html" %}
+
+{% block title %}Forum{% endblock title %}
+
+{% block content %}
 <!-- TODO: Isaac- Make a forum table Post(title, intro, date_added, slug, comments) maybe username(?)
             Matthew - Add this page to views, urls, etc..
             Garrison - make viewable. -->
 
-{% block content %}
+<h1>This is the Health Forum Page!</h1>
 {% for post in posts %}
 <div class="post block">
     <h2 class="subtitle">{{ post.title }}</h2>
@@ -14,4 +18,5 @@
 {%empty%}
 <li>there's nothing here!</li>
 {% endfor %}
-{% endblock %}
+
+{% endblock content %} 

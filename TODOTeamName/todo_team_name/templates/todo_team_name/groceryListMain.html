@@ -1,16 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <title>Welcome to your grocery list!</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-    }
-    </style>
-</head>
-<body>
+{% extends "todo_team_name/base.html" %}
+
+{% block title %}Groceries{% endblock title %}
+
+{% block content %}
+<!-- TODO: Isaac - Create database for grocery items |
+           Matthew - Add html page to views/urls/models and ensure it can pull from database
+           Garrison - Fix items not showing after entry-->
 
 <h1>Grocery List</h1>
 <p>Welcome to the grocery list! Click to add items</p>
@@ -19,9 +14,6 @@
     <li> {{i.content}} </li>
     {% endfor %}
 </ul>
-<!-- TODO: Isaac - Create database for grocery items |
-           Matthew - Add html page to views/urls/models and ensure it can pull from database
-           Garrison - Fix items not showing after entry-->
 
 <form action="/addGroceryItem/" method = "post">{% csrf_token %}
     <input type="text" name="content">
@@ -29,5 +21,4 @@
 
 </form>
 
-</body>
-</html>
+{% endblock content %}
