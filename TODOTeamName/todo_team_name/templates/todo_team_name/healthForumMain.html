@@ -1,4 +1,4 @@
-{% extends 'todo_team_name\homePage.html' %}
+{% extends 'todo_team_name/homePage.html' %}
 <!-- TODO: Isaac- Make a forum table Post(title, intro, date_added, slug, comments) maybe username(?)
             Matthew - Add this page to views, urls, etc..
             Garrison - make viewable. -->
@@ -11,5 +11,7 @@
     <p>{{ post.intro }}</p>
     <a href= "{% url 'healthForumPost_detail' post.slug %}">Read more</a>
 </div>
+{%empty%}
+<li>there's nothing here!</li>
 {% endfor %}
 {% endblock %}

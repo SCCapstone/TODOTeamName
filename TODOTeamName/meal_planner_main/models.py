@@ -12,6 +12,7 @@ class allergies(models.Model):
 
 class siteUser(models.Model):
         user = models.OneToOneField(User, on_delete=models.CASCADE)
+        name = models.CharField(max_length = 50)
         grocery_list = models.ManyToManyField(groceryItems, related_name='users_who_own')
         pantry_list = JSONField(null=True)
         allergy_list = models.ManyToManyField(allergies, related_name='allergic_users')

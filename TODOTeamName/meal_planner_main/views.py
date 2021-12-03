@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from datetime import *
 from django.views import generic
 from django.utils.safestring import mark_safe
-
+from django.contrib.auth.models import User
 from .models import *
 from .utils import Calendar
 from django.http import HttpResponse
+#from . import models
 import requests
 import json
 
@@ -15,6 +16,9 @@ headers = {
     }
 
 # Create your views here.
+def default(request):
+	return redirect('signup')
+
 def homePage(request):
 	return render(request, 'todo_team_name/homePage.html')
 
@@ -22,11 +26,11 @@ def createAccount(request):
 	if request.method == "POST":
 		name = request.POST.get("name")
 		uname = request.POST.get("uname")
-		email = request.PosT.get("email")
+		email = request.POST.get("email")
 		password = request.POST.get("password")
-		#TODO-pass info into database
-		return render(request, 'todo_team_name/accountCreation.html')
-
+		user = User.objects.create_user(uname, email, password)
+		suser = siteUser.objects.create(user = user, name = name)
+		return redirect('login')
 	else:
 		return render(request, 'todo_team_name/accountCreation.html')
 
@@ -34,12 +38,12 @@ def login(request):
 	if request.method == "POST":
 		uname = request.POST.get("uname")
 		password = request.POST.get("password")
-		if True:
+		if True: #test if the account exists
 			return redirect('home')
-		else:
+		else: #there is no account
 			return render(request, 'todo_team_name/accountLogin.html')
-
-	return render(request, 'todo_team_name/accountLogin.html')
+	else:
+		return render(request, 'todo_team_name/accountLogin.html')
 
 def calendar(request):
 	return render(request, 'todo_team_name/calendar.html')
