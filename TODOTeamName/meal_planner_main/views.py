@@ -22,7 +22,7 @@ def createAccount(request):
 	if request.method == "POST":
 		name = request.POST.get("name")
 		uname = request.POST.get("uname")
-		email = request.PosT.get("email")
+		email = request.POST.get("email")
 		password = request.POST.get("password")
 		#TODO-pass info into database
 		return render(request, 'todo_team_name/accountCreation.html')
