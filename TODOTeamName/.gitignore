@@ -6,7 +6,6 @@ db.sqlite3
 media
 .DS_Store
 .idea
-static/*
 # Elastic Beanstalk Files
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
