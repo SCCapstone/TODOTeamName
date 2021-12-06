@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponseRedirect
 from datetime import *
 from django.views import generic
 from django.utils.safestring import mark_safe
@@ -66,7 +66,15 @@ def forumPost(request):
 
 
 def pantry(request):
-        return render(request, 'todo_team_name/pantryMain.html')
+        all_pantry_items = pantryItems.objects.all()
+        return render(request, 'todo_team_name/pantryMain.html', {'all_pantry_items' : all_pantry_items})
+
+def addPantryItem(request):
+        name = request.POST.get('name',False)
+        expiration = request.POST.get('expiration',False)
+        new_item = pantryItems(name = name)
+        new_item.save()
+        return HttpResponseRedirect('/pantry/')
 
 def recipes(request):
         url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"

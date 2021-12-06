@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path, re_path, include
 from django.conf.urls import url
 from meal_planner_main import views
-from meal_planner_main.views import frontpage
+
 
 
 
@@ -33,6 +33,7 @@ urlpatterns = [
     #path('<slug:slug>/',post_detail, name ='post_detail'),
     path('groceries/', views.groceryListView, name = 'groceries'),
     path('pantry/', views.pantry, name = 'pantry'),
+    path('addPantryItem/', views.addPantryItem),
     path('recipes/', views.recipes, name = 'recipes'),
     path('admin/', admin.site.urls),
     path('addGroceryItem/', views.groceryListView, name = 'gadd'),

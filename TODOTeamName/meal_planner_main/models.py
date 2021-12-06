@@ -7,6 +7,13 @@ class groceryItems(models.Model):
         name = models.CharField(max_length=50)
         quantity = models.PositiveSmallIntegerField(default=0)
 
+class pantryItems(models.Model):
+        name = models.TextField()
+        #ingredients = models.TextField()
+        expiration = models.DateField()
+        def __str__(self):
+                return self.name
+
 class allergies(models.Model):
         name = models.CharField(max_length=100)
 
