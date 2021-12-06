@@ -66,15 +66,22 @@ def forumPost(request):
 
 
 def pantry(request):
+        if request.method == 'POST':
+                form = PantryAddItemForm(request.POST)
+                if form.is_valid():
+                        form.save()
+                        return redirect('pantry')
+        else:
+                form = PantryAddItemForm()
         all_pantry_items = pantryItems.objects.all()
-        return render(request, 'todo_team_name/pantryMain.html', {'all_pantry_items' : all_pantry_items})
+        return render(request, 'todo_team_name/pantryMain.html', {'all_pantry_items' : all_pantry_items, 'form': form})
 
-def addPantryItem(request):
-        name = request.POST.get('name',False)
-        expiration = request.POST.get('expiration',False)
-        new_item = pantryItems(name = name)
-        new_item.save()
-        return HttpResponseRedirect('/pantry/')
+# def addPantryItem(request):
+#         name = request.POST.get('name',False)
+#         expiration = request.POST.get('expiration',False)
+#         new_item = pantryItems(name = name)
+#         new_item.save()
+#         return HttpResponseRedirect('/pantry/')
 
 def recipes(request):
         url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
@@ -103,21 +110,33 @@ def frontpage(request):
 #       return render(request, 'meal_planner_main/homePage_detail.html') #, {'post': post, 'form': form})
 
 # TODO: Create generic List class (with remove/edit/add new) for both pantry and grocery to use
+
 def groceryListMain(request):
-        item_list = GroceryList.objects.order_by("date")
-        if request.method == "POST":
-                form = GroceryListForm(request.POST)
+        if request.method == 'POST':
+                form = GroceryAddItemForm(request.POST)
                 if form.is_valid():
                         form.save()
-                        return redirect('grocerylist')
-        form = GroceryListForm()
+                        return redirect('groceries')
+        else:
+                form = GroceryAddItemForm()
+        all_grocery_items = groceryItems.objects.all()
+        return render(request, 'todo_team_name/groceryListMain.html', {'all_grocery_items' : all_grocery_items, 'form': form})
 
-        page = {
-                        "forms": form,
-                        "list" : item_list,
-                        "title": "Grocery List",
-        }
-        return render(request, 'todo_team_name/homePage.html')
+# def groceryListMain(request):
+#         item_list = GroceryList.objects.order_by("date")
+#         if request.method == "POST":
+#                 form = GroceryListForm(request.POST)
+#                 if form.is_valid():
+#                         form.save()
+#                         return redirect('grocerylist')
+#         form = GroceryListForm()
+
+#         page = {
+#                         "forms": form,
+#                         "list" : item_list,
+#                         "title": "Grocery List",
+#         }
+#         return render(request, 'todo_team_name/homePage.html')
 
 def remove(request,item_id):
         item = GroceryList.objects.get(id = item_id)

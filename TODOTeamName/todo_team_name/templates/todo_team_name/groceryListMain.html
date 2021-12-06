@@ -10,15 +10,20 @@
 <h1>Grocery List</h1>
 <p>Welcome to the grocery list! Click to add items</p>
 <ul>
-    {% for i in all_items %}
-    <li> {{i.content}} </li>
+    {% for i in all_grocery_items %}
+    <li>{{ i.name }} ({{ i.quantity}})</li>
     {% endfor %}
 </ul>
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" value = "Add a Grocery Item">
+</form>
 
-<form action="/addGroceryItem/" method = "post">{% csrf_token %}
+<!-- <form action="/addGroceryItem/" method = "post">{% csrf_token %}
     <input type="text" name="content">
     <input type="submit" value="Add Grocery Item">
 
-</form>
+</form> -->
 
 {% endblock content %}

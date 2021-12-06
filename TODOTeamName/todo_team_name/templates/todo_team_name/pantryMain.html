@@ -8,13 +8,20 @@
 <p> Here you can see the items in your pantry!</p>
 <ul>
     {% for i in all_pantry_items %}
-    <li> {{i.name}}</li>
+    <li> {{ i.name }}</li>
     {% endfor %}
 </ul>
-<form action="/addPantryItem/" method = "POST"> {% csrf_token %}
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" value = "Add a Pantry Item">
+</form>
+
+<!-- <form method = "POST"> 
+    {% csrf_token %}
     <input type = "text" name = "name" value = "Item Name">
     <input type = "date" name = "expiration" value = "Item Expiration">
     <input type = "submit" value = "Add a Pantry Item">
-</form>
+</form> -->
 
 {% endblock content %}
