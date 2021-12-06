@@ -20,36 +20,36 @@ headers = {
 
 # Create your views here.
 def default(request):
-        return redirect('createAccount')
+        return redirect('register')
 
 def homePage(request):
         return render(request, 'todo_team_name/homePage.html')
 
-def createAccount(request):
-        if request.method == "POST":
-                x_name = request.POST.get("name")
-                uname = request.POST.get("uname")
-                email = request.POST.get("email")
-                password = request.POST.get("password")
-                x_user = User.objects.create_user(uname, email, password)
-                suser = siteUser.objects.create(user = x_user, name = x_name)
-                return redirect('login')
-        else:
-                return render(request, 'todo_team_name/accountCreation.html')
+# def createAccount(request):
+#         if request.method == "POST":
+#                 x_name = request.POST.get("name")
+#                 uname = request.POST.get("uname")
+#                 email = request.POST.get("email")
+#                 password = request.POST.get("password")
+#                 x_user = User.objects.create_user(uname, email, password)
+#                 suser = siteUser.objects.create(user = x_user, name = x_name)
+#                 return redirect('login')
+#         else:
+#                 return render(request, 'todo_team_name/accountCreation.html')
 
 
-def login(request):
-        if request.method == "POST":
-                uname = request.POST.get("uname")
-                password = request.POST.get("password")
-                #isValid = siteUser.objects.filter(user.username == uname, user.password == password).exists()
-                isValid = authenticate(username=uname, password=password)
-                if isValid is not None: #test if the account exists
-                        return redirect('home')
-                else: #there is no account
-                        return render(request, 'todo_team_name/accountLogin.html')
-        else:
-                return render(request, 'todo_team_name/accountLogin.html')
+# def login(request):
+#         if request.method == "POST":
+#                 uname = request.POST.get("uname")
+#                 password = request.POST.get("password")
+#                 #isValid = siteUser.objects.filter(user.username == uname, user.password == password).exists()
+#                 isValid = authenticate(username=uname, password=password)
+#                 if isValid is not None: #test if the account exists
+#                         return redirect('home')
+#                 else: #there is no account
+#                         return render(request, 'todo_team_name/accountLogin.html')
+#         else:
+#                 return render(request, 'todo_team_name/accountLogin.html')
 
 def calendar(request):
         return render(request, 'todo_team_name/calendar.html')

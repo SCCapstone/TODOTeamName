@@ -31,9 +31,10 @@ ALLOWED_HOSTS = ['TODOTeamName-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com',
 # Application definition
 
 INSTALLED_APPS = [
-    'meal_planner_main',
-    'crispy_forms',
     'todo_team_name.apps.TodoTeamNameConfig',
+    'meal_planner_main.apps.MealPlannerMainConfig',
+    'users.apps.UsersConfig',
+    'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -130,3 +131,6 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+LOGIN_REDIRECT_URL = 'home'
+LOGIN_URL = 'login'

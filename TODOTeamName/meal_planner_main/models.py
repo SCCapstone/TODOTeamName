@@ -8,27 +8,27 @@ class groceryItems(models.Model):
         quantity = models.PositiveSmallIntegerField(default=0)
 
 class pantryItems(models.Model):
-        name = models.TextField()
+        name = models.TextField(default="")
         #ingredients = models.TextField()
-        expiration = models.DateField()
+        expiration = models.DateField(default="")
         def __str__(self):
                 return self.name
 
 class allergies(models.Model):
         name = models.CharField(max_length=100)
 
-class siteUser(models.Model):
-        user = models.OneToOneField(User, on_delete=models.CASCADE)
-        name = models.CharField(max_length = 50, default="")
-        grocery_list = models.ManyToManyField(groceryItems, related_name='users_who_own', blank=True)
-        #pantry_list = models.JSONField(blank=True, default = list)
-        allergy_list = models.ManyToManyField(allergies, related_name='allergic_users')
-        #TODO - isaac - Add friends list
-        #TODO - isaac - add Allergies
+# class siteUser(models.Model):
+#         user = models.OneToOneField(User, on_delete=models.CASCADE)
+#         name = models.CharField(max_length = 50, default="")
+#         grocery_list = models.ManyToManyField(groceryItems, related_name='users_who_own', blank=True)
+#         #pantry_list = models.JSONField(blank=True, default = list)
+#         allergy_list = models.ManyToManyField(allergies, related_name='allergic_users')
+#         #TODO - isaac - Add friends list
+#         #TODO - isaac - add Allergies
 
 
 class Recipe(models.Model):
-        author = models.ManyToManyField(siteUser, related_name='recipe_list')
+        author = models.ManyToManyField(User, related_name='recipe_list')
         recipe_name = models.CharField(max_length=200)
         recipe_ingredients = models.JSONField(null=True) 
         date_added = models.DateTimeField('date published')
