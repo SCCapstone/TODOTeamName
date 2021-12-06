@@ -11,7 +11,7 @@
 <p>Welcome to the grocery list! Click to add items</p>
 <ul>
     {% for i in all_grocery_items %}
-    <li>{{ i.name }} ({{ i.quantity}})</li>
+    <li>{{ i }}</li>
     {% endfor %}
 </ul>
 <form method = 'POST'>

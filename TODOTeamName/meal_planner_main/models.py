@@ -6,13 +6,14 @@ from django.contrib.auth.models import User
 class groceryItems(models.Model):
         name = models.CharField(max_length=50)
         quantity = models.PositiveSmallIntegerField(default=0)
+        def __str__(self):
+                return self.name + " (" + str(self.quantity) + ")"
 
 class pantryItems(models.Model):
-        name = models.TextField(default="")
-        #ingredients = models.TextField()
+        name = models.TextField(max_length=50)
         expiration = models.DateField(default="")
         def __str__(self):
-                return self.name
+                return self.name + " (expires " + str(self.expiration) + ")"
 
 class allergies(models.Model):
         name = models.CharField(max_length=100)
