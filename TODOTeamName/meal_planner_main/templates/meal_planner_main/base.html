@@ -4,13 +4,13 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{% static 'todo_team_name/style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'meal_planner_main/style.css' %}">
     <title>{% block title %}Title{% endblock title %}</title>
 </head>
 <body>
     <header>
         <nav>
-            <a href="{% url 'home' %}">Meal Planner</a>
+            <a href="{% url 'meal_planner_main:home' %}">Meal Planner</a>
             <div>
                 {% if user.is_authenticated %} 
                     <a href="{% url 'account:profile' %}">Profile</a>
