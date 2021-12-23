@@ -7,6 +7,8 @@ def frontpage(request):
 	posts = Post.objects.all()
 	return render(request, 'forum/healthForumMain.html',{'posts': posts})
 
+# TODO - fix forum posts
+
 # def post_detail(request, slug):
 #     post = Post.objects.get(slug = slug)
 #     if request.method == 'POST':
