@@ -1,0 +1,29 @@
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Groceries{% endblock title %}
+
+{% block content %}
+<!-- TODO: Isaac - Create database for grocery items |
+           Matthew - Add html page to views/urls/models and ensure it can pull from database
+           Garrison - Fix items not showing after entry-->
+
+<h1>Grocery List</h1>
+<p>Welcome to the grocery list! Click to add items</p>
+<ul>
+    {% for i in all_grocery_items %}
+    <li>{{ i }}</li>
+    {% endfor %}
+</ul>
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" value = "Add a Grocery Item">
+</form>
+
+<!-- <form action="/addGroceryItem/" method = "post">{% csrf_token %}
+    <input type="text" name="content">
+    <input type="submit" value="Add Grocery Item">
+
+</form> -->
+
+{% endblock content %}

@@ -1,8 +1,8 @@
 from django.urls import path
-from django.contrib import admin
+
 from . import views
 
+app_name = 'meal_planner_main'
 urlpatterns = [
-    path('', views.frontpage, name = 'main-site'),
-    #path('about/', views.about, name = 'site-about'),
+    path('', views.homePage, name='home'),
 ]

@@ -1,0 +1,23 @@
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+<div>
+    <h2>{{ user.profile.name }}</h2>
+    <p>{{ user.username }}</p>
+    <p>{{ user.email }}</p>
+    <p>Allergies: {{ user.profile.allergy_list }}</p>
+    <form method="POST">
+        {% csrf_token %} 
+        <legend>Profile Info</legend>
+        <div>{{ u_form }}</div>
+        <div>{{ p_form }}</div>
+        <div>
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+</div>
+
+{% endblock content %} 

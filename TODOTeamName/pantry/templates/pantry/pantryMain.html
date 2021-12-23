@@ -1,0 +1,27 @@
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Pantry{% endblock title %}
+
+{% block content %}
+
+<h1>Welcome to your pantry</h1>
+<p> Here you can see the items in your pantry!</p>
+<ul>
+    {% for i in all_pantry_items %}
+    <li> {{ i }}</li>
+    {% endfor %}
+</ul>
+<form method = 'POST'>
+    {% csrf_token %}
+    {{ form }}
+    <input type = "submit" value = "Add a Pantry Item">
+</form>
+
+<!-- <form method = "POST"> 
+    {% csrf_token %}
+    <input type = "text" name = "name" value = "Item Name">
+    <input type = "date" name = "expiration" value = "Item Expiration">
+    <input type = "submit" value = "Add a Pantry Item">
+</form> -->
+
+{% endblock content %}
