@@ -18,7 +18,7 @@ from django.contrib.auth import views as auth_views
 from django.urls import path, re_path, include
 from django.conf.urls import url
 from meal_planner_main import views
-from users import views as user_views
+from account import views as account_views
 
 
 
@@ -44,9 +44,9 @@ urlpatterns = [
     #url(r'^calendar/$', views.CalendarView.as_view(), name='calendar')
     
     # users
-    path('register/', user_views.register, name='register'),
-    path('profile/', user_views.profile, name='profile'),
-    path('login/', auth_views.LoginView.as_view(template_name='users/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='users/logout.html'), name='logout'),
+    path('register/', account_views.register, name='register'),
+    path('profile/', account_views.profile, name='profile'),
+    path('login/', auth_views.LoginView.as_view(template_name='account/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='account/logout.html'), name='logout'),
 ]
 

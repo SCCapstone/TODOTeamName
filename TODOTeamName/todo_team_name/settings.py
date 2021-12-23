@@ -33,7 +33,7 @@ ALLOWED_HOSTS = ['TODOTeamName-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com',
 INSTALLED_APPS = [
     'todo_team_name.apps.TodoTeamNameConfig',
     'meal_planner_main.apps.MealPlannerMainConfig',
-    'users.apps.UsersConfig',
+    'account.apps.AccountConfig',
     'crispy_forms',
     'django.contrib.admin',
     'django.contrib.auth',
