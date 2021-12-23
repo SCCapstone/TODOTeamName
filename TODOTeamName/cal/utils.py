@@ -1,4 +1,3 @@
-from datetime import datetime,timedelta
 from calendar import HTMLCalendar
 from .models import ScheduledRecipe
 
@@ -8,25 +7,27 @@ class Calendar(HTMLCalendar):
             self.month = month
             super(Calendar,self).__init__()
 
-    def formatday(self, day, events):
-        food_by_day = events.filter(schedued_date = day)
+    def formatday(self, day, scheduled_recipes):
+        food_by_day = scheduled_recipes.filter(scheduled_date__day = day)
         d = ''
-        for event in food_by_day:
-            d = f'<li> {event.title}</li>'
+        for scheduled_recipe in food_by_day:
+            d += scheduled_recipe.get_html_url
         if day != 0:
-            return f"<td><span class='date'>{day}</span><ul> {d} </ul></td>"
+            return f"<td>{day}<ul>{d}</ul></td>"
         return '<td></td>'
-    def formatweek(self, theweek, events):
-        w = ''
-        for d, weekday in theweek:
-            w += self.formatday(d,events)
-        return f'<tr> {w} </tr>'
-    def formatmonth(self, theyear, themonth, withyear=True):
-        events = ScheduledRecipe.objects.filter(start_date__year=self.year, start_date__month=self.month)
 
-        cal = f'<table border="0" cellpadding="0" cellspacing="0" class="calendar">\n'
+    def formatweek(self, theweek, scheduled_recipes):
+        week = ''
+        for d, weekday in theweek:
+            week += self.formatday(d, scheduled_recipes)
+        return f'<tr>{week}</tr>'
+
+    def formatmonth(self, withyear=True):
+        scheduled_recipes = ScheduledRecipe.objects.filter(scheduled_date__year=self.year, scheduled_date__month=self.month)
+
+        cal = f'<table border="0" cellpadding="0" cellspacing="0">\n'
         cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
         cal += f'{self.formatweekheader()}\n'
         for week in self.monthdays2calendar(self.year, self.month):
-            cal += f'{self.formatweek(week, events)}\n'
+            cal += f'{self.formatweek(week, scheduled_recipes)}\n'
         return cal
