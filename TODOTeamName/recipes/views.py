@@ -12,4 +12,4 @@ def recipes(request):
     querystring = {"number":"3"}
     response = requests.request("GET", url, headers=headers, params=querystring)
     print(response.text)
-    return render(request, 'todo_team_name/recipesMain.html', {'list' : json.loads(response.text)})
+    return render(request, 'recipes/recipesMain.html', {'list' : json.loads(response.text)})

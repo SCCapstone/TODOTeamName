@@ -6,10 +6,9 @@ from django.views import generic
 from .models import * 
 from .utils import *
 
-# Create your views here.
 class CalendarView(generic.ListView):
     model = ScheduledRecipe
-    template_name = 'todo_team_name/calendar.html'
+    template_name = 'cal/calendar.html'
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

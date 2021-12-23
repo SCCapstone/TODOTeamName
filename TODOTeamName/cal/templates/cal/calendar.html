@@ -3,85 +3,8 @@
 {% block title %}Calendar{% endblock title %}
 
 {% block content %}
-<!-- TODO make functional calendar -->
 
-<h1>This is the Calendar Page!</h1>
-<!-- Adapted from GeeksForGeeks "Design a calendar using HTML and CSS"
-    https://www.geeksforgeeks.org/design-a-calendar-using-html-and-css/ -->
-
-        <h2 align="center" style="color: #F76A0C;">
-            December 2021
-        </h2>
-        <br />
-      
-        <table bgcolor="lightgrey" align="center" 
-            cellspacing="21" cellpadding="21">
-            <thead>
-                <tr>
-                    <th style="color: white; background: #F76A0C;">
-                        Sun</th>
-                    <th style="color: white; background: #F76A0C;">
-                        Mon</th>
-                    <th style="color: white; background: #F76A0C;">
-                        Tue</th>
-                    <th style="color: white; background: #F76A0C;">
-                        Wed</th>
-                    <th style="color: white; background: #F76A0C;">
-                        Thu</th>
-                    <th style="color: white; background: #F76A0C;">
-                        Fri</th>
-                    <th style="color: white; background: #F76A0C;">
-                        Sat</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td><a href="{% url 'recipes' %}">1</a></td>
-                    <td><a href="{% url 'recipes' %}">2</a></td>
-                    <td><a href="{% url 'recipes' %}">3</a></td>
-                    <td><a href="{% url 'recipes' %}">4</a></td>
-                </tr>
-                <tr>
-                    <td><a href="{% url 'recipes' %}">5</a></td>
-                    <td><a href="{% url 'recipes' %}">6</a></td>
-                    <td><a href="{% url 'recipes' %}">7</a></td>
-                    <td><a href="{% url 'recipes' %}">8</a></td>
-                    <td><a href="{% url 'recipes' %}">9</a></td>
-                    <td><a href="{% url 'recipes' %}">10</a></td>
-                    <td><a href="{% url 'recipes' %}">11</a></td>
-                </tr>
-                <tr>
-                    <td><a href="{% url 'recipes' %}">12</a></td>
-                    <td><a href="{% url 'recipes' %}">13</a></td>
-                    <td><a href="{% url 'recipes' %}">14</a></td>
-                    <td><a href="{% url 'recipes' %}">15</a></td>
-                    <td><a href="{% url 'recipes' %}">16</a></td>
-                    <td><a href="{% url 'recipes' %}">17</a></td>
-                    <td><a href="{% url 'recipes' %}">18</a></td>
-                </tr>
-                <tr>
-                    <td><a href="{% url 'recipes' %}">19</a></td>
-                    <td><a href="{% url 'recipes' %}">20</a></td>
-                    <td><a href="{% url 'recipes' %}">21</a></td>
-                    <td><a href="{% url 'recipes' %}">22</a></td>
-                    <td><a href="{% url 'recipes' %}">23</a></td>
-                    <td><a href="{% url 'recipes' %}">24</a></td>
-                    <td><a href="{% url 'recipes' %}">25</a></td>
-                </tr>
-                <tr>
-                    <td><a href="{% url 'recipes' %}">26</a></td>
-                    <td><a href="{% url 'recipes' %}">27</a></td>
-                    <td><a href="{% url 'recipes' %}">28</a></td>
-                    <td><a href="{% url 'recipes' %}">29</a></td>
-                    <td><a href="{% url 'recipes' %}">30</a></td>
-                    <td><a href="{% url 'recipes' %}">31</a></td>
-                    <td></td>
-                </tr>
-            </tbody>
-        </table>
+{{ calendar }}
 
 {% endblock content %}
 

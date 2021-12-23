@@ -9,11 +9,11 @@ def groceryListMain(request):
         form = GroceryAddItemForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('groceries')
+            return redirect('grocery:groceryMain')
     else:
         form = GroceryAddItemForm()
     all_grocery_items = groceryItems.objects.all()
-    return render(request, 'todo_team_name/groceryListMain.html', {'all_grocery_items' : all_grocery_items, 'form': form})
+    return render(request, 'grocery/groceryListMain.html', {'all_grocery_items' : all_grocery_items, 'form': form})
 
 # def groceryListMain(request):
 #     item_list = GroceryList.objects.order_by("date")
@@ -31,8 +31,8 @@ def groceryListMain(request):
 #     }
 #     return render(request, 'todo_team_name/homePage.html')
 
-def remove(request,item_id):
-        item = GroceryList.objects.get(id = item_id)
-        item.delete()
-        messages.info(request, "item removed successfully")
-        return redirect('groceryListView')
+# def remove(request,item_id):
+#     item = GroceryList.objects.get(id = item_id)
+#     item.delete()
+#     messages.info(request, "item removed successfully")
+#     return redirect('grocery:groceryMain')
