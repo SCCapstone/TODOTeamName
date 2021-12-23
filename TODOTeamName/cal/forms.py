@@ -2,6 +2,7 @@ from django.forms import ModelForm, DateInput
 
 from .models import *
 
+
 class ScheduledRecipeForm(ModelForm):
     class Meta:
         model = ScheduledRecipe

@@ -25,7 +25,8 @@ SECRET_KEY = 'django-insecure-h)-jo=v_z1ls%tf*$wsyo^5c^yy!6w!ve204=)#k&&mp41y1#(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['TODOTeamName-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com', 'django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.0.0.1', 'localhost', 'django-env.eba-n3gymngp.us-east-1.elasticbeanstalk.com', 'http://linux-test-env.eba-umya2idv.us-west-2.elasticbeanstalk.com/recipes']
+ALLOWED_HOSTS = ['TODOTeamName-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com', 'django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.0.0.1',
+                 'localhost', 'django-env.eba-n3gymngp.us-east-1.elasticbeanstalk.com', 'http://linux-test-env.eba-umya2idv.us-west-2.elasticbeanstalk.com/recipes']
 
 
 # Application definition

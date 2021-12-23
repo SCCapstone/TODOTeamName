@@ -1,8 +1,8 @@
-from django.urls import path 
+from django.urls import path
 
-from . import views 
+from . import views
 
-app_name = 'recipes' 
+app_name = 'recipes'
 urlpatterns = [
-    path('', views.recipes, name = 'recipesMain'),
+    path('', views.recipes, name='recipesMain'),
 ]

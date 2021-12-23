@@ -1,10 +1,10 @@
-from django.urls import path 
+from django.urls import path
 
-from . import views 
+from . import views
 
 app_name = 'grocery'
 urlpatterns = [
-    path('', views.groceryListMain, name = 'groceryMain'),
+    path('', views.groceryListMain, name='groceryMain'),
     # path('addGroceryItem/', views.groceryListView, name = 'gadd'),
     # path('deleteGroceryItem/', views.remove, name="deleteGI"),
 ]

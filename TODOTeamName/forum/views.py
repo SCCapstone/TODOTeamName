@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect
 
-from .models import * 
+from .models import *
 from .forms import *
 
+
 def frontpage(request):
-	posts = Post.objects.all()
-	return render(request, 'forum/healthForumMain.html',{'posts': posts})
+    posts = Post.objects.all()
+    return render(request, 'forum/healthForumMain.html', {'posts': posts})
 
 # TODO - fix forum posts
 

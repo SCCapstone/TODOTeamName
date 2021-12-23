@@ -1,14 +1,15 @@
 from calendar import HTMLCalendar
 from .models import ScheduledRecipe
 
+
 class Calendar(HTMLCalendar):
-    def __init__(self, year = None, month = None):
-            self.year = year
-            self.month = month
-            super(Calendar,self).__init__()
+    def __init__(self, year=None, month=None):
+        self.year = year
+        self.month = month
+        super(Calendar, self).__init__()
 
     def formatday(self, day, scheduled_recipes):
-        food_by_day = scheduled_recipes.filter(scheduled_date__day = day)
+        food_by_day = scheduled_recipes.filter(scheduled_date__day=day)
         d = ''
         for scheduled_recipe in food_by_day:
             d += scheduled_recipe.get_html_url
@@ -23,7 +24,8 @@ class Calendar(HTMLCalendar):
         return f'<tr>{week}</tr>'
 
     def formatmonth(self, withyear=True):
-        scheduled_recipes = ScheduledRecipe.objects.filter(scheduled_date__year=self.year, scheduled_date__month=self.month)
+        scheduled_recipes = ScheduledRecipe.objects.filter(
+            scheduled_date__year=self.year, scheduled_date__month=self.month)
 
         cal = f'<table border="0" cellpadding="0" cellspacing="0">\n'
         cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'

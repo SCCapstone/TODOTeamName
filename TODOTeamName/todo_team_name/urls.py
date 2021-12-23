@@ -27,4 +27,3 @@ urlpatterns = [
     path('pantry/', include('pantry.urls')),
     path('recipes/', include('recipes.urls')),
 ]
-

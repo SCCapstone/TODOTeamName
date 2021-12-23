@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 
 from .forms import *
-from .models import * 
+from .models import *
+
 
 def pantry(request):
     if request.method == 'POST':
@@ -12,7 +13,7 @@ def pantry(request):
     else:
         form = PantryAddItemForm()
     all_pantry_items = pantryItems.objects.all()
-    return render(request, 'pantry/pantryMain.html', {'all_pantry_items' : all_pantry_items, 'form': form})
+    return render(request, 'pantry/pantryMain.html', {'all_pantry_items': all_pantry_items, 'form': form})
 
 # def addPantryItem(request):
 #     name = request.POST.get('name',False)
