@@ -1,0 +1,16 @@
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Calendar{% endblock title %}
+
+{% block content %}
+
+<div>
+	<a href="{% url 'cal:calMain' %}?{{ prev_month }}"> Previous Month </a>
+	<a href="{% url 'cal:calMain' %}?{{ next_month }}"> Next Month </a>
+	<a href="{% url 'cal:scheduled_recipe_new' %}"> New Scheduled Recipe </a>
+</div>
+
+{{ calendar }}
+
+{% endblock content %}
+

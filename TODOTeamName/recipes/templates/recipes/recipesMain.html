@@ -1,0 +1,17 @@
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Recipes{% endblock title %}
+
+{% block content %}
+<!--TODO: Matthew - please integrate API here -->
+
+<h1>This is the Recipes Page!</h1>
+<p>My Recipes</p>
+{{list.recipes.0.title}}&nbsp;
+{{list.recipes.0.sourceUrl}}
+<br>{{list.recipes.1.title}} &nbsp;
+{{list.recipes.1.sourceUrl}}
+<br>{{list.recipes.2.title}} &nbsp;
+{{list.recipes.2.sourceUrl}}
+
+{% endblock content %}
