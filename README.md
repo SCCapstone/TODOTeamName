@@ -32,14 +32,14 @@ This section is pending
 
 # Testing
 
+Tests for this app are located in the Tests directory. 
+
+## Unit tests
 This section is pending
 
-## Testing Technology
+## Behavioral tests
+- Pantry Test: to run this test, cd into the Tests directory and run `python pantryTest.py`
 
-This section is pending
-
-## Running Tests
-This section is pending
 
 # Authors
 Garrison Davis - grd1@email.sc.edu  
