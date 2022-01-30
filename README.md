@@ -36,10 +36,13 @@ This section is pending
 
 ## Testing Technology
 
-This section is pending
+Unit tests are ran using the python standard library unittest module. Behavioral tests use selenium.
 
 ## Running Tests
-This section is pending
+To run unit tests, run python manage.py test. If you have an error regarding permissions, make sure to give admin permissions to create databases by running the following
+sudo su postgres
+psql
+ALTER USER admin CREATEDB;
 
 # Authors
 Garrison Davis - grd1@email.sc.edu  
