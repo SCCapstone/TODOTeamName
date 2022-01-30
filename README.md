@@ -32,7 +32,7 @@ This section is pending
 
 # Testing
 
-Tests for this app are located in the Tests directory. 
+Tests for this app are located in the Tests directory. Note that you must have Chrome installed on your machine in order to run tests. 
 
 ## Unit tests
 This section is pending
