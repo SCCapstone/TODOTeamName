@@ -15,7 +15,7 @@ class pantryTest:
     def to_pantry(self):
         """Navigate to pantry site"""
 
-        self.driver.get('http://todoteamname-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com/pantry')
+        self.driver.get('http://127.0.0.1:8000/pantry')
         self.driver.maximize_window()
 
 
