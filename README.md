@@ -31,18 +31,17 @@ URLs will be added here along with what features they provide as they are create
 This section is pending
 
 # Testing
+Behavioral tests for this app are located in the Tests directory. Note that you must have Chrome installed on your machine in order to run tests. Unit tests are found in the tests.py file in their respective directory
 
-This section is pending
-
-## Testing Technology
-
-Unit tests are ran using the python standard library unittest module. Behavioral tests use selenium.
-
-## Running Tests
+## Unit tests
+Unit tests are ran using the python standard library unittest module.
 To run unit tests, run python manage.py test. If you have an error regarding permissions, make sure to give admin permissions to create databases by running the following
 sudo su postgres
 psql
 ALTER USER admin CREATEDB;
+
+## Behavioral tests
+- Pantry Test: to run this test, cd into the Tests directory and run `python pantryTest.py`
 
 # Authors
 Garrison Davis - grd1@email.sc.edu  
