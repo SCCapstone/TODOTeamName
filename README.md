@@ -41,6 +41,7 @@ psql
 ALTER USER admin CREATEDB;
 
 ## Behavioral tests
+- For all behavioral tests ensure you start the server by following directions under 'Running"
 - Pantry Test: to run this test, cd into the Tests directory and run `python pantryTest.py`
 
 # Authors
