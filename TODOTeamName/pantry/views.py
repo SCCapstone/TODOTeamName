@@ -6,13 +6,15 @@ from .models import *
 
 def pantry(request):
     if request.method == 'POST':
+        #form = PantryAddItemForm(request.POST)
         form = PantryAddItemForm(request.POST)
         if form.is_valid():
+            form.instance.userid = request.user.username
             form.save()
             return redirect('pantry:pantryMain')
     else:
         form = PantryAddItemForm()
-    all_pantry_items = pantryItems.objects.all()
+    all_pantry_items = pantryItems.objects.filter(userid = request.user.username)
     return render(request, 'pantry/pantryMain.html', {'all_pantry_items': all_pantry_items, 'form': form})
 
 # def addPantryItem(request):
