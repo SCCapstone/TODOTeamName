@@ -11,11 +11,12 @@ def groceryListMain(request):
     if request.method == 'POST':
         form = GroceryAddItemForm(request.POST)
         if form.is_valid():
+            form.instance.user = request.user
             form.save()
             return redirect('grocery:groceryMain')
     else:
         form = GroceryAddItemForm()
-    all_grocery_items = groceryItems.objects.all()
+    all_grocery_items = groceryItems.objects.filter(user=request.user)
     return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items, 'form': form})
 
 # def remove(request,item_id):

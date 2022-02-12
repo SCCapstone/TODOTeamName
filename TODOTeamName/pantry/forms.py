@@ -10,3 +10,4 @@ class PantryAddItemForm(forms.ModelForm):
     class Meta:
         model = pantryItems
         fields = ['name', 'expiration']
+

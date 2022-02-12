@@ -9,4 +9,4 @@ class ScheduledRecipeForm(ModelForm):
         widgets = {
             'scheduled_date': DateInput(attrs={'type': 'date'}),
         }
-        fields = '__all__'
+        fields = ['title', 'description', 'scheduled_date']
