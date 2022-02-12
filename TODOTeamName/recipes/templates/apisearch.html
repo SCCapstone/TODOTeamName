@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<body>
+    <form method = "POST">
+        {%csrf_token%}
+      
+      <input type="text" placeholder="search here" name = "search">
+      <button type = "submit"> submit </button>
+    </form>
+    {%for i in list%}
+    <h2>{{i.title}}</h2> 
+    <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <!--<input type="submit" name="recipe" id="{{forloop.counter}}">save this recipe-->
+    <details>
+      <summary>more information</summary>
+    ready in {{i.readyInMinutes}} minutes
+    <h3>ingredients:</h3> 
+    {%for ingredient in i.extendedIngredients%}
+    {{ingredient.original}}<br>
+    {%endfor%}
+    <h3>instructions:</h3>
+    {%for inst in i.analyzedInstructions.0.steps%}
+    {{inst.number}}: {{inst.step}}<br>
+    {%endfor%}
+    </details>
+    {%endfor%}
+</body>
+</html>
