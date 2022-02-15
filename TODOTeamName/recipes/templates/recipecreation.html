@@ -3,10 +3,10 @@
     <form method = "POST">
         {%csrf_token%}
         <label for="title">recipe title:</label><br>
-        <input type="text" id="title" name="title" placeholder="delicious food" required><br>
+        <textarea id="title" name="title" placeholder="delicious food" required></textarea>><br>
 
         <label for="maketime">expected time to make:</label><br>
-        <input type="text" id="maketime" name="maketime" placeholder="15 minutes"><br>
+        <textarea id="maketime" name="maketime" placeholder="15 minutes"></textarea><br>
         
         <label for="ingredients">ingredients:</label><br>
         <textarea id="ingredients" name="ingredients" rows="4" cols="50" placeholder="1 cup flour">
