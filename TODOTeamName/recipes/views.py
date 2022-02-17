@@ -21,7 +21,7 @@ def recipes(request):
     return render(request, 'recipesMain.html', {'list': json.loads(response.text)})
 
 def rsearch(request):
-if request.method == "POST":
+    if request.method == "POST":
         ingredients = request.POST.get("search")
         querystring = {"query":ingredients,"offset":"0","number":"1"}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
