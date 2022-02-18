@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.urls import reverse
 
@@ -7,6 +8,7 @@ class ScheduledRecipe(models.Model):
     description = models.TextField()
     # recipeId = models.CharField(max_length= 200)
     scheduled_date = models.DateField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
 
     @property
     def get_html_url(self):

@@ -19,7 +19,8 @@ class CalendarView(generic.ListView):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
         cal = Calendar(d.year, d.month)
-        html_cal = cal.formatmonth(withyear=True)
+        #cal.setUser(self.request.user)
+        html_cal = cal.formatmonth(self.request.user, withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
@@ -61,6 +62,7 @@ def scheduled_recipe(request, scheduled_recipe_id=None):
 
     form = ScheduledRecipeForm(request.POST or None, instance=instance)
     if request.POST and form.is_valid():
+        form.instance.user = request.user
         form.save()
         return HttpResponseRedirect(reverse('cal:calMain'))
 

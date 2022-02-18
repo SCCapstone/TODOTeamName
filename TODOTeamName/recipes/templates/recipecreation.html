@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<body>
+    <form method = "POST">
+        {%csrf_token%}
+        <label for="title">recipe title:</label><br>
+        <textarea id="title" name="title" placeholder="delicious food" required></textarea>><br>
+
+        <label for="maketime">expected time to make:</label><br>
+        <textarea id="maketime" name="maketime" placeholder="15 minutes"></textarea><br>
+        
+        <label for="ingredients">ingredients:</label><br>
+        <textarea id="ingredients" name="ingredients" rows="4" cols="50" placeholder="1 cup flour">
+        </textarea><br>
+        
+        <label for="steps">steps:</label><br>
+        <textarea id="steps" name="steps" rows="4" cols="50" placeholder="bake at 250 for an hour"></textarea><br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
