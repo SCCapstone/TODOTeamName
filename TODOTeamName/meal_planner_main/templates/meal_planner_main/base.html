@@ -29,7 +29,7 @@
             </div>
             <div>
                 <a href="{% url 'recipes:recipesMain' %}">Recipes</a>
-                <a href="{% url 'forum:forumMain' %}">Forum</a>
+                <a href="{% url 'forum:healthForumMain' %}">Forum</a>
                 {% if user.is_authenticated %} 
                 <a href="{% url 'cal:calMain' %}">Calendar</a>
                 <a href="{% url 'grocery:groceryMain' %}">Groceries</a>

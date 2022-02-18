@@ -3,7 +3,7 @@
 {% block title %}Post{% endblock title %}
 
 {% block content %}
-<!-- TODO: Matthew - Just make sure this is connected correctly (I think it should be though) -->
+
 
 <h1 class = 'title'>{{ post.title }}</h1>
 <small>Posted at {{ post.date_added }}</small>
@@ -18,15 +18,17 @@
 {% for comment in post.comments.all %}
 <article class = "media">
   <div class = "media-content">
-    <p>
-      <strong> {{comment.name }}</strong><small>&nbsp;&nbsp;&nbsp;{{ comment.date_added }}</small>
-      <br>
-      {{ comment.body }}
-    </p>
+    <div class = "content">
+      <p>
+        <strong> {{comment.name }}</strong><small>&nbsp;&nbsp;&nbsp;{{ comment.date_added }}</small>
+        <br>
+        {{ comment.body }}
+      </p>
+    </div>
   </div>
 </article>
 {% empty %}
-<div class ="comments">
+<div class ="notify">
   <p>Be the first to leave a comment!!</p>
 </div>
 {% endfor %}
