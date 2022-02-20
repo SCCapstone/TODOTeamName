@@ -91,7 +91,7 @@ def next_month(d):
     return month
 
 def prev_week(d):
-    prev_week = d - timedelta(days=6.9)
+    prev_week = d - timedelta(days=7)
     return 'week=' + str(prev_week.year) + '-' + str(prev_week.isocalendar()[1])
 
 def next_week(d):

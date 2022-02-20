@@ -1,5 +1,6 @@
 from calendar import HTMLCalendar, month_name
 from .models import ScheduledRecipe
+from django.urls import reverse
 import datetime 
 
 
@@ -15,7 +16,8 @@ class Calendar(HTMLCalendar):
         for scheduled_recipe in food_by_day:
             d += f'<li>{ scheduled_recipe.get_html_url }</li>'
         if day != 0:
-            return f"<td><span class='date'>{ day }</span><ul>{ d }</ul></td>"
+            url = reverse('cal:calDay') + f'?day={ self.year }-{ self.month }-{ day }'
+            return f'<td><a class="btn btn-light btn-sm date" href="{url}">{ day }</a><ul>{ d }</ul></td>'
         return '<td></td>'
 
     def formatweek(self, theweek, scheduled_recipes, active_user):
@@ -50,8 +52,10 @@ class WeekCalendar(HTMLCalendar):
         (x.scheduled_date.day == date.day), scheduled_recipes))
         d = ''
         for scheduled_recipe in food_by_day:
-            d += f'<li> {scheduled_recipe.get_html_url} </li>'
-        return f'<td><span class="date">{ date.month }-{ date.day }</span><ul>{ d }</ul></td>'
+            d += f'<li>{ scheduled_recipe.get_html_url }</li>'
+        url = reverse('cal:calDay') + f'?day={ self.year }-{ date.month }-{ date.day }'
+        # return f"<td><a class='btn btn-light btn-sm date' href='{url}'>{ day }</a><ul>{ d }</ul></td>"
+        return f'<td><a class="btn btn-light btn-sm date" href="{ url }">{ date.month }-{ date.day }</a><ul>{ d }</ul></td>'
     
     def formatweek(self, active_user):
         scheduled_recipes = list(filter(lambda x: 
@@ -88,7 +92,7 @@ class DayCalendar(HTMLCalendar):
             (x.scheduled_date.day == self.day),
             ScheduledRecipe.objects.all()))
         cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
-        cal += f'<tr><td><span class="date">{ month_name[self.month] } { self.day },{ self.year }</span>\n'
+        cal += f'<tr><td><span class="date">{ month_name[self.month] } { self.day }, { self.year }</span>\n'
         cal += f'<ul>'
         for scheduled_recipe in scheduled_recipes:
             cal += f'<li>{ scheduled_recipe.get_html_url }</li>'
