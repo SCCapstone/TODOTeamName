@@ -9,6 +9,7 @@ class Calendar(HTMLCalendar):
         self.year = year
         self.month = month
         super(Calendar, self).__init__()
+        self.setfirstweekday(6)
 
     def formatday(self, day, scheduled_recipes, active_user):
         food_by_day = scheduled_recipes.filter(scheduled_date__day=day).filter(user=active_user)
@@ -46,6 +47,7 @@ class WeekCalendar(HTMLCalendar):
         self.year = year 
         self.week = week 
         super(WeekCalendar, self).__init__()
+        self.setfirstweekday(6)
 
     def formatday(self, date, scheduled_recipes):
         food_by_day = list(filter(lambda x:
@@ -54,7 +56,6 @@ class WeekCalendar(HTMLCalendar):
         for scheduled_recipe in food_by_day:
             d += f'<li>{ scheduled_recipe.get_html_url }</li>'
         url = reverse('cal:calDay') + f'?day={ self.year }-{ date.month }-{ date.day }'
-        # return f"<td><a class='btn btn-light btn-sm date' href='{url}'>{ day }</a><ul>{ d }</ul></td>"
         return f'<td><a class="btn btn-light btn-sm date" href="{ url }">{ date.month }-{ date.day }</a><ul>{ d }</ul></td>'
     
     def formatweek(self, active_user):
@@ -82,7 +83,7 @@ class DayCalendar(HTMLCalendar):
         self.year = year 
         self.month = month 
         self.day = day 
-        super(DayCalendar, self).__init__() 
+        super(DayCalendar, self).__init__()
     
     def formatday(self, active_user):
         scheduled_recipes = list(filter(lambda x: 
