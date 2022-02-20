@@ -10,30 +10,29 @@ class Calendar(HTMLCalendar):
         super(Calendar, self).__init__()
 
     def formatday(self, day, scheduled_recipes, active_user):
-        #food_by_day = scheduled_recipes.filter(scheduled_date__day=day and user=active_user)
         food_by_day = scheduled_recipes.filter(scheduled_date__day=day).filter(user=active_user)
         d = ''
         for scheduled_recipe in food_by_day:
-            d += scheduled_recipe.get_html_url
+            d += f'<li>{ scheduled_recipe.get_html_url }</li>'
         if day != 0:
-            return f"<td>{day}<ul>{d}</ul></td>"
+            return f"<td><span class='date'>{ day }</span><ul>{ d }</ul></td>"
         return '<td></td>'
 
     def formatweek(self, theweek, scheduled_recipes, active_user):
         week = ''
-        for d, weekday in theweek:
-            week += self.formatday(d, scheduled_recipes, active_user)
-        return f'<tr>{week}</tr>'
+        for day, _ in theweek:
+            week += self.formatday(day, scheduled_recipes, active_user)
+        return f'<tr>{ week }</tr>'
 
     def formatmonth(self, active_user, withyear=True):
         scheduled_recipes = ScheduledRecipe.objects.filter(
             scheduled_date__year=self.year, scheduled_date__month=self.month)
 
-        cal = f'<table border="0" cellpadding="0" cellspacing="0">\n'
-        cal += f'{self.formatmonthname(self.year, self.month, withyear=withyear)}\n'
-        cal += f'{self.formatweekheader()}\n'
+        cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
+        cal += f'{ self.formatmonthname(self.year, self.month, withyear=withyear) }\n'
+        cal += f'{ self.formatweekheader() }\n'
         for week in self.monthdays2calendar(self.year, self.month):
-            cal += f'{self.formatweek(week, scheduled_recipes, active_user)}\n'
+            cal += f'{ self.formatweek(week, scheduled_recipes, active_user) }\n'
         return cal
 
     def setUser(self, user):
@@ -49,11 +48,10 @@ class WeekCalendar(HTMLCalendar):
     def formatday(self, date, scheduled_recipes):
         food_by_day = list(filter(lambda x:
         (x.scheduled_date.day == date.day), scheduled_recipes))
-        # scheduled_recipes.filter(scheduled_date__day=date.day)
         d = ''
         for scheduled_recipe in food_by_day:
-            d += scheduled_recipe.get_html_url
-        return f'<td>{ date.month }-{ date.day }<ul>{ d }</ul></td>'
+            d += f'<li> {scheduled_recipe.get_html_url} </li>'
+        return f'<td><span class="date">{ date.month }-{ date.day }</span><ul>{ d }</ul></td>'
     
     def formatweek(self, active_user):
         scheduled_recipes = list(filter(lambda x: 
@@ -61,7 +59,7 @@ class WeekCalendar(HTMLCalendar):
             (x.scheduled_date.year == self.year) and 
             (x.scheduled_date.isocalendar()[1] == self.week), 
             ScheduledRecipe.objects.all()))
-        cal = f'<table border="0" cellpadding="0" cellspacing="0">\n'
+        cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
         cal += f'{ self.year } Week { self.week }\n'
         cal += f'{ self.formatweekheader() }\n'
         cal += f'<tr>'
@@ -89,10 +87,10 @@ class DayCalendar(HTMLCalendar):
             (x.scheduled_date.month == self.month) and
             (x.scheduled_date.day == self.day),
             ScheduledRecipe.objects.all()))
-        cal = f'<table border="0" cellpadding="0" cellspacing="0">\n'
-        cal += f'{ month_name[self.month] } { self.day },{ self.year }\n'
-        cal += f'<tr>'
+        cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
+        cal += f'<tr><td><span class="date">{ month_name[self.month] } { self.day },{ self.year }</span>\n'
+        cal += f'<ul>'
         for scheduled_recipe in scheduled_recipes:
-            cal += f'<td><ul>{ scheduled_recipe.get_html_url }</ul></td>'
-        cal += f'</tr>'
+            cal += f'<li>{ scheduled_recipe.get_html_url }</li>'
+        cal += f'</ul></td></tr>'
         return cal 
