@@ -26,6 +26,7 @@ class CalendarView(generic.ListView):
         context['next_month'] = next_month(d)
         return context
 
+
 class WeekView(generic.ListView):
     model = ScheduledRecipe 
     template_name = 'cal/week.html'
@@ -41,6 +42,21 @@ class WeekView(generic.ListView):
         return context
 
 
+class DayView(generic.ListView):
+    model = ScheduledRecipe 
+    template_name = 'cal/day.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        d = get_date_day(self.request.GET.get('day', None))
+        cal = DayCalendar(d.year, d.month, d.day)
+        html_cal = cal.formatday(self.request.user)
+        context['calendar'] = mark_safe(html_cal)
+        context['prev_day'] = prev_day(d)
+        context['next_day'] = next_day(d)
+        return context 
+
+
 def get_date(req_month):
     if req_month:
         year, month = (int(x) for x in req_month.split('-'))
@@ -52,6 +68,12 @@ def get_date_week(req_week):
         year, week = (int(x) for x in req_week.split('-'))
         d = date.fromisocalendar(year, week, day=1)
         return d 
+    return date.today()
+
+def get_date_day(req_day):
+    if req_day:
+        year, month, day = (int(x) for x in req_day.split('-'))
+        return date(year, month, day)
     return date.today()
 
 def prev_month(d):
@@ -71,14 +93,18 @@ def next_month(d):
 def prev_week(d):
     prev_week = d - timedelta(days=6.9)
     return 'week=' + str(prev_week.year) + '-' + str(prev_week.isocalendar()[1])
-    # prev_week = start_end_of_week_dates(d.year, d.isocalendar()[1])[0] - timedelta(1) # TODO date of a day in the previous week of d 
-    # return 'week=' + str(prev_week.year) + '-' + str(prev_week.isocalendar()[1])
 
 def next_week(d):
     next_week = d + timedelta(days=7)
     return 'week=' + str(next_week.year) + '-' + str(next_week.isocalendar()[1])
-    # next_week = start_end_of_week_dates(d.year, d.isocalendar()[1])[1] + timedelta(1) # TODO date of a day in the next week from d
-    # return 'week=' + str(next_week.year) + '-' + str(next_week.isocalendar()[1])
+
+def prev_day(d):
+    prev_day = d - timedelta(days=1)
+    return 'day=' + str(prev_day.year) + '-' + str(prev_day.month) + '-' + str(prev_day.day)
+
+def next_day(d):
+    next_day = d + timedelta(days=1)
+    return 'day=' + str(next_day.year) + '-' + str(next_day.month) + '-' + str(next_day.day)
 
 def scheduled_recipe(request, scheduled_recipe_id=None):
     instance = ScheduledRecipe()

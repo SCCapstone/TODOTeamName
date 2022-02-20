@@ -1,4 +1,4 @@
-from calendar import HTMLCalendar
+from calendar import HTMLCalendar, month_name
 from .models import ScheduledRecipe
 import datetime 
 
@@ -39,6 +39,7 @@ class Calendar(HTMLCalendar):
     def setUser(self, user):
         self.user = user
 
+
 class WeekCalendar(HTMLCalendar):
     def __init__(self, year=None, week=None):
         self.year = year 
@@ -70,5 +71,28 @@ class WeekCalendar(HTMLCalendar):
         while current_date <= end_date:
             cal += self.formatday(current_date, scheduled_recipes)
             current_date += datetime.timedelta(days=1)
+        cal += f'</tr>'
+        return cal 
+
+
+class DayCalendar(HTMLCalendar):
+    def __init__(self, year=None, month=None, day=None):
+        self.year = year 
+        self.month = month 
+        self.day = day 
+        super(DayCalendar, self).__init__() 
+    
+    def formatday(self, active_user):
+        scheduled_recipes = list(filter(lambda x: 
+            (x.user == active_user) and 
+            (x.scheduled_date.year == self.year) and 
+            (x.scheduled_date.month == self.month) and
+            (x.scheduled_date.day == self.day),
+            ScheduledRecipe.objects.all()))
+        cal = f'<table border="0" cellpadding="0" cellspacing="0">\n'
+        cal += f'{ month_name[self.month] } { self.day },{ self.year }\n'
+        cal += f'<tr>'
+        for scheduled_recipe in scheduled_recipes:
+            cal += f'<td><ul>{ scheduled_recipe.get_html_url }</ul></td>'
         cal += f'</tr>'
         return cal 
