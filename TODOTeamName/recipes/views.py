@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 import requests
 import json
 
@@ -13,12 +13,7 @@ headers = {
 }
 
 def recipes(request):
-#    url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/random"
-    querystring = {"number": "3"}
-    response = requests.request(
-        "GET", url, headers=headers, params=querystring)
-    print(response.text)
-    return render(request, 'recipesMain.html', {'list': json.loads(response.text)})
+    return render(request, 'recipesMain.html')
 
 def rsearch(request):
     if request.method == "POST":
@@ -47,7 +42,7 @@ def rcreate(request):
         steps = request.POST.get("steps")
         recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":request.user.username} #TODO insert username
         #TODO save to user
-        return render(request, 'prove.html', recipe) # TODO redirect back to my recipes
+        return redirect("/recipes/recipeMain") # TODO redirect back to my recipes
     else:
         return render(request, 'recipecreation.html')
 
