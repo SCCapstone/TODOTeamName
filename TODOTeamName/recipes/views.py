@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from .forms import *
 import requests
 import json
 
@@ -14,6 +15,20 @@ headers = {
 
 def recipes(request):
     return render(request, 'recipesMain.html')
+
+def make(request):
+    if request.method == 'POST':
+        form = AddRecipeForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('recipes:make')
+        else:
+            form = AddRecipeForm() 
+    else: 
+        form = AddRecipeForm()
+        recipes = Recipe.objects.filter(user=request.user)
+        return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
 
 def rsearch(request):
     if request.method == "POST":
