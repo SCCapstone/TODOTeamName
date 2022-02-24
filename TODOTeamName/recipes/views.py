@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from .forms import *
 import requests
 import json
 
@@ -19,6 +20,20 @@ def recipes(request):
         "GET", url, headers=headers, params=querystring)
     print(response.text)
     return render(request, 'recipesMain.html', {'list': json.loads(response.text)})
+
+def make(request):
+    if request.method == 'POST':
+        form = AddRecipeForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('recipes:make')
+        else:
+            form = AddRecipeForm() 
+    else: 
+        form = AddRecipeForm()
+        recipes = Recipe.objects.filter(user=request.user)
+        return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
 
 def rsearch(request):
     if request.method == "POST":
@@ -41,7 +56,7 @@ def rcreate(request):
         maketime = request.POST.get("maketime")
         ingredients = request.POST.get("ingredients")
         steps = request.POST.get("steps")
-        recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":"me"} #TODO insert username
+        recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator": request.user.username} #TODO insert username
         return render(request, 'prove.html', recipe) # TODO redirect back to my recipes
     else:
         return render(request, 'recipecreation.html')
