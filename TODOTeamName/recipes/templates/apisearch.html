@@ -1,14 +1,17 @@
 <!DOCTYPE html>
+<h1>Search Recipes!</h1> &nbsp; <a href="recipeMain">go home</a>
+
+{%block contents%}
 <body>
     <form method = "POST">
         {%csrf_token%}
       
-      <input type="text" placeholder="search here" name = "search">
-      <button type = "submit"> submit </button>
-    </form>
+      <textarea placeholder="search here" name = "search" rows=1 cols=25>{{ingredients}}</textarea>
+      <button type = "submit" name="send" value = "submit"> submit </button>
+    <!---</form>-->
     {%for i in list%}
     <h2>{{i.title}}</h2> 
-    <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <!--<input type="submit" name="recipe" id="{{forloop.counter}}">save this recipe-->
+    <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <input type="submit" name="save" value={{forloop.counter}}>save this recipe!
     <details>
       <summary>more information</summary>
     ready in {{i.readyInMinutes}} minutes
@@ -22,5 +25,7 @@
     {%endfor%}
     </details>
     {%endfor%}
+    </form>
 </body>
+{%endblock contents%}
 </html>

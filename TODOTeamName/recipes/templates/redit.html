@@ -4,21 +4,21 @@
         {%csrf_token%}
         <label for="title">recipe title:</label><br>
         <textarea id="title" name="title" rows="1" cols="50" placeholder="delicious food" required>
-{{recipe.title}}
+{{title}}
         </textarea><br>
 
         <label for="maketime">expected time to make:</label><br>
         <textarea id="maketime" name="maketime" rows="1" cols="50" placeholder="15 minutes">
-{{recipe.maketime}}
+{{maketime}}
         </textarea><br>
         <label for="ingredients">ingredients:</label><br>
         <textarea id="ingredients" name="ingredients" rows="4" cols="50" placeholder="1 cup flour">
-{{recipe.ingredients}}
+{{ingredients}}
         </textarea><br>
         
         <label for="steps">steps:</label><br>
         <textarea id="steps" name="steps" rows="4" cols="50" placeholder="bake at 250 for an hour">
-{{recipe.steps}}
+{{steps}}
         </textarea><br>
         <br>
         <input type="submit" value="Submit">
