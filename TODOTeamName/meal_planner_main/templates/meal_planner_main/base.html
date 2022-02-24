@@ -29,9 +29,9 @@
                 {% endif %}
             </div>
             <div class="clearfix">
-                <a class="btn btn-secondary" href="{% url 'recipes:recipesMain' %}">Recipes</a>
                 <a class="btn btn-secondary" href="{% url 'forum:healthForumMain' %}">Forum</a>
                 {% if user.is_authenticated %} 
+                <a class="btn btn-secondary" href="{% url 'recipes:recipesMain' %}">Recipes</a>
                 <a class="btn btn-secondary" href="{% url 'cal:calMain' %}">Calendar</a>
                 <a class="btn btn-secondary" href="{% url 'grocery:groceryMain' %}">Groceries</a>
                 <a class="btn btn-secondary" href="{% url 'pantry:pantryMain' %}">Pantry</a>
