@@ -2,14 +2,25 @@
 
 {% block page %}<h1>Recipes</h1>>{% endblock page %}
 
-
-<!--TODO: Matthew - please integrate API here -->
 {% block contents %}
 
 <h1>This is the Recipes Page!</h1>
 <p>My Recipes</p>
-{{list.recipes.0.title}}&nbsp;
-{{list.recipes.0.sourceUrl}}
-<a href="{% url 'recipes:make' %}">Create Recipes</a>
+ <body>
+     <form method = POST>
+        {%csrf_token%}
+     {%for r in recipes%}
+     {{r}} &nbsp; &nbsp; &nbsp; <input type="submit" name="edit" value={{forloop.counter}}> edit  &nbsp; &nbsp; &nbsp; <input type="submit" name="delete" value={{forloop.counter}}> delete<br>
+     ready in {{r.estimated_time}} minutes
+     <details>
+         <summary>more information:</summary>
+         ingredients:<br>
+         {{r.recipe_ingredients}}<br>
+         directions:<br>
+         {{r.recipe_directions}}<br>
+     </details><br><br>
+     {%endfor%}
+    </form>
+ </body>
 
 {% endblock contents %}

@@ -6,15 +6,27 @@ import json
 url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search"
 url2 = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk"
 
-recipe = {}
 
 headers = {
     'x-rapidapi-host': "spoonacular-recipe-food-nutrition-v1.p.rapidapi.com",
     'x-rapidapi-key': "4b462de572msh59ab5fee0c2b937p1a5096jsn62e9e0262449"
 }
 
+global recipe
+
 def recipes(request):
-    return render(request, 'recipesMain.html')
+    recipes = Recipe.objects.filter(user=request.user)
+    print(recipes[0])
+    if request.method == 'POST':
+        if request.POST.get('edit')!=None:
+            global recipe
+            i = int(request.POST.get("edit"))
+            recipe = {'recipe':recipes[i-1]}
+            return redirect("/recipes/editRecipe")
+        if request.POST.get('delete')!=None:
+            i=int(request.POST.get('delete'))
+            recipes[i-1].delete()
+    return render(request, 'recipesMain.html', {'recipes': recipes})
 
 def make(request):
     if request.method == 'POST':
@@ -33,7 +45,7 @@ def make(request):
 def rsearch(request):
     if request.method == "POST":
         ingredients = request.POST.get("search")
-        querystring = {"query":ingredients,"offset":"0","number":"1"}
+        querystring = {"query":ingredients,"offset":"0","number":"3"}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
         id=""
         for i in response['list']['results']:
@@ -43,7 +55,8 @@ def rsearch(request):
         if request.POST.get('save')!=None:
             i = int(request.POST.get('save'))-1
             recipe = saverecipeapi(context['list'][i])
-            return render(request, 'prove.html', recipe) #TODO tie to save user not prove.html 
+            srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], estimated_time=int(recipe['maketime']), user=request.user)
+            srecipe.save()
         return render(request, "apisearch.html",  context)
 
     else:
@@ -51,13 +64,15 @@ def rsearch(request):
 
 def rcreate(request):
     if request.method == "POST":
+
         title = request.POST.get("title")
         maketime = request.POST.get("maketime")
         ingredients = request.POST.get("ingredients")
         steps = request.POST.get("steps")
-        recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":request.user.username} #TODO insert username
-        #TODO save to user
-        return redirect("/recipes/recipeMain") # TODO redirect back to my recipes
+        recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":request.user.username}
+        srecipe=Recipe.objects.create(recipe_name=title, recipe_ingredients=ingredients, recipe_directions=steps, estimated_time=int(maketime), user=request.user)
+        srecipe.save()
+        return redirect("/recipes/recipeMain")
     else:
         return render(request, 'recipecreation.html')
 
@@ -65,24 +80,26 @@ def rview(request):
     return render (request, 'recipeview.html', user.recipes)
 
 def redit(request):
-    recipe = {"title":"make it", "maketime":"3 years", "ingredients":"test123", "steps":"test test test", "creator":"me"}
+    global recipe
     if request.method == "POST":
         title = request.POST.get("title")
         maketime = request.POST.get("maketime")
         ingredients = request.POST.get("ingredients")
         steps = request.POST.get("steps")
-        if recipe['creator']!=request.user.username:
-           creator = recipe['creator']+"\n edited by "+request.user.username #TODO insert username
-        else:
-            creator = recipe['creator']
-        recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":creator}
-        return render(request, 'prove.html', recipe)
+       # if recipe['creator']!=request.user.username:
+        #   creator = recipe['creator']+"\n edited by "+request.user.username 
+        #else:
+         #   creator = recipe['creator']
+        srecipe=Recipe.objects.create(recipe_name=title, recipe_ingredients=ingredients, recipe_directions=steps, estimated_time=int(maketime), user=request.user)
+        srecipe.save()
+        recipe['recipe'].delete()
+        return redirect('/recipes/recipeMain')
     else:
         return render(request, 'redit.html', recipe)
 
 def saverecipeapi(recipe):
     title = recipe['title']
-    maketime = str(recipe['readyInMinutes'])+" minutes"
+    maketime = recipe['readyInMinutes']#str(recipe['readyInMinutes'])+" minutes"
     ingredients = ""
     for i in recipe['extendedIngredients']:
         ingredients = ingredients+" "+i['original']

@@ -1,14 +1,16 @@
 <!DOCTYPE html>
+{%extends "meal_planner_main/base.html"%}
+
+
+{%block content%}
 <h1>Search Recipes!</h1> &nbsp; <a href="recipeMain">go home</a>
 
-{%block contents%}
 <body>
     <form method = "POST">
         {%csrf_token%}
       
       <textarea placeholder="search here" name = "search" rows=1 cols=25>{{ingredients}}</textarea>
       <button type = "submit" name="send" value = "submit"> submit </button>
-    <!---</form>-->
     {%for i in list%}
     <h2>{{i.title}}</h2> 
     <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <input type="submit" name="save" value={{forloop.counter}}>save this recipe!
@@ -27,5 +29,5 @@
     {%endfor%}
     </form>
 </body>
-{%endblock contents%}
+{%endblock content%}
 </html>
