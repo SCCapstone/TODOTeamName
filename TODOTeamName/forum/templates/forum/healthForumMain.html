@@ -3,10 +3,11 @@
 {% block title %}Forum{% endblock title %}
 
 {% block content %}
-<h1>This is the Health Forum Page!</h1>
+<h1>Welcome to the forum!</h1>
+
 {% for post in posts %}
 <div class="post block">
-    <h2 class="subtitle">{{ post.title }}</h2>
+    <h3 class="subtitle">{{ post.title }}</h3>
 
     <small>Posted at {{ post.date_added }} by {{ post.user }}</small>
     <p>{{ post.intro }}</p>
