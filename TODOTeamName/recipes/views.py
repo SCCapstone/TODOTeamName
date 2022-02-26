@@ -16,7 +16,6 @@ global recipe
 
 def recipes(request):
     recipes = Recipe.objects.filter(user=request.user)
-    print(recipes[0])
     if request.method == 'POST':
         if request.POST.get('edit')!=None:
             global recipe
@@ -43,7 +42,7 @@ def make(request):
         return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
 
 def rsearch(request):
-    if request.method == "POST":
+    if False:#request.method == "POST": 
         ingredients = request.POST.get("search")
         querystring = {"query":ingredients,"offset":"0","number":"3"}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
