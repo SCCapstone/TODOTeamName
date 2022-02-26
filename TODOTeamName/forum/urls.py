@@ -8,5 +8,6 @@ app_name = 'forum'
 urlpatterns = [
     path('', frontpage, name='healthForumMain'),
     path('post/', valid_post, name = 'valid_post'),
+    path('imgpost/', valid_image_post, name = 'valid_image_post'),
     path('<slug:slug>/', post_detail, name = 'post_detail'),
 ]
