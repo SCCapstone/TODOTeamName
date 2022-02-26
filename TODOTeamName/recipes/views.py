@@ -42,7 +42,7 @@ def make(request):
         return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
 
 def rsearch(request):
-    if False:#request.method == "POST": 
+    if request.method == "POST": 
         ingredients = request.POST.get("search")
         querystring = {"query":ingredients,"offset":"0","number":"3"}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
