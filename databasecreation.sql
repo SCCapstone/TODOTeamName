@@ -1,3 +1,4 @@
+CREATE DATABASE happy;
 CREATE DATABASE pgdb;
 CREATE USER admin WITH PASSWORD 'password';
 ALTER ROLE admin SET client_encoding TO 'utf8';
