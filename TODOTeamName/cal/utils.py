@@ -91,6 +91,6 @@ class DayCalendar(HTMLCalendar):
         cal += f'<tr><td><span class="date">{ month_name[self.month] } { self.day }, { self.year }</span>\n'
         cal += f'<ul>'
         for scheduled_recipe in scheduled_recipes:
-            cal += f'<li>{ scheduled_recipe.get_html_url }<p>{ scheduled_recipe.description }</p></li>'
+            cal += f'<li>{ scheduled_recipe.get_html_url }</li>'
         cal += f'</ul></td></tr>'
         return cal
