@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.views import generic
 from django.urls import reverse
+from recipes.models import Recipe
 import calendar
 
 from .forms import *
@@ -114,6 +115,7 @@ def scheduled_recipe(request, scheduled_recipe_id=None):
         instance = ScheduledRecipe()
 
     form = ScheduledRecipeForm(request.POST or None, instance=instance)
+    form.fields['recipe'].queryset = Recipe.objects.all().filter(user=request.user)
     if request.POST and form.is_valid():
         form.instance.user = request.user
         form.save()
