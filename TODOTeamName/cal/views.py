@@ -58,6 +58,12 @@ class DayView(generic.ListView):
         return context 
 
 
+class DeleteView(generic.DeleteView):
+    model = ScheduledRecipe
+    template_name = 'cal/delete_view.html'
+    success_url = '/cal/'
+
+
 def get_date(req_month):
     if req_month:
         year, month = (int(x) for x in req_month.split('-'))

@@ -13,3 +13,8 @@ class ScheduledRecipe(models.Model):
     def get_html_url(self):
         url = reverse('cal:scheduled_recipe_edit', args=(self.id,))
         return f'<a href="{ url }">{ self.recipe }</a>'
+
+    @property 
+    def get_delete_url(self):
+        url = reverse('cal:scheduled_recipe_delete', args=(self.id,))
+        return f'<a class="btn btn-danger" href="{ url }">x</a>'
