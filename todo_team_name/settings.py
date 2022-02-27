@@ -21,12 +21,12 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-h)-jo=v_z1ls%tf*$wsyo^5c^yy!6w!ve204=)#k&&mp41y1#('
+#SECRET_KEY = 'django-insecure-h)-jo=v_z1ls%tf*$wsyo^5c^yy!6w!ve204=)#k&&mp41y1#('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['TODOTeamName-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com', 'django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.0.0.1',
+ALLOWED_HOSTS = ['0.0.0.0', 'TODOTeamName-env.eba-entjj2xt.us-west-2.elasticbeanstalk.com', 'django-env.eba-7yipjhqd.us-west-2.elasticbeanstalk.com', '127.0.0.1',
                  'localhost', 'django-env.eba-n3gymngp.us-east-1.elasticbeanstalk.com', 'http://linux-test-env.eba-umya2idv.us-west-2.elasticbeanstalk.com/recipes']
 
 
@@ -151,3 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 LOGIN_REDIRECT_URL = 'meal_planner_main:home'
 LOGIN_URL = 'login'
+
+# Configure Django app for Heroku.
+import django_on_heroku
+django_on_heroku.settings(locals())

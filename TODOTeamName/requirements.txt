@@ -1,8 +1,0 @@
-Django==3.2.8
-psycopg2-binary==2.8.6
-requests==2.26.0
-django-crispy-forms
-gunicorn
-selenium
-undetected_chromedriver
-Pillow
