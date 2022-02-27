@@ -1,0 +1,14 @@
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Calendar{% endblock title %}
+
+{% block content %}
+
+<form method="post">
+  {% csrf_token %}
+  <table class="form form-table">
+    <p>Are you sure you want to remove recipe from calendar?</p>
+    <tr><td colspan="2"><button class="btn btn-info" type="submit"> Confirm </button></td></tr>
+  </table>
+</form>
+{% endblock %}
