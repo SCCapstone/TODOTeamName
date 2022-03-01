@@ -5,9 +5,11 @@ from .models import *
 
 class PantryAddItemForm(forms.ModelForm):
     name = forms.CharField(max_length=50)
-    expiration = forms.DateField()
 
     class Meta:
         model = pantryItems
+        widgets = {
+            'expiration': forms.DateInput(attrs={'type': 'date'})
+        }
         fields = ['name', 'expiration']
 
