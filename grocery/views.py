@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
 from .models import *
@@ -6,7 +7,7 @@ from .forms import *
 
 # TODO - make option to remove  items
 
-
+@login_required
 def groceryListMain(request):
     if request.method == 'POST':
         form = GroceryAddItemForm(request.POST)

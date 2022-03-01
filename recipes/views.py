@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 from .forms import *
 import requests
 import json
@@ -14,6 +15,7 @@ headers = {
 
 global recipe
 
+@login_required
 def recipes(request):
     recipes = Recipe.objects.filter(user=request.user)
     if request.method == 'POST':
@@ -27,6 +29,7 @@ def recipes(request):
             recipes[i-1].delete()
     return render(request, 'recipesMain.html', {'recipes': recipes})
 
+@login_required
 def make(request):
     if request.method == 'POST':
         form = AddRecipeForm(request.POST)
@@ -41,6 +44,7 @@ def make(request):
         recipes = Recipe.objects.filter(user=request.user)
         return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
 
+@login_required
 def rsearch(request):
     if request.method == "POST": 
         ingredients = request.POST.get("search")
@@ -61,6 +65,7 @@ def rsearch(request):
     else:
         return render(request, "apisearch.html")
 
+@login_required
 def rcreate(request):
     if request.method == "POST":
 
@@ -75,9 +80,11 @@ def rcreate(request):
     else:
         return render(request, 'recipecreation.html')
 
+@login_required
 def rview(request):
     return render (request, 'recipeview.html', user.recipes)
 
+@login_required
 def redit(request):
     global recipe
     if request.method == "POST":
@@ -96,6 +103,7 @@ def redit(request):
     else:
         return render(request, 'redit.html', recipe)
 
+@login_required
 def saverecipeapi(recipe):
     title = recipe['title']
     maketime = recipe['readyInMinutes']#str(recipe['readyInMinutes'])+" minutes"

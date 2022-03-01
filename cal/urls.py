@@ -1,12 +1,13 @@
 from django.urls import path
+from django.contrib.auth.decorators import login_required
 
 from . import views
 
 app_name = 'cal'
 urlpatterns = [
-    path('', views.CalendarView.as_view(), name='calMain'),
-    path('weekview', views.WeekView.as_view(), name='calWeek'),
-    path('dayview', views.DayView.as_view(), name='calDay'),
+    path('', login_required(views.CalendarView.as_view()), name='calMain'),
+    path('weekview', login_required(views.WeekView.as_view()), name='calWeek'),
+    path('dayview', login_required(views.DayView.as_view()), name='calDay'),
     path('scheduled_recipe/new/', views.scheduled_recipe,
         name='scheduled_recipe_new'),
     path('scheduled_recipe/edit/<int:scheduled_recipe_id>/',

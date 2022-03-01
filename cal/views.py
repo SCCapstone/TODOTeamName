@@ -4,13 +4,13 @@ from django.http import HttpResponseRedirect
 from django.utils.safestring import mark_safe
 from django.views import generic
 from django.urls import reverse
+from django.contrib.auth.decorators import login_required
 from recipes.models import Recipe
 import calendar
 
 from .forms import *
 from .models import *
 from .utils import *
-
 
 class CalendarView(generic.ListView):
     model = ScheduledRecipe
@@ -27,7 +27,6 @@ class CalendarView(generic.ListView):
         context['next_month'] = next_month(d)
         return context
 
-
 class WeekView(generic.ListView):
     model = ScheduledRecipe 
     template_name = 'cal/week.html'
@@ -42,7 +41,6 @@ class WeekView(generic.ListView):
         context['next_week'] = next_week(d)
         return context
 
-
 class DayView(generic.ListView):
     model = ScheduledRecipe 
     template_name = 'cal/day.html'
@@ -56,7 +54,6 @@ class DayView(generic.ListView):
         context['prev_day'] = prev_day(d)
         context['next_day'] = next_day(d)
         return context 
-
 
 class DeleteView(generic.DeleteView):
     model = ScheduledRecipe
@@ -113,6 +110,7 @@ def next_day(d):
     next_day = d + timedelta(days=1)
     return 'day=' + str(next_day.year) + '-' + str(next_day.month) + '-' + str(next_day.day)
 
+@login_required
 def scheduled_recipe(request, scheduled_recipe_id=None):
     instance = ScheduledRecipe()
     if scheduled_recipe_id:
