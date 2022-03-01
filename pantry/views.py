@@ -1,9 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
 
 from .forms import *
 from .models import *
 
-
+@login_required
 def pantry(request):
     if request.method == 'POST':
         form = PantryAddItemForm(request.POST)
