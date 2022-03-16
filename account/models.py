@@ -3,7 +3,8 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
+    following = models.ManyToManyField(User, related_name='following', blank=True)
     name = models.CharField(max_length=50, default="")
     allergy_list = models.CharField(max_length=100, default="")
     # TODO - add grocery list
