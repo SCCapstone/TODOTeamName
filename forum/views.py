@@ -3,6 +3,7 @@ import math
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from itertools import chain
+from django.contrib.auth.models import User
 
 from .models import *
 from .forms import *
@@ -14,6 +15,13 @@ def frontpage(request):
     #posts = sorted( chain(post, imgpost), key=lambda instance: instance.date_added)
     return render(request, 'forum/healthForumMain.html', {'posts': posts})
 
+#def profilepage(request, slug):
+#    posts = Post.objects.filter(user = User.objects.get(pk=slug))
+#    return render(request, 'forum/healthForumMain.html', {'posts': posts})
+
+def profilepage(request, uName):
+    posts = Post.objects.filter(user = User.objects.get(username=uName))
+    return render(request, 'forum/UserFeed.html', {'posts': posts, 'uName': uName})
 
 def valid_post(request):
     posts = Post.objects.all()

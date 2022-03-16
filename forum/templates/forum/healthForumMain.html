@@ -3,13 +3,14 @@
 {% block title %}Forum{% endblock title %}
 
 {% block content %}
-<h1>Welcome to the forum!</h1>
-
+{% block conTitle %}
+{% endblock conTitle %}
 {% for post in posts %}
 <div class="post block">
     <h3 class="subtitle">{{ post.title }}</h3>
 
-    <small>Posted at {{ post.date_added }} by {{ post.user }}</small>
+    <small>Posted at {{ post.date_added }} by 
+	<a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a></small>
     <p>{{ post.intro }}</p>
 
     <a href= "{% url 'forum:post_detail' post.slug %}">Read more</a>
