@@ -64,7 +64,7 @@ class WeekCalendar(HTMLCalendar):
         scheduled_recipes = list(filter(lambda x: (x.user == active_user) and (x.scheduled_date.year == self.year) and (
             x.scheduled_date.isocalendar()[1] == self.week), ScheduledRecipe.objects.all()))
         cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
-        cal += f'{ self.year } Week { self.week }\n'
+        cal += f'<tr><th colspan="7">{ self.year } Week { self.week }</th></tr>'
         cal += f'{ self.formatweekheader() }\n'
         cal += f'<tr>'
         start_date = datetime.date.fromisocalendar(self.year, self.week, 1)
@@ -85,11 +85,12 @@ class DayCalendar(HTMLCalendar):
         super(DayCalendar, self).__init__()
 
     def formatday(self, active_user):
+        # TODO add link to create a recipe
         scheduled_recipes = list(filter(lambda x: (x.user == active_user) and (x.scheduled_date.year == self.year) and (
             x.scheduled_date.month == self.month) and (x.scheduled_date.day == self.day), ScheduledRecipe.objects.all()))
         cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
-        cal += f'<tr><td><span class="date">{ month_name[self.month] } { self.day }, { self.year }</span>\n'
-        cal += f'<ul>'
+        cal += f'<tr><th colspan="7">{ month_name[self.month] } { self.day }, { self.year }</th></tr>\n'
+        cal += f'<tr><td><ul>'
         for scheduled_recipe in scheduled_recipes:
             cal += f'<li>{ scheduled_recipe.get_html_url } { scheduled_recipe.get_delete_url }</li>'
         cal += f'</ul></td></tr>'
