@@ -25,6 +25,8 @@ class CalendarView(generic.ListView):
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
         context['next_month'] = next_month(d)
+        context['the_day'] = the_day(d)
+        context['the_week'] = the_week(d)
         return context
 
 class WeekView(generic.ListView):
@@ -39,6 +41,8 @@ class WeekView(generic.ListView):
         context['calendar'] = mark_safe(html_cal)
         context['prev_week'] = prev_week(d)
         context['next_week'] = next_week(d)
+        context['the_day'] = the_day(d)
+        context['the_month'] = the_month(d)
         return context
 
 class DayView(generic.ListView):
@@ -53,6 +57,8 @@ class DayView(generic.ListView):
         context['calendar'] = mark_safe(html_cal)
         context['prev_day'] = prev_day(d)
         context['next_day'] = next_day(d)
+        context['the_week'] = the_week(d)
+        context['the_month'] = the_month(d)
         return context 
 
 class DeleteView(generic.DeleteView):
@@ -86,7 +92,6 @@ def prev_month(d):
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
 
-
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
     last = d.replace(day=days_in_month)
@@ -109,6 +114,15 @@ def prev_day(d):
 def next_day(d):
     next_day = d + timedelta(days=1)
     return 'day=' + str(next_day.year) + '-' + str(next_day.month) + '-' + str(next_day.day)
+
+def the_month(d):
+    return 'month=' + str(d.year) + '-' + str(d.month)
+
+def the_week(d):
+    return 'week=' + str(d.year) + '-' + str(d.isocalendar()[1])
+
+def the_day(d):
+    return 'day=' + str(d.year) + '-' + str(d.month) + '-' + str(d.day)
 
 @login_required
 def scheduled_recipe(request, scheduled_recipe_id=None):
