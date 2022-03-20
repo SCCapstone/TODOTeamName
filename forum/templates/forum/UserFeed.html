@@ -1,0 +1,15 @@
+{% extends "forum/healthForumMain.html" %}
+
+{% block conTitle %}
+<h1>{{ uName }}'s Forum Posts</h1>
+{% if user.is_authenticated %}
+<form method = 'POST'>
+	{%csrf_token %}
+	{% if following %}
+	<input type = "submit" value = "Unfollow">
+	{% else %}
+	<input type = "submit" value = "Follow">
+	{% endif %}
+</form>
+{% endif %}
+{%endblock conTitle %}

@@ -51,10 +51,16 @@ def rsearch(request):
         querystring = {"query":ingredients,"offset":"0","number":"3"}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
         id=""
+        nutinfo=[]
         for i in response['list']['results']:
             id=id+str(i['id'])+","
+            info ="https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/"+str(i['id'])+"/nutritionWidget.json"
+            res = json.loads(requests.request("GET", info, headers=headers).text)
+            nutinfo.append(res)
         ressearch = {"ids":str(id)}
-        context = {'list': json.loads(requests.request("GET", url2, headers=headers, params=ressearch).text),'ingredients':ingredients}
+        temp = json.loads(requests.request("GET", url2, headers=headers, params=ressearch).text)
+        align(temp, nutinfo)
+        context = {'list': temp,'ingredients':ingredients}
         if request.POST.get('save')!=None:
             i = int(request.POST.get('save'))-1
             recipe = saverecipeapi(context['list'][i])
@@ -105,7 +111,7 @@ def redit(request):
     else:
         return render(request, 'redit.html', recipe)
 
-@login_required
+
 def saverecipeapi(recipe):
     title = recipe['title']
     maketime = recipe['readyInMinutes']#str(recipe['readyInMinutes'])+" minutes"
@@ -119,3 +125,8 @@ def saverecipeapi(recipe):
     ret = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":creator}
     return ret
 
+def align(temp, info):
+    i=0
+    for t in temp:
+        t['nutrition'] = info[i]
+        i=i+1

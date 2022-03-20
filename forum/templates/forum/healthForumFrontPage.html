@@ -1,0 +1,6 @@
+{% extends "forum/healthForumMain.html" %}
+
+{% block conTitle %}
+<h1>Welcome to the forum!</h1>
+<a href="{% url 'forum:followingPage' %}">Only see posts from your followers</a>
+{%endblock conTitle %}

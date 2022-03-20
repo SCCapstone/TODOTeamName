@@ -10,7 +10,7 @@
      <form method = POST>
         {%csrf_token%}
      {%for r in recipes%}
-     {{r}} &nbsp; &nbsp; &nbsp; <input type="submit" name="edit" value={{forloop.counter}}> edit  &nbsp; &nbsp; &nbsp; <input type="submit" name="delete" value={{forloop.counter}}> delete<br>
+     {{r}} &nbsp; &nbsp; &nbsp; <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
      ready in {{r.estimated_time}} minutes
      <details>
          <summary>more information:</summary>

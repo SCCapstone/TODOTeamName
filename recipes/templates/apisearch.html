@@ -9,11 +9,11 @@
     <form method = "POST">
         {%csrf_token%}
       
-      <textarea placeholder="search here" name = "search" rows=1 cols=25>{{ingredients}}</textarea>
+      <input type="text" placeholder="search here" name = "search" value={{ingredients}}>
       <button type = "submit" name="send" value = "submit"> submit </button>
     {%for i in list%}
     <h2>{{i.title}}</h2> 
-    <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <input type="submit" name="save" value={{forloop.counter}}>save this recipe!
+    <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <button type="submit" name="save" value={{forloop.counter}}>save</button>
     <details>
       <summary>more information</summary>
     ready in {{i.readyInMinutes}} minutes
@@ -23,8 +23,17 @@
     {%endfor%}
     <h3>instructions:</h3>
     {%for inst in i.analyzedInstructions.0.steps%}
-    {{inst.number}}: {{inst.step}}<br>
+    {{inst.number}}: {{inst.step}}<br><br><br>
     {%endfor%}
+    </details>
+    <details>
+      <summary>nutritional information</summary>
+      {%for b in i.nutrition.bad%}
+      {{b.title}}: {{b.amount}}     {{b.percentOfDailyNeeds}}%<br>
+      {%endfor%}
+      {%for g in i.nutrition.good%}
+      {{g.title}}: {{g.amount}}     {{g.percentOfDailyNeeds}}%<br>
+      {%endfor%}
     </details>
     {%endfor%}
     </form>
