@@ -11,32 +11,56 @@
 <body>
     <header>
         <nav>
-            <div class="clearfix">
-                <a class="btn btn-primary" href="{% url 'meal_planner_main:home' %}">Meal Planner</a>
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link {{ home_page }}" href="{% url 'meal_planner_main:home' %}">Home</a>
+                </li>
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link {{ profile_page }}" href="{% url 'account:profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ logout_page }}" href="{% url 'account:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {{ register_page }}" href="{% url 'account:register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ login_page }}" href="{% url 'account:login' %}">Login</a>
+                </li>
+                {% endif %} 
+                <li class="nav-item">
+                    <a class="nav-link {{ forum_page }}" href="{% url 'forum:healthForumMain' %}">Forum</a>
+                </li>
                 {% if user.is_authenticated %} 
-                    <a class="btn btn-secondary" href="{% url 'account:profile' %}">Profile</a>
-                    <a class="btn btn-secondary" href="{% url 'account:logout' %}">Logout</a>
-                {% else %} 
-                    <a class="btn btn-secondary" href="{% url 'account:login' %}">Login</a>
-                    <a class="btn btn-secondary" href="{% url 'account:register' %}">Register</a>
+                <li class="nav-item">
+                    <a class="nav-link {{ recipe_page }}" href="{% url 'recipes:recipesMain' %}">Recipes</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ cal_page }}" href="{% url 'cal:calMain' %}">Calendar</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ grocery_page }}" href="{% url 'grocery:groceryMain' %}">Groceries</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ pantry_page }}" href="{% url 'pantry:pantryMain' %}">Pantry</a>
+                </li>
+                {% else %}
+                <li class="nav-item" title="Log in first">
+                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Recipes</a>
+                </li>
+                <li class="nav-item" title="Log in first">
+                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Calendar</a>
+                </li>
+                <li class="nav-item" title="Log in first">
+                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Groceries</a>
+                </li>
+                <li class="nav-item" title="Log in first">
+                    <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Pantry</a>
+                </li>
                 {% endif %}
-            </div>
-            <div class="clearfix">
-                {% if messages %} 
-                    {% for message in messages %} 
-                    <div>{{ message }}</div>
-                    {% endfor %} 
-                {% endif %}
-            </div>
-            <div class="clearfix">
-                <a class="btn btn-secondary" href="{% url 'forum:healthForumMain' %}">Forum</a>
-                {% if user.is_authenticated %} 
-                <a class="btn btn-secondary" href="{% url 'recipes:recipesMain' %}">Recipes</a>
-                <a class="btn btn-secondary" href="{% url 'cal:calMain' %}">Calendar</a>
-                <a class="btn btn-secondary" href="{% url 'grocery:groceryMain' %}">Groceries</a>
-                <a class="btn btn-secondary" href="{% url 'pantry:pantryMain' %}">Pantry</a>
-                {% endif %}
-            </div>
+            </ul>
         </nav>
       </header>
       <div>

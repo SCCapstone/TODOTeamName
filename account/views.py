@@ -15,7 +15,7 @@ def register(request):
             return redirect('account:login')
     else:
         form = UserRegisterForm()
-    return render(request, 'account/register.html', {'form': form})
+    return render(request, 'account/register.html', {'register_page': 'active', 'form': form})
 
 
 @login_required
@@ -31,4 +31,4 @@ def profile(request):
     else:
         u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-    return render(request, 'account/profile.html', {'u_form': u_form, 'p_form': p_form})
+    return render(request, 'account/profile.html', {'profile_page': 'active', 'u_form': u_form, 'p_form': p_form})

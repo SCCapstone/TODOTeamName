@@ -27,7 +27,7 @@ def recipes(request):
         if request.POST.get('delete')!=None:
             i=int(request.POST.get('delete'))
             recipes[i-1].delete()
-    return render(request, 'recipesMain.html', {'recipes': recipes})
+    return render(request, 'recipesMain.html', {'recipe_page': 'active', 'recipes': recipes})
 
 @login_required
 def make(request):
@@ -42,7 +42,7 @@ def make(request):
     else: 
         form = AddRecipeForm()
         recipes = Recipe.objects.filter(user=request.user)
-        return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
+        return render(request, 'recipesAdd.html', {'recipe_page': 'active', 'recipes': recipes, 'form': form})
 
 @login_required
 def rsearch(request):
@@ -60,6 +60,7 @@ def rsearch(request):
             recipe = saverecipeapi(context['list'][i])
             srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], estimated_time=int(recipe['maketime']), user=request.user)
             srecipe.save()
+        context['recipe_page'] = 'active'
         return render(request, "apisearch.html",  context)
 
     else:
@@ -78,8 +79,9 @@ def rcreate(request):
         srecipe.save()
         return redirect("/recipes/recipeMain")
     else:
-        return render(request, 'recipecreation.html')
+        return render(request, 'recipecreation.html', {'recipe_page': 'active'})
 
+# doesnt work:
 @login_required
 def rview(request):
     return render (request, 'recipeview.html', user.recipes)
