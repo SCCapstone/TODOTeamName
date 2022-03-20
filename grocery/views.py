@@ -18,7 +18,7 @@ def groceryListMain(request):
     else:
         form = GroceryAddItemForm()
     all_grocery_items = groceryItems.objects.filter(user=request.user)
-    return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items, 'form': form})
+    return render(request, 'grocery/groceryListMain.html', {'grocery_page': 'active', 'all_grocery_items': all_grocery_items, 'form': form})
 
 # def remove(request,item_id):
 #     item = GroceryList.objects.get(id = item_id)
