@@ -6,6 +6,7 @@ from . import views
 app_name = 'cal'
 urlpatterns = [
     path('', login_required(views.CalendarView.as_view()), name='calMain'),
+    path('pdf', views.cal_pdf_view, name='calPdf'),
     path('weekview', login_required(views.WeekView.as_view()), name='calWeek'),
     path('dayview', login_required(views.DayView.as_view()), name='calDay'),
     path('scheduled_recipe/new/', views.scheduled_recipe,
