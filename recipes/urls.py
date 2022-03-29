@@ -10,4 +10,5 @@ urlpatterns = [
     path('make', views.make, name='make'),
     path('viewRecipe', views.rview, name='rview',),
     path('editRecipe', views.redit, name='redit'),
+    path('scheduleRecipe', views.sched, name='sched'),
 ]
