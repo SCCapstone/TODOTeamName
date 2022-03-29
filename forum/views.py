@@ -15,7 +15,7 @@ def frontpage(request):
     posts = Post.objects.all()
     #imgpost = ImagePost.objects.all()
     #posts = sorted( chain(post, imgpost), key=lambda instance: instance.date_added)
-    return render(request, 'forum/healthForumFrontPage.html', {'posts': posts})
+    return render(request, 'forum/healthForumFrontPage.html', {'forum_page': 'active', 'posts': posts})
 
 #def profilepage(request, slug):
 #    posts = Post.objects.filter(user = User.objects.get(pk=slug))
@@ -35,14 +35,14 @@ def profilepage(request, uName):
                 profile.following.add(the_user)
     
     posts = Post.objects.filter(user = User.objects.get(username=uName))
-    return render(request, 'forum/UserFeed.html', {'posts': posts, 'uName': uName, 'following': following})
+    return render(request, 'forum/UserFeed.html', {'forum_page': 'active', 'posts': posts, 'uName': uName, 'following': following})
 
 @login_required
 def followingpage(request):
     userProfile = Profile.objects.get(user = request.user)
     following = userProfile.following.all()
     posts = Post.objects.filter(user__in=following)
-    return render(request, 'forum/healthForumFollowingPage.html', {'posts': posts})
+    return render(request, 'forum/healthForumFollowingPage.html', {'forum_page': 'active', 'posts': posts})
 
 def valid_post(request):
     posts = Post.objects.all()
@@ -59,7 +59,7 @@ def valid_post(request):
             return redirect('forum:healthForumMain')
     else:
         form = PostForm()
-    return render(request, 'forum/healthForumPost.html', {'form': form})
+    return render(request, 'forum/healthForumPost.html', {'forum_page': 'active', 'form': form})
 
 
 def valid_image_post(request):
@@ -75,7 +75,7 @@ def valid_image_post(request):
             return redirect('forum:healthForumMain')
     else:
         form = ImagePostForm()
-    return render(request, 'forum/healthForumImgPost.html', {'form': form})
+    return render(request, 'forum/healthForumImgPost.html', {'forum_page': 'active', 'form': form})
 
 
 def post_detail(request, slug):
@@ -93,4 +93,4 @@ def post_detail(request, slug):
     else:
         form = CommentForm()
 
-    return render(request, 'forum/healthForumPost_detail.html', {'post': post, 'form': form})
+    return render(request, 'forum/healthForumPost_detail.html', {'forum_page': 'active', 'post': post, 'form': form})

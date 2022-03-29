@@ -27,6 +27,7 @@ class CalendarView(generic.ListView):
         context['next_month'] = next_month(d)
         context['the_day'] = the_day(d)
         context['the_week'] = the_week(d)
+        context['cal_page'] = 'active'
         return context
 
 class WeekView(generic.ListView):
@@ -43,6 +44,7 @@ class WeekView(generic.ListView):
         context['next_week'] = next_week(d)
         context['the_day'] = the_day(d)
         context['the_month'] = the_month(d)
+        context['cal_page'] = 'active'
         return context
 
 class DayView(generic.ListView):
@@ -59,6 +61,7 @@ class DayView(generic.ListView):
         context['next_day'] = next_day(d)
         context['the_week'] = the_week(d)
         context['the_month'] = the_month(d)
+        context['cal_page'] = 'active'
         return context 
 
 class DeleteView(generic.DeleteView):
@@ -66,6 +69,10 @@ class DeleteView(generic.DeleteView):
     template_name = 'cal/delete_view.html'
     success_url = '/cal/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cal_page'] = 'active'
+        return context 
 
 def get_date(req_month):
     if req_month:
@@ -139,4 +146,4 @@ def scheduled_recipe(request, scheduled_recipe_id=None):
         form.save()
         return HttpResponseRedirect(reverse('cal:calMain'))
 
-    return render(request, 'cal/scheduled_recipe.html', {'form': form})
+    return render(request, 'cal/scheduled_recipe.html', {'cal_page': 'active', 'form': form})
