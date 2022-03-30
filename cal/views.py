@@ -1,4 +1,4 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.safestring import mark_safe
@@ -7,10 +7,6 @@ from django.urls import reverse
 from django.contrib.auth.decorators import login_required
 from io import BytesIO
 from recipes.models import Recipe
-from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
 import calendar
 
 from .forms import *
@@ -80,37 +76,6 @@ class DeleteView(generic.DeleteView):
         context['cal_page'] = 'active'
         return context 
 
-class PdfPrint():
-    def __init__(self, active_user, buffer):
-        self.buffer = buffer
-        self.pageSize = A4
-        self.width, self.height = self.pageSize
-        self.active_user = active_user
-
-    def report(self, theweek):
-        doc = SimpleDocTemplate(
-            self.buffer,
-            rightMargin=72,
-            leftMargin=72,
-            topMargin=72,
-            bottomMargin=72,
-            pagesize=self.pageSize
-        )
-        styles = getSampleStyleSheet()
-        t = Table(make_week_table(theweek, self.active_user))
-        t.setStyle(TableStyle([
-            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
-            ('BOX', (0, 0), (-1, -1), 0.5, colors.black),
-            ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
-        ]))
-        elements = []
-        elements.append(Paragraph('Meal Plan ' + theweek, styles['Title']))
-        elements.append(t)
-        doc.build(elements)
-        pdf = self.buffer.getvalue()
-        self.buffer.close()
-        return pdf
-
 def cal_pdf_view(request):
     response = HttpResponse(content_type='application/pdf')
     d = date.today().strftime('%Y-%m-%d')
@@ -123,27 +88,6 @@ def cal_pdf_view(request):
     pdf = report.report(week)
     response.write(pdf)
     return response
-
-def make_week_table(theweek, active_user):
-    d = datetime.datetime.strptime(theweek + '-1', "%Y-%W-%w")
-    year = d.year
-    week = d.isocalendar()[1]
-    scheduled_recipes = list(filter(lambda x: (x.user == active_user) and (x.scheduled_date.year == year) and (
-        x.scheduled_date.isocalendar()[1] == week), ScheduledRecipe.objects.all()))
-    start_date = datetime.date.fromisocalendar(year, week-1, 7)
-    end_date = start_date + datetime.timedelta(days=6.9)
-    current_date = start_date
-    recipes = []
-    while current_date <= end_date:
-        string = ''
-        food_by_day = list(
-            filter(lambda x: (x.scheduled_date.day == current_date.day), scheduled_recipes))
-        for scheduled_recipe in food_by_day:
-            string += str(scheduled_recipe.recipe) + '\n'
-        recipes.append(string)
-        current_date += datetime.timedelta(days=1)
-    weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    return [weekdays, recipes]
 
 def get_date(req_month):
     if req_month:
