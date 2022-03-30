@@ -153,5 +153,5 @@ LOGIN_REDIRECT_URL = 'meal_planner_main:home'
 LOGIN_URL = 'account:login'
 
 # Configure Django app for Heroku.
-import django_on_heroku
-django_on_heroku.settings(locals())
+#import django_on_heroku
+#django_on_heroku.settings(locals())
