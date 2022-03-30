@@ -67,7 +67,7 @@ class WeekCalendar(HTMLCalendar):
         cal += f'<tr><th colspan="7">{ self.year } Week { self.week }</th></tr>'
         cal += f'{ self.formatweekheader() }\n'
         cal += f'<tr>'
-        start_date = datetime.date.fromisocalendar(self.year, self.week, 1)
+        start_date = datetime.date.fromisocalendar(self.year, self.week-1, 7)
         end_date = start_date + datetime.timedelta(days=6.9)
         current_date = start_date
         while current_date <= end_date:
