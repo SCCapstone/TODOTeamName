@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Recipes{% endblock title %}
+
+{% block content %}
+
+<html>
+    <h1>Input the date you would like to chedule this meal!</h1>
+    <a href="recipeMain">cancel</a>
+    <form method="POST">
+        {%csrf_token%}
+        <input type="date" name="date"> 
+        <button type="submit"> submit </button><br><br><br>
+    </form>
+
+    <div style="white-space: pre-line;">
+    {{rec.recipe_name}}
+
+    {{rec.recipe_ingredients}}
+
+    {{rec.recipe_directions}}
+    </div>
+</html>
+{%endblock content%}

@@ -77,7 +77,7 @@ def rsearch(request):
         return render(request, "apisearch.html",  context)
 
     else:
-        return render(request, "apisearch.html")
+        return render(request, "apisearch.html", {'recipe_page': 'active'})
 
 @login_required
 def rcreate(request):
@@ -116,7 +116,7 @@ def redit(request):
         recipe['recipe'].delete()
         return redirect('/recipes/recipeMain')
     else:
-        return render(request, 'redit.html', recipe)
+        return render(request, 'redit.html', {'recipe_page': 'active', 'recipe':recipe['recipe']})
 
 @login_required
 def sched(request):
@@ -126,9 +126,9 @@ def sched(request):
     if(request.method=="POST"):
         schedrec=ScheduledRecipe.objects.create(scheduled_date=request.POST.get("date"), user=request.user, recipe=temp)
         schedrec.save()
-        return render(request, 'sched.html', {'rec':temp})
+        return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
     else:
-        return render(request, 'sched.html', {'rec':temp})
+        return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
 
 
 def saverecipeapi(recipe):
