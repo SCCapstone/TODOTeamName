@@ -130,7 +130,7 @@ def make_week_table(theweek, active_user):
     week = d.isocalendar()[1]
     scheduled_recipes = list(filter(lambda x: (x.user == active_user) and (x.scheduled_date.year == year) and (
         x.scheduled_date.isocalendar()[1] == week), ScheduledRecipe.objects.all()))
-    start_date = d
+    start_date = datetime.date.fromisocalendar(year, week-1, 7)
     end_date = start_date + datetime.timedelta(days=6.9)
     current_date = start_date
     recipes = []
