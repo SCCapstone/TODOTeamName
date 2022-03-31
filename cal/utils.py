@@ -21,7 +21,7 @@ class Calendar(HTMLCalendar):
             scheduled_date__day=day).filter(user=active_user)
         d = ''
         for scheduled_recipe in food_by_day:
-            d += f'<li>{ scheduled_recipe.get_html_url } { scheduled_recipe.get_delete_url }</li>'
+            d += f'<li><span class="recipe_url">{ scheduled_recipe.get_html_url }</span>{ scheduled_recipe.get_delete_url }</li>'
         if day != 0:
             url = reverse('cal:calDay') + \
                 f'?day={ self.year }-{ self.month }-{ day }'
@@ -97,7 +97,7 @@ class DayCalendar(HTMLCalendar):
             x.scheduled_date.month == self.month) and (x.scheduled_date.day == self.day), ScheduledRecipe.objects.all()))
         cal = f'<table class="calendar" border="0" cellpadding="0" cellspacing="0">\n'
         cal += f'<tr><th colspan="7">{ month_name[self.month] } { self.day }, { self.year }</th></tr>\n'
-        cal += f'<tr><td><ul>'
+        cal += f'<tr><td colspan="7"><ul>'
         for scheduled_recipe in scheduled_recipes:
             cal += f'<li>{ scheduled_recipe.get_html_url } { scheduled_recipe.get_delete_url }</li>'
         cal += f'</ul></td></tr>'
