@@ -6,22 +6,18 @@
 {% block conTitle %}
 {% endblock conTitle %}
 
-{% for post in posts %}
+{% for imgPost in imgPosts %}
 <div class="post block">
     <h3 class="subtitle">{{ post.title }}</h3>
 
     <small>Posted at {{ post.date_added }} by 
 	<a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a></small>
-    <p class ="intro">{{ post.intro }}</p>
-
-    {% if post.image %}
-        <img src = "{{ post.image.url }}" />
-    {% endif %}
+    <p>{{ post.intro }}</p>
 
     <a href= "{% url 'forum:post_detail' post.slug %}">Read more</a>
 </div>
 {%empty%}
-<p>Be the first to make a post!</p>
+<p>Be the first to post an image!</p>
 {% endfor %}
 {% if user.is_authenticated %}
  <a href="{% url 'forum:valid_post' %}">Add a new post!</a>
