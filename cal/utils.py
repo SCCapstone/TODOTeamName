@@ -42,6 +42,7 @@ class Calendar(HTMLCalendar):
         cal += f'{ self.formatweekheader() }\n'
         for week in self.monthdays2calendar(self.year, self.month):
             cal += f'{ self.formatweek(week, scheduled_recipes, active_user) }\n'
+        cal += f'</table>'
         return cal
 
     def setUser(self, user):
@@ -79,6 +80,7 @@ class WeekCalendar(HTMLCalendar):
             cal += self.formatday(current_date, scheduled_recipes)
             current_date += timedelta(days=1)
         cal += f'</tr>'
+        cal += f'</table>'
         return cal
 
 
@@ -99,6 +101,7 @@ class DayCalendar(HTMLCalendar):
         for scheduled_recipe in scheduled_recipes:
             cal += f'<li>{ scheduled_recipe.get_html_url } { scheduled_recipe.get_delete_url }</li>'
         cal += f'</ul></td></tr>'
+        cal += f'</table>'
         return cal
 
 

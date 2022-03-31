@@ -12,41 +12,80 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.calendar {
-    width: 98%;
+table.calendar {
+    table-layout: fixed;
+    width: 95%;
     margin: auto;
     font-size: 13px;
 }
-  
-.calendar tr, .calendar td {
+
+/* grid */
+table.calendar tr, table.calendar td {
     border: 1px solid black;
 }
-  
+
+/* table header cells */
 .calendar th {
     padding: 10px;
     text-align: center;
     font-size: 18px;
 }
-  
+
+/* table cells */
 .calendar td {
-    width: 200px;
     height: 150px;
-    padding: 20px 0px 0px 5px;
+    padding: 5px 0px 0px 5px;
+    vertical-align: top;
 }
-  
-.month {
+
+.calendar td ul {
+    list-style: inside;
+    padding-inline-start: 5px;
+}
+
+.calendar td ul li {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* recipe links */
+.calendar li a:link, .calendar li a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+/* recipe links hovered */
+.calendar li a:hover, .calendar li a:active {
+    text-decoration: underline;
+}
+
+
+
+/* 
+
+
+
+/* td div {
+    height: 150px;
+    overflow: hidden;
+} */
+
+
+
+
+/* .month {
     font-size: 25px;
-}
+} */
   
 .date {
     font-size: 16px;
-    margin-top: 10px;
 }
   
-ul {
+/* ul {
     height: 100%;
     padding: 0px 5px 0px 20px;
-}
+} */
   
 .clearfix {
     margin: 15px;
