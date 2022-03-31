@@ -6,7 +6,7 @@
 <h1>Make a post below</h1>
 
 <h2 class ="subtitle">Add a new post</h2>
-<form method = "post" action = ".">
+<form method = "post" action = "." enctype='multipart/form-data'>
   {% csrf_token %}
 
   {{ form.as_p }}
