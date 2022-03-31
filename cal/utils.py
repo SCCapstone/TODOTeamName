@@ -1,7 +1,12 @@
 from calendar import HTMLCalendar, month_name
-from .models import ScheduledRecipe
+from datetime import date, datetime, timedelta
 from django.urls import reverse
-import datetime
+from reportlab.lib import colors
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
+
+from .models import ScheduledRecipe
 
 
 class Calendar(HTMLCalendar):
@@ -37,6 +42,7 @@ class Calendar(HTMLCalendar):
         cal += f'{ self.formatweekheader() }\n'
         for week in self.monthdays2calendar(self.year, self.month):
             cal += f'{ self.formatweek(week, scheduled_recipes, active_user) }\n'
+        cal += f'</table>'
         return cal
 
     def setUser(self, user):
@@ -67,13 +73,14 @@ class WeekCalendar(HTMLCalendar):
         cal += f'<tr><th colspan="7">{ self.year } Week { self.week }</th></tr>'
         cal += f'{ self.formatweekheader() }\n'
         cal += f'<tr>'
-        start_date = datetime.date.fromisocalendar(self.year, self.week-1, 7)
-        end_date = start_date + datetime.timedelta(days=6.9)
+        start_date = date.fromisocalendar(self.year, self.week-1, 7)
+        end_date = start_date + timedelta(days=6.9)
         current_date = start_date
         while current_date <= end_date:
             cal += self.formatday(current_date, scheduled_recipes)
-            current_date += datetime.timedelta(days=1)
+            current_date += timedelta(days=1)
         cal += f'</tr>'
+        cal += f'</table>'
         return cal
 
 
@@ -94,4 +101,59 @@ class DayCalendar(HTMLCalendar):
         for scheduled_recipe in scheduled_recipes:
             cal += f'<li>{ scheduled_recipe.get_html_url } { scheduled_recipe.get_delete_url }</li>'
         cal += f'</ul></td></tr>'
+        cal += f'</table>'
         return cal
+
+
+class PdfPrint():
+    def __init__(self, active_user, buffer):
+        self.buffer = buffer
+        self.pageSize = A4
+        self.width, self.height = self.pageSize
+        self.active_user = active_user
+
+    def report(self, theweek):
+        doc = SimpleDocTemplate(
+            self.buffer,
+            rightMargin=72,
+            leftMargin=72,
+            topMargin=72,
+            bottomMargin=72,
+            pagesize=self.pageSize
+        )
+        styles = getSampleStyleSheet()
+        t = Table(make_week_table(theweek, self.active_user))
+        t.setStyle(TableStyle([
+            ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
+            ('BOX', (0, 0), (-1, -1), 0.5, colors.black),
+            ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+        ]))
+        elements = []
+        elements.append(Paragraph('Meal Plan ' + theweek, styles['Title']))
+        elements.append(t)
+        doc.build(elements)
+        pdf = self.buffer.getvalue()
+        self.buffer.close()
+        return pdf
+
+
+def make_week_table(theweek, active_user):
+    d = datetime.strptime(theweek + '-1', "%Y-%W-%w")
+    year = d.year
+    week = d.isocalendar()[1]
+    scheduled_recipes = list(filter(lambda x: (x.user == active_user) and (x.scheduled_date.year == year) and (
+        x.scheduled_date.isocalendar()[1] == week), ScheduledRecipe.objects.all()))
+    start_date = date.fromisocalendar(year, week-1, 7)
+    end_date = start_date + timedelta(days=6.9)
+    current_date = start_date
+    recipes = []
+    while current_date <= end_date:
+        string = ''
+        food_by_day = list(
+            filter(lambda x: (x.scheduled_date.day == current_date.day), scheduled_recipes))
+        for scheduled_recipe in food_by_day:
+            string += str(scheduled_recipe.recipe) + '\n'
+        recipes.append(string)
+        current_date += timedelta(days=1)
+    weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
+    return [weekdays, recipes]
