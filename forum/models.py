@@ -6,7 +6,7 @@ class Post(models.Model):
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     intro = models.TextField()
-    image = models.ImageField('Image (Optional)', blank=True)
+    image = models.ImageField('Image (Optional)', upload_to='media/', blank=True)
     body = models.TextField()
     date_added = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

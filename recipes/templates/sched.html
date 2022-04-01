@@ -7,11 +7,11 @@
 {% block content %}
 
 <html>
-    <h1>Input the date you would like to chedule this meal!</h1>
+    <h1>Input the date you would like to schedule this meal!</h1>
     <a href="recipeMain">cancel</a>
     <form method="POST">
         {%csrf_token%}
-        <input type="date" name="date">     {{message}}
+        <input type="date" name="date">
         <br><button type="submit"> submit </button><br><br><br>
     </form>
 

@@ -17,4 +17,4 @@ class ScheduledRecipe(models.Model):
     @property 
     def get_delete_url(self):
         url = reverse('cal:scheduled_recipe_delete', args=(self.id,))
-        return f'<a class="btn btn-danger" href="{ url }">x</a>'
+        return f'<a href="{ url }"><button type="button" class="btn-close" aria-label="Close"></button></a>'
