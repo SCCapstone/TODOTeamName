@@ -36,6 +36,8 @@ INSTALLED_APPS = [
     'todo_team_name.apps.TodoTeamNameConfig',
     'meal_planner_main.apps.MealPlannerMainConfig',
     'account.apps.AccountConfig',
+    'dal',
+    'dal_select2',
     'cal.apps.CalConfig',
     'forum.apps.ForumConfig',
     'grocery.apps.GroceryConfig',
