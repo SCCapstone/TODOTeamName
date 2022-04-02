@@ -1,5 +1,12 @@
 <!DOCTYPE html>
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Recipes{% endblock title %}
+
+{% block content %}
 <body>
+    <a href="recipeMain">cancel</a>
+
     <form method = "POST">
         {%csrf_token%}
         <label for="title">recipe title:</label><br>
@@ -16,6 +23,5 @@
         <br>
         <input type="submit" value="Submit">
     </form>
-    
-    <a href="recipeMain">cancel</a>
 </body>
+{%endblock content%}

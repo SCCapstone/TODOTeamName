@@ -1,8 +1,10 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import *
 import requests
 import json
+from cal.models import ScheduledRecipe
 
 url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search"
 url2 = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk"
@@ -18,16 +20,22 @@ global recipe
 @login_required
 def recipes(request):
     recipes = Recipe.objects.filter(user=request.user)
+    global recipe
     if request.method == 'POST':
         if request.POST.get('edit')!=None:
-            global recipe
+            #global recipe
             i = int(request.POST.get("edit"))
             recipe = {'recipe':recipes[i-1]}
             return redirect("/recipes/editRecipe")
         if request.POST.get('delete')!=None:
             i=int(request.POST.get('delete'))
             recipes[i-1].delete()
-    return render(request, 'recipesMain.html', {'recipes': recipes})
+        if request.POST.get('sched')!=None:
+           # global recipe
+            i = int(request.POST.get("sched"))
+            recipe = {'recipe':recipes[i-1]}
+            return redirect("/recipes/scheduleRecipe")
+    return render(request, 'recipesMain.html', {'recipe_page': 'active', 'recipes': recipes})
 
 @login_required
 def make(request):
@@ -42,7 +50,7 @@ def make(request):
     else: 
         form = AddRecipeForm()
         recipes = Recipe.objects.filter(user=request.user)
-        return render(request, 'recipesAdd.html', {'recipes': recipes, 'form': form})
+        return render(request, 'recipesAdd.html', {'recipe_page': 'active', 'recipes': recipes, 'form': form})
 
 @login_required
 def rsearch(request):
@@ -66,10 +74,11 @@ def rsearch(request):
             recipe = saverecipeapi(context['list'][i])
             srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], estimated_time=int(recipe['maketime']), user=request.user)
             srecipe.save()
+        context['recipe_page'] = 'active'
         return render(request, "apisearch.html",  context)
 
     else:
-        return render(request, "apisearch.html")
+        return render(request, "apisearch.html", {'recipe_page': 'active'})
 
 @login_required
 def rcreate(request):
@@ -84,8 +93,9 @@ def rcreate(request):
         srecipe.save()
         return redirect("/recipes/recipeMain")
     else:
-        return render(request, 'recipecreation.html')
+        return render(request, 'recipecreation.html', {'recipe_page': 'active'})
 
+# doesnt work:
 @login_required
 def rview(request):
     return render (request, 'recipeview.html', user.recipes)
@@ -107,7 +117,20 @@ def redit(request):
         recipe['recipe'].delete()
         return redirect('/recipes/recipeMain')
     else:
-        return render(request, 'redit.html', recipe)
+        return render(request, 'redit.html', {'recipe_page': 'active', 'recipe':recipe['recipe']})
+
+@login_required
+def sched(request):
+    global recipe
+    temp=recipe['recipe']#{'recipe_name':recipe['recipe']['recipe_name'],'recipe_ingredients':recipe['recipe'].recipe_ingredients, 'recipe_directions':recipe['recipe'].recipe_directions, 'estimated_time':recipe['recipe'].estimated_time, 'date_added':recipe['recipe'].date_added, 'user':recipe['recipe'].user}
+    #recipe['recipe'].delete()
+    if(request.method=="POST"):
+        schedrec=ScheduledRecipe.objects.create(scheduled_date=request.POST.get("date"), user=request.user, recipe=temp)
+        schedrec.save()
+        messages.success(request, "success! your recipe was scheduled for "+str(request.POST.get("date"))+"!")
+        return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
+    else:
+        return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
 
 
 def saverecipeapi(recipe):
@@ -115,10 +138,10 @@ def saverecipeapi(recipe):
     maketime = recipe['readyInMinutes']#str(recipe['readyInMinutes'])+" minutes"
     ingredients = ""
     for i in recipe['extendedIngredients']:
-        ingredients = ingredients+" "+i['original']
+        ingredients = ingredients+" "+i['original']+"\n"
     steps = ""
     for s in recipe['analyzedInstructions'][0]['steps']:
-        steps = steps+" "+str(s['number'])+": "+s['step']
+        steps = steps+" "+str(s['number'])+": "+s['step']+"\n"
     creator = recipe['sourceUrl']
     ret = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":creator}
     return ret

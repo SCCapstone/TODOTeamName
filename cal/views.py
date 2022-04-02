@@ -1,10 +1,11 @@
-from datetime import date, datetime, timedelta
+from datetime import date, timedelta
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.safestring import mark_safe
 from django.views import generic
 from django.urls import reverse
 from django.contrib.auth.decorators import login_required
+from io import BytesIO
 from recipes.models import Recipe
 import calendar
 
@@ -27,6 +28,7 @@ class CalendarView(generic.ListView):
         context['next_month'] = next_month(d)
         context['the_day'] = the_day(d)
         context['the_week'] = the_week(d)
+        context['cal_page'] = 'active'
         return context
 
 class WeekView(generic.ListView):
@@ -43,6 +45,8 @@ class WeekView(generic.ListView):
         context['next_week'] = next_week(d)
         context['the_day'] = the_day(d)
         context['the_month'] = the_month(d)
+        context['the_week'] = the_week(d)
+        context['cal_page'] = 'active'
         return context
 
 class DayView(generic.ListView):
@@ -59,6 +63,7 @@ class DayView(generic.ListView):
         context['next_day'] = next_day(d)
         context['the_week'] = the_week(d)
         context['the_month'] = the_month(d)
+        context['cal_page'] = 'active'
         return context 
 
 class DeleteView(generic.DeleteView):
@@ -66,6 +71,23 @@ class DeleteView(generic.DeleteView):
     template_name = 'cal/delete_view.html'
     success_url = '/cal/'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cal_page'] = 'active'
+        return context 
+
+def cal_pdf_view(request):
+    response = HttpResponse(content_type='application/pdf')
+    d = date.today().strftime('%Y-%m-%d')
+    filename = 'Meal_Plan_' + d.__str__()  # TODO fix
+    response['Content-Disposition'] = f'inline; filename="{filename}.pdf"'
+    buffer = BytesIO()
+    report = PdfPrint(request.user, buffer)
+    path = request.get_full_path()
+    week = path.split('week=', 1)[1]
+    pdf = report.report(week)
+    response.write(pdf)
+    return response
 
 def get_date(req_month):
     if req_month:
@@ -139,4 +161,4 @@ def scheduled_recipe(request, scheduled_recipe_id=None):
         form.save()
         return HttpResponseRedirect(reverse('cal:calMain'))
 
-    return render(request, 'cal/scheduled_recipe.html', {'form': form})
+    return render(request, 'cal/scheduled_recipe.html', {'cal_page': 'active', 'form': form})

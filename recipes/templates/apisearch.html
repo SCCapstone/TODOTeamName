@@ -13,6 +13,7 @@
       <button type = "submit" name="send" value = "submit"> submit </button>
     {%for i in list%}
     <h2>{{i.title}}</h2> 
+    <img src={{i.image}} style="width:128px;height:128px;">
     <a href={{i.sourceUrl}} target="_blank"> go to site! </a> &nbsp &nbsp &nbsp <button type="submit" name="save" value={{forloop.counter}}>save</button>
     <details>
       <summary>more information</summary>

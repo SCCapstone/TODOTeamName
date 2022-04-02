@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'todo_team_name'
 urlpatterns = [
@@ -26,4 +28,4 @@ urlpatterns = [
     path('grocery/', include('grocery.urls')),
     path('pantry/', include('pantry.urls')),
     path('recipes/', include('recipes.urls')),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

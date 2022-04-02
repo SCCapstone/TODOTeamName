@@ -5,19 +5,22 @@
 {% block contents %}
 
 <h1>This is the Recipes Page!</h1>
-<p>My Recipes</p>
+<h2>My Recipes</h2>
  <body>
      <form method = POST>
         {%csrf_token%}
      {%for r in recipes%}
-     {{r}} &nbsp; &nbsp; &nbsp; <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
+     {{r}} <button type="submit" name="sched" value={{forloop.counter}}>schedule</button> &nbsp; &nbsp; &nbsp; <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
      ready in {{r.estimated_time}} minutes
      <details>
          <summary>more information:</summary>
-         ingredients:<br>
-         {{r.recipe_ingredients}}<br>
-         directions:<br>
-         {{r.recipe_directions}}<br>
+         <div style = "white-space: pre-line;">
+         ingredients:
+         {{r.recipe_ingredients}}
+         
+         directions:
+         {{r.recipe_directions}}
+        </div>
      </details><br><br>
      {%endfor%}
     </form>
