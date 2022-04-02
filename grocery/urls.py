@@ -9,6 +9,8 @@ urlpatterns = [
     path('groceryMain', views.groceryListMain, name='groceryMain'),
     path('addGroceryItem/', views.groceryListView, name = 'gadd'),
     path('deleteGroceryItem/', views.remove, name="deleteGI"),
+    path('editGroceryItem/', views.edit, name="editGI"),
+
     #path('viewGroceryItem', views.)
     path('', views.groceryListMain, name='groceryMain'),
     url(
@@ -16,6 +18,4 @@ urlpatterns = [
         IngredientAutocomplete.as_view(),
         name='ingredient-autocomplete',
     ),
-    # path('addGroceryItem/', views.groceryListView, name = 'gadd'),
-    # path('deleteGroceryItem/', views.remove, name="deleteGI"),
 ]

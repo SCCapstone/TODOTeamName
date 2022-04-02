@@ -5,7 +5,6 @@ from django.shortcuts import render, redirect
 from .models import *
 from .forms import *
 
-# TODO - make option to remove  items
 
 @login_required
 def groceryListMain(request):
@@ -19,6 +18,18 @@ def groceryListMain(request):
         form = GroceryAddItemForm()
     all_grocery_items = groceryItems.objects.filter(user=request.user)
     return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items, 'form': form})
+
+@login_required
+def groceryListMain(request):
+    all_grocery_items = groceryItems.objects.filter(user=request.user)
+    if request.method == 'POST':
+        if request.POST.get('edit')!=None:
+            i = int(request.POST.get("edit"))
+            return redirect("/grocery/editGroceryItem")
+        if request.POST.get('delete')!=None:
+            i=int(request.POST.get('delete'))
+            all_grocery_items[i-1].delete()
+    return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items})
 
 # def remove(request,item_id):
 #     item = GroceryList.objects.get(id = item_id)

@@ -9,6 +9,7 @@
 <p> Here you can see the items in your pantry!</p>
 <ul>
     {% for i in all_pantry_items %}
+    {{r}} <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
     <li> {{ i }}</li>
     {% endfor %}
 </ul>
