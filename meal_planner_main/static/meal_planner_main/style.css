@@ -12,55 +12,154 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.calendar {
-    width: 98%;
-    margin: auto;
+/* .btn-info {
+    background-color: #C1E05A;
+    border-color: #C1E05A;
+}
+
+.btn-info:hover {
+    background-color: #D3F369;
+    border-color: #D3F369;
+} */
+h1 {
+ width:50%;
+}
+table.calendar {
+    table-layout: fixed;
+    width: 96%;
+    margin: auto 2% 2% auto;
     font-size: 13px;
 }
-  
-.calendar tr, .calendar td {
+
+/* grid */
+table.calendar tr,
+table.calendar td {
     border: 1px solid black;
 }
-  
+
+/* table header cells */
 .calendar th {
     padding: 10px;
     text-align: center;
     font-size: 18px;
 }
-  
+
+/* table cells */
 .calendar td {
-    width: 200px;
     height: 150px;
-    padding: 20px 0px 0px 5px;
+    padding: 5px;
+    vertical-align: top;
 }
-  
-.month {
-    font-size: 25px;
+
+/* table cell list */
+.calendar td ul {
+    list-style: inside;
+    padding-inline-start: 5px;
+    margin-bottom: 5px;
 }
-  
+
+/* recipe links in month calendar */
+.calendar li span.recipe_url {
+    max-width: calc(100% - 40px);
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    vertical-align: middle;
+}
+
+/* recipe links */
+.calendar li a:link,
+.calendar li a:visited {
+    text-decoration: none;
+    color: black;
+}
+
+/* recipe links hovered */
+.calendar li a:hover,
+.calendar li a:active {
+    text-decoration: underline;
+}
+
 .date {
     font-size: 16px;
-    margin-top: 10px;
 }
-  
-ul {
-    height: 100%;
-    padding: 0px 5px 0px 20px;
-}
-  
+
 .clearfix {
-    margin: 15px;
+    margin: 10px 2%;
 }
 
 .form {
     margin: auto;
 }
-  
-.form input, .form select, .form textarea {
+
+.form input,
+.form select,
+.form textarea {
     border-radius: 5px;
     border: 1px solid #17a2b8;
     outline: none;
     background: none;
     padding: 5px;
     width: 100%;
+}
+
+.post-block{
+  position: relative;
+  padding: 20px;
+  margin-top: 30px;
+  margin-left: 30px;
+  border-bottom: 1px solid gray;
+
+
+}
+
+.post-block:hover{
+    background: #EEFFBF;
+}
+
+.img-thumbnail{
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.read-more{
+    position: absolute;
+    padding: 10px;
+    bottom: 0;
+}
+
+.intro{
+    padding: 20px;
+}
+
+.gallery{
+    height 200px;
+    width: 200px;
+    float: left;
+}
+
+.all-content{
+    display:flex;
+}
+
+.all-posts{
+    margin: 10px;
+    width: 50%;
+    float: left;
+}
+
+.all-images{
+    margin: 10px;
+    width: 50%;
+    float: right;
+}
+
+.gallery-post{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }

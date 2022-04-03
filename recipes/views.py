@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import *
 import requests
@@ -118,8 +119,8 @@ def sched(request):
     if(request.method=="POST"):
         schedrec=ScheduledRecipe.objects.create(scheduled_date=request.POST.get("date"), user=request.user, recipe=temp)
         schedrec.save()
-        message = "success! your recipe was scheduled for "+str(request.POST.get("date"))+"!"
-        return render(request, 'sched.html', {'recipe_page': 'active','rec':temp, 'message':message})
+        messages.success(request, "success! your recipe was scheduled for "+str(request.POST.get("date"))+"!")
+        return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
     else:
         return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
 

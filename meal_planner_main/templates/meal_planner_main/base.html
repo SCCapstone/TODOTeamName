@@ -62,9 +62,19 @@
                 {% endif %}
             </ul>
         </nav>
+        {% for message in messages %}
+        <div class="container-fluid p-0">
+            <div class="alert {{ message.tags }} p-1" role="alert">
+                {{ message }}
+            </div>
+        </div>
+        {% endfor %}
       </header>
       <div>
           {% block content %}{% endblock content %} 
+      </div>
+      <div>
+	  {% block footer %}{% endblock footer %}
       </div>
 </body>
 </html>

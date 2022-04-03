@@ -1,29 +1,59 @@
 {% extends "meal_planner_main/base.html" %}
-
-{% block title %}Groceries{% endblock title %}
+{# Don't forget that one ! #}
+{% load static %}
 
 {% block content %}
-<!-- TODO: Isaac - Create database for grocery items |
-           Matthew - Add html page to views/urls/models and ensure it can pull from database
-           Garrison - Fix items not showing after entry-->
-
 <h1>Grocery List</h1>
 <p>Welcome to the grocery list! Click to add items</p>
-<ul>
-    {% for i in all_grocery_items %}
-    <li>{{ i }}</li>
-    {% endfor %}
-</ul>
-<form method = 'POST'>
-    {% csrf_token %}
-    {{ form }}
-    <input type = "submit" value = "Add a Grocery Item">
-</form>
+<div>
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
 
-<!-- <form action="/addGroceryItem/" method = "post">{% csrf_token %}
-    <input type="text" name="content">
-    <input type="submit" value="Add Grocery Item">
+        <table style="display: none">
+            {{ view.formset.empty_form }}
+        </table>
 
-</form> -->
+        <table>
+            {{ view.formset }}
+        </table>
 
-{% endblock content %}
+        <span id="add-form" class="button">Add form</span>
+
+        <input type="submit" />
+    </form>
+</div>
+<u1>
+	{% for i in all_grocery_items %}
+	{{r}} <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
+	<li>{{ i }}</li>
+	{% endfor %}
+</u1>
+{% endblock %}
+
+{% block footer %}
+<script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
+
+{{ form.media }}
+
+<script>
+(function($) {
+    $('#add-form').click(function() {
+        var index = $('#id_inline_test_models-TOTAL_FORMS').val()
+        var newTable = $('#id_inline_test_models-__prefix__-DELETE').parents('table').clone()
+        newTable.find(':input').each(function() {
+            for (attr of ['name', 'id'])
+                $(this).attr(
+                    attr,
+                    $(this).attr(attr).replace('__prefix__', index)
+                )
+        })
+        newTable.insertBefore($(this))
+        $('#id_inline_test_models-TOTAL_FORMS').val(
+            parseInt($('#id_inline_test_models-TOTAL_FORMS').val()) + 1
+        )
+        newTable.slideDown()
+    })
+})($)
+</script>
+{% endblock %}
