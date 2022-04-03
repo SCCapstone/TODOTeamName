@@ -1,10 +1,12 @@
 {% extends "meal_planner_main/base.html" %}
-{# Don't forget that one ! #}
 {% load static %}
 
+{% block title %}Pantry{% endblock title %}
+
 {% block content %}
-<h1>Grocery List</h1>
-<p>Welcome to the grocery list! Click to add items</p>
+
+<h1>Welcome to your pantry</h1>
+<p> Edit your pantry item!</p>
 <div>
     <form action="" method="post">
         {% csrf_token %}
@@ -20,20 +22,18 @@
 
         <span id="add-form" class="button">Add form</span>
 
-        <input class="btn btn-primary" type="submit" />
-
+        <input type="submit" />
     </form>
-	<form action="editdelete" method="post">
-		{% csrf_token %}
-		<u1>
-			{% for i in all_grocery_items %}
-			<li>{{ i }}</li>
-			{{r}} <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button>&nbsp; &nbsp; &nbsp;<button type="submit" name="sendtopantry" value={{forloop.counter}}>Send to pantry</button><br>
-			{% endfor %}
-		</u1>
-	</form>
+
 </div>
-{% endblock %}
+<!-- <form method = "POST"> 
+    {% csrf_token %}
+    <input type = "text" name = "name" value = "Item Name">
+    <input type = "date" name = "expiration" value = "Item Expiration">
+    <input type = "submit" value = "Add a Pantry Item">
+</form> -->
+
+{% endblock content %}
 
 {% block footer %}
 <script type="text/javascript" src="{% static 'admin/js/vendor/jquery/jquery.js' %}"></script>
