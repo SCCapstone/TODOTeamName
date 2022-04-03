@@ -64,7 +64,7 @@ def valid_post(request):
 
 def valid_image_post(request):
     if request.method == 'POST':
-        form = ImagePostForm(request.POST)
+        form = ImagePostForm(request.POST, request.FILES)
 
         if form.is_valid():
             form.instance.user = request.user
