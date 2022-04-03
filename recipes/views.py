@@ -40,7 +40,7 @@ def rsearch(request):
     message=""
     if request.method == "POST": 
         ingredients = request.POST.get("search")
-        querystring = {"query":ingredients,"offset":"0","number":"3"}
+        querystring = {"query":ingredients,"offset":"0","number":"5"}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
         id=""
         nutinfo=[]
