@@ -20,15 +20,20 @@
 
         <span id="add-form" class="button">Add form</span>
 
-        <input type="submit" />
+        <input class="btn btn-primary" type="submit" />
 
     </form>
 	<form action="editdelete" method="post">
 		{% csrf_token %}
 		<u1>
 			{% for i in all_grocery_items %}
-			{{r}} <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button>&nbsp; &nbsp; &nbsp;<button type="submit" name="sendtopantry" value={{forloop.counter}}>Send to pantry</button><br>
-			<li>{{ i }}</li>
+            <br>
+			<li>
+                {{ i }}
+                <button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
+                <button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}}>Delete</button>&nbsp;
+                <button class="btn btn-secondary" type="submit" name="sendtopantry" value={{forloop.counter}}>Send to pantry</button>
+            </li>
 			{% endfor %}
 		</u1>
 	</form>

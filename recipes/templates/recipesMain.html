@@ -1,29 +1,33 @@
-{% extends "rbase.html" %}
+{% extends "meal_planner_main/base.html" %}
 
-{% block page %}<h1>Recipes</h1>>{% endblock page %}
+{% block title %}Recipes{% endblock title %}
 
-{% block contents %}
+{% block content %}
 
 <h1>This is the Recipes Page!</h1>
-<h2>My Recipes</h2>
- <body>
-     <form method = POST>
-        {%csrf_token%}
-     {%for r in recipes%}
-     {{r}} <button type="submit" name="sched" value={{forloop.counter}}>schedule</button> &nbsp; &nbsp; &nbsp; <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
-     ready in {{r.estimated_time}} minutes
-     <details>
-         <summary>more information:</summary>
-         <div style = "white-space: pre-line;">
-         ingredients:
-         {{r.recipe_ingredients}}
-         
-         directions:
-         {{r.recipe_directions}}
-        </div>
-     </details><br><br>
-     {%endfor%}
-    </form>
- </body>
-
-{% endblock contents %}
+<div>
+   <a class='btn btn-info' href="search">Search recipes</a>
+   <a class='btn btn-info' href="createRecipe">Create a recipe</a>
+   <br><br>
+</div>
+<div>
+	<h2>My Recipes</h2>
+	<form method = POST>
+		{% csrf_token %}
+		{% for r in recipes %}
+		{{ r }}
+		<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>&nbsp;
+		<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
+		<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}}>Delete</button><br>
+		Ready in {{ r.estimated_time }} minutes
+		<details>
+			<summary>More information:</summary>
+			<div style="white-space: pre-line;">
+				<p style="font-weight:bold">Ingredients:</p>{{ r.recipe_ingredients }}
+				<p style="font-weight:bold">Directions:</p>{{ r.recipe_directions }}
+			</div>
+		</details><br><br>
+		{% endfor %}
+	</form>
+</div>
+{% endblock content %}
