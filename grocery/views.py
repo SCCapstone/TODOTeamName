@@ -31,6 +31,19 @@ def groceryListMain(request):
             all_grocery_items[i-1].delete()
     return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items})
 
+class IngredientAutocomplete(autocomplete.Select2QuerySetView):
+    def get_queryset(self):
+        # Don't forget to filter out results depending on the visitor ! 
+        if not self.request.user.is_authenticated:
+            return foodIngredient.objects.none()
+
+        qs = foodIngredient.objects.all()
+    
+        if self.q:
+            qs = qs.filter(name__icontains=self.q)
+
+        return qs
+
 # def remove(request,item_id):
 #     item = GroceryList.objects.get(id = item_id)
 #     item.delete()
