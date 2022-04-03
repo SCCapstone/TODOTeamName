@@ -20,17 +20,19 @@
             {{ view.formset }}
         </table>
 
-        <span id="add-form" class="button">Add form</span>
-
-        <input type="submit" />
+        <input id="add-form" class="btn btn-primary" type="submit" value="Add item" />
     </form>
 	<form action = "pantryeditdelete" method="post">
 		{% csrf_token %}
 		<ul>
-    			{% for i in all_pantry_items %}
-    			<li> {{ i }}</li>
-			{{r}} <button type="submit" name="edit" value={{forloop.counter}}>edit</button>  &nbsp; &nbsp; &nbsp; <button type="submit" name="delete" value={{forloop.counter}}>delete</button><br>
-    			{% endfor %}
+    		{% for i in all_pantry_items %}
+            <br>
+			<li>
+                {{ i }}
+                <button class="btn btn-secondary" type="submit" name="edit" value="{{ forloop.counter }}">Edit</button>&nbsp;
+                <button class="btn btn-secondary" type="submit" name="delete" value="{{ forloop.counter }}">Delete</button>
+            </li>
+            {% endfor %}
 		</ul>
 	</form>
 
