@@ -1,10 +1,11 @@
-from calendar import HTMLCalendar, month_name
+from calendar import HTMLCalendar, day_abbr, month_name
 from datetime import date, datetime, timedelta
 from django.urls import reverse
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
+import textwrap 
 
 from .models import ScheduledRecipe
 
@@ -122,14 +123,16 @@ class PdfPrint():
             pagesize=self.pageSize
         )
         styles = getSampleStyleSheet()
-        t = Table(make_week_table(theweek, self.active_user))
+        day = datetime.strptime(theweek + '-1', "%Y-%W-%w")
+        t = Table(make_week_table(day, self.active_user), colWidths=[80, 360], vAlign='MIDDLE', minRowHeights=[50]*7, spaceBefore=10)
         t.setStyle(TableStyle([
             ('INNERGRID', (0, 0), (-1, -1), 0.25, colors.black),
             ('BOX', (0, 0), (-1, -1), 0.5, colors.black),
-            ('VALIGN', (0, 0), (-1, 0), 'MIDDLE'),
+            ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+            ('FONTSIZE', (0, 0), (0, -1), 12)
         ]))
         elements = []
-        elements.append(Paragraph('Meal Plan ' + theweek, styles['Title']))
+        elements.append(Paragraph('My Meal Plan, Week of ' + day.strftime('%m-%d-%Y'), styles['Title']))
         elements.append(t)
         doc.build(elements)
         pdf = self.buffer.getvalue()
@@ -137,8 +140,7 @@ class PdfPrint():
         return pdf
 
 
-def make_week_table(theweek, active_user):
-    d = datetime.strptime(theweek + '-1', "%Y-%W-%w")
+def make_week_table(d, active_user):
     year = d.year
     week = d.isocalendar()[1]
     scheduled_recipes = list(filter(lambda x: (x.user == active_user) and (x.scheduled_date.year == year) and (
@@ -152,8 +154,13 @@ def make_week_table(theweek, active_user):
         food_by_day = list(
             filter(lambda x: (x.scheduled_date.day == current_date.day), scheduled_recipes))
         for scheduled_recipe in food_by_day:
-            string += str(scheduled_recipe.recipe) + '\n'
+            string += '\u2022 '
+            string += textwrap.fill(str(scheduled_recipe.recipe), width=70) + '\n'
+            # string += str(scheduled_recipe.recipe) + '\n'
+        string = string.rstrip()
         recipes.append(string)
         current_date += timedelta(days=1)
     weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
-    return [weekdays, recipes]
+    dates_list = ['\n' + (d + timedelta(days=x)).strftime('%m/%d') for x in range(7)]
+    weekdays_dates_list = [w + d for w, d in zip(weekdays, dates_list)]
+    return [list(i) for i in zip(*[weekdays_dates_list, recipes])]
