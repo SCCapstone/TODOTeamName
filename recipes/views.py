@@ -23,7 +23,6 @@ def recipes(request):
     global recipe
     if request.method == 'POST':
         if request.POST.get('edit')!=None:
-            #global recipe
             i = int(request.POST.get("edit"))
             recipe = {'recipe':recipes[i-1]}
             return redirect("/recipes/editRecipe")
@@ -31,7 +30,6 @@ def recipes(request):
             i=int(request.POST.get('delete'))
             recipes[i-1].delete()
         if request.POST.get('sched')!=None:
-           # global recipe
             i = int(request.POST.get("sched"))
             recipe = {'recipe':recipes[i-1]}
             return redirect("/recipes/scheduleRecipe")
@@ -87,11 +85,6 @@ def rcreate(request):
     else:
         return render(request, 'recipecreation.html', {'recipe_page': 'active'})
 
-# doesnt work:
-@login_required
-def rview(request):
-    return render (request, 'recipeview.html', user.recipes)
-
 @login_required
 def redit(request):
     global recipe
@@ -100,10 +93,6 @@ def redit(request):
         maketime = request.POST.get("maketime")
         ingredients = request.POST.get("ingredients")
         steps = request.POST.get("steps")
-       # if recipe['creator']!=request.user.username:
-        #   creator = recipe['creator']+"\n edited by "+request.user.username 
-        #else:
-         #   creator = recipe['creator']
         srecipe=Recipe.objects.create(recipe_name=title, recipe_ingredients=ingredients, recipe_directions=steps, estimated_time=int(maketime), user=request.user)
         srecipe.save()
         recipe['recipe'].delete()
@@ -114,8 +103,7 @@ def redit(request):
 @login_required
 def sched(request):
     global recipe
-    temp=recipe['recipe']#{'recipe_name':recipe['recipe']['recipe_name'],'recipe_ingredients':recipe['recipe'].recipe_ingredients, 'recipe_directions':recipe['recipe'].recipe_directions, 'estimated_time':recipe['recipe'].estimated_time, 'date_added':recipe['recipe'].date_added, 'user':recipe['recipe'].user}
-    #recipe['recipe'].delete()
+    temp=recipe['recipe']
     if(request.method=="POST"):
         schedrec=ScheduledRecipe.objects.create(scheduled_date=request.POST.get("date"), user=request.user, recipe=temp)
         schedrec.save()
