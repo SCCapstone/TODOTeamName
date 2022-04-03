@@ -6,9 +6,9 @@
 <form method = 'POST'>
 	{%csrf_token %}
 	{% if following %}
-	<input type = "submit" value = "Unfollow">
+	<input class="btn btn-secondary" type = "submit" value = "Unfollow">
 	{% else %}
-	<input type = "submit" value = "Follow">
+	<input class="btn btn-secondary" type = "submit" value = "Follow">
 	{% endif %}
 </form>
 {% endif %}
