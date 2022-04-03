@@ -12,6 +12,10 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+#content {
+    padding: 10px;
+}
+
 /* .btn-info {
     background-color: #C1E05A;
     border-color: #C1E05A;
@@ -26,7 +30,7 @@ h1 {
 }
 table.calendar {
     table-layout: fixed;
-    width: 96%;
+    width: 100%;
     margin: auto 2% 2% auto;
     font-size: 13px;
 }
@@ -136,7 +140,7 @@ table.calendar td {
 }
 
 .gallery{
-    height 200px;
+    height: 200px;
     width: 200px;
     float: left;
 }
