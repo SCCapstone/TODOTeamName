@@ -11,6 +11,7 @@ urlpatterns = [
     # path('deleteGroceryItem/', views.remove, name="deleteGI"),
     #path('editGroceryItem/', views.edit, name="editGI"),
 
+
     #path('viewGroceryItem', views.)
     path('', views.groceryListMain, name='groceryMain'),
     path('editdelete', views.editdelete, name='groceryEditDelete'),
