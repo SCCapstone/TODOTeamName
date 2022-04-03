@@ -21,6 +21,12 @@ def pantry(request):
 def pantry(request):
     all_pantry_items = pantryItems.objects.filter(user=request.user)
     if request.method == 'POST':
+        form = PantryAddItemForm(request.POST)
+        if form.is_valid():
+            form.instance.user = request.user
+            form.save()
+            return redirect('pantry:pantryMain')
+
         if request.POST.get('edit')!=None:
             i = int(request.POST.get("edit"))
             return redirect("/pantry/editPantryItem")

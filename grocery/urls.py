@@ -6,10 +6,10 @@ from .views import IngredientAutocomplete
 
 app_name = 'grocery'
 urlpatterns = [
-    path('groceryMain', views.groceryListMain, name='groceryMain'),
+    #path('groceryMain', views.groceryListMain, name='groceryMain'),
     # path('addGroceryItem/', views.groceryListView, name = 'gadd'),
     # path('deleteGroceryItem/', views.remove, name="deleteGI"),
-    path('editGroceryItem/', views.edit, name="editGI"),
+    #path('editGroceryItem/', views.edit, name="editGI"),
 
     #path('viewGroceryItem', views.)
     path('', views.groceryListMain, name='groceryMain'),
