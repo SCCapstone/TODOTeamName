@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+{% extends "meal_planner_main/base.html" %}
+
+{% block title %}Grocery List{% endblock title %}
+
+{% block content %}
+
+<body>
+        <a href="groceryMain">cancel</a>
+
+    <form method = "POST">
+        {%csrf_token%}
+        <label for="title">grocery title:</label><br>
+        <textarea id="title" name="title" rows="1" cols="50" placeholder="delicious food" required>
+{{grocery.item_name}}
+        </textarea><br>
+
+        <label for="quantity">quantity:</label><br>
+        <textarea id="quantity" name="quantity" rows="1" cols="1" placeholder="1">
+{{grocery.quantity}}
+        </textarea><br>
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+</body>
+{%endblock content%}
