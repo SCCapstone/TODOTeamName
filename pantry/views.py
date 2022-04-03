@@ -43,7 +43,18 @@ def edit(request, id=None, template_name='pantry/edit.html'):
     
     form = PantryAddItemForm(request.POST or None, instance=pantryitem)                          
     if request.POST and form.is_valid():
-        form.save()
+
+        if form.instance.name == foodIngredient.objects.get(id=id):
+            form.save()
+        elif not pantryItems.objects.filter(user = request.user, name = form.instance.name):
+                form.instance.user = request.user
+                form.save()
+        else:
+                item = pantryItems.objects.get(user = request.user, name = form.instance.name)
+                item.quantity = item.quantity + form.instance.quantity
+                item.save()
+                pantryItems.objects.filter(user=request.user, name = foodIngredient.objects.get(id=id)).delete()
+
         # Save was successful, so redirect to another page
         redirect_url = reverse('pantry:pantryMain')               
         return redirect(redirect_url)
