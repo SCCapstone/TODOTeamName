@@ -21,7 +21,9 @@ body {
     background-color: #D3F369;
     border-color: #D3F369;
 } */
-
+h1 {
+ width:50%;
+}
 table.calendar {
     table-layout: fixed;
     width: 96%;
@@ -100,4 +102,64 @@ table.calendar td {
     background: none;
     padding: 5px;
     width: 100%;
+}
+
+.post-block{
+  position: relative;
+  padding: 20px;
+  margin-top: 30px;
+  margin-left: 30px;
+  border-bottom: 1px solid gray;
+
+
+}
+
+.post-block:hover{
+    background: #EEFFBF;
+}
+
+.img-thumbnail{
+  float: left;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.read-more{
+    position: absolute;
+    padding: 10px;
+    bottom: 0;
+}
+
+.intro{
+    padding: 20px;
+}
+
+.gallery{
+    height 200px;
+    width: 200px;
+    float: left;
+}
+
+.all-content{
+    display:flex;
+}
+
+.all-posts{
+    margin: 10px;
+    width: 50%;
+    float: left;
+}
+
+.all-images{
+    margin: 10px;
+    width: 50%;
+    float: right;
+}
+
+.gallery-post{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
 }

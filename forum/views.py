@@ -13,9 +13,9 @@ from .forms import *
 
 def frontpage(request):
     posts = Post.objects.all()
-    #imgpost = ImagePost.objects.all()
+    imgposts = ImagePost.objects.all()
     #posts = sorted( chain(post, imgpost), key=lambda instance: instance.date_added)
-    return render(request, 'forum/healthForumFrontPage.html', {'forum_page': 'active', 'posts': posts})
+    return render(request, 'forum/healthForumFrontPage.html', {'forum_page': 'active', 'posts': posts, 'imgposts':imgposts})
 
 #def profilepage(request, slug):
 #    posts = Post.objects.filter(user = User.objects.get(pk=slug))

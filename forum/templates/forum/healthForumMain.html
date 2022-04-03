@@ -1,30 +1,51 @@
 {% extends "meal_planner_main/base.html" %}
 
+{% load static %}
+
 {% block title %}Forum{% endblock title %}
 
 {% block content %}
 {% block conTitle %}
 {% endblock conTitle %}
+<div class="all-content">
+    <div class = "all-posts">
+        {% for post in posts %}
+        <div class="post-block">
+            <h3 class="subtitle">{{ post.title }}</h3>
 
-{% for post in posts %}
-<div class="post block">
-    <h3 class="subtitle">{{ post.title }}</h3>
+            <small>Posted at {{ post.date_added }} by
+            <a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a></small>
 
-    <small>Posted at {{ post.date_added }} by 
-	<a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a></small>
-    <p class ="intro">{{ post.intro }}</p>
+            {% if post.image %}
+            <div>
+                <img src = "{{ post.image.url }}"  class = "img-thumbnail"/>
+            </div>
+            {% endif %}
 
-    {% if post.image %}
-        <img src = "{{ post.image.url }}" />
-    {% endif %}
+            <p class ="intro">{{ post.intro }}</p>
 
-    <a href= "{% url 'forum:post_detail' post.slug %}">Read more</a>
+            <a href= "{% url 'forum:post_detail' post.slug %}" class="read-more">Read more</a>
+
+        </div>
+        {%empty%}
+        <p>Be the first to make a post!</p>
+        {% endfor %}
+    </div>
+    <div class = "all-images">
+        <h2 style="text-align:center;"> See what others are cooking! </h2>
+        {% for imgpost in imgposts %}
+        <div class = "gallery">
+            {% if imgpost.image %}
+                <img src = "{{ imgpost.image.url }}"  class = "gallery-post"/>
+            {% endif %}
+        </div>
+        {% endfor %}
+    </div>
 </div>
-{%empty%}
-<p>Be the first to make a post!</p>
-{% endfor %}
+
 {% if user.is_authenticated %}
- <a href="{% url 'forum:valid_post' %}">Add a new post!</a>
+ <a href="{% url 'forum:valid_post' %}"  class="btn btn-primary new-post" >Add a new post!</a>
+ <a href="{% url 'forum:valid_image_post' %}" class ="btn btn-primary new-img-post">Post an image!</a>
 {% else %}
   <p>
       <a href="{% url 'account:login' %}">Login </a>
