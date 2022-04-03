@@ -67,10 +67,21 @@ def edit(request, id=None, template_name='grocery/edit.html'):
             return HttpResponseForbidden()
     else:
         groceryitem = groceryItem(user=request.user)
-
+    
     form = GroceryItemsForm(request.POST or None, instance=groceryitem)
     if request.POST and form.is_valid():
-        form.save()
+        if form.instance.item_name == foodIngredient.objects.get(id=id):
+            form.save()
+        elif not groceryItems.objects.filter(user = request.user, item_name = form.instance.item_name):
+                form.instance.user = request.user
+                form.save()
+        else:
+                item = groceryItems.objects.get(user = request.user, item_name = form.instance.item_name)
+                item.quantity = item.quantity + form.instance.quantity
+                item.save()
+                groceryItems.objects.filter(user=request.user, item_name = foodIngredient.objects.get(id=id)).delete()
+
+
         # Save was successful, so redirect to another page
         redirect_url = reverse('grocery:groceryMain')
         return redirect(redirect_url)
