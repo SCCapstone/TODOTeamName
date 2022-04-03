@@ -1,7 +1,9 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
+from django.urls import reverse
 from dal import autocomplete
+
 
 from .models import *
 from .forms import *
@@ -11,6 +13,7 @@ from pantry.models import pantryItems
 @login_required
 def groceryListMain(request):
     all_grocery_items = groceryItems.objects.filter(user=request.user)
+    global groceryitem
     if request.method == 'POST':
         form = GroceryItemsForm(request.POST)
         #if request.POST.get('edit')!=None:
@@ -34,10 +37,13 @@ def groceryListMain(request):
 
 def editdelete(request):
     all_grocery_items = groceryItems.objects.filter(user=request.user)
+    global groceryitem
     if request.method == 'POST':
         if request.POST.get('edit')!=None:
             i = int(request.POST.get("edit"))
-            return redirect("/grocery/editGroceryItem")
+            groceryitem = all_grocery_items[i-1]
+            return redirect('grocery:edit', id = groceryitem.item_name.id)
+            #return redirect("/grocery/editGroceryItem")
         elif request.POST.get('delete')!=None:
             i=int(request.POST.get('delete'))
             all_grocery_items[i-1].delete()
@@ -53,6 +59,36 @@ def editdelete(request):
             
     return redirect('grocery:groceryMain')
 
+@login_required
+def edit(request, id=None, template_name='grocery/edit.html'):
+    if id:
+        groceryitem = get_object_or_404(groceryItems, item_name = foodIngredient.objects.get(id = id), user = request.user)
+        if groceryitem.user != request.user:
+            return HttpResponseForbidden()
+    else:
+        groceryitem = groceryItem(user=request.user)
+
+    form = GroceryItemsForm(request.POST or None, instance=groceryitem)
+    if request.POST and form.is_valid():
+        form.save()
+        # Save was successful, so redirect to another page
+        redirect_url = reverse('grocery:groceryMain')
+        return redirect(redirect_url)
+
+    return render(request, template_name, {
+        'form': form
+    })
+
+#def editGroceryItem(request):
+#    global groceryitem
+#    item = groceryitem
+#    if request.method == "POST":
+#        quantity = request.POST.get("quantity")
+#        item.quantity = quantity
+#        item.save()
+#        return redirect('grocery:groceryMain')
+#    else:
+#        return render(request, 'grocery/gedit.html', {'grocery_page': 'active', 'groceryitem':item})
 
 #@login_required
 #def groceryListMain(request):
