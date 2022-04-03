@@ -37,22 +37,8 @@ def recipes(request):
     return render(request, 'recipesMain.html', {'recipe_page': 'active', 'recipes': recipes})
 
 @login_required
-def make(request):
-    if request.method == 'POST':
-        form = AddRecipeForm(request.POST)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
-            return redirect('recipes:make')
-        else:
-            form = AddRecipeForm() 
-    else: 
-        form = AddRecipeForm()
-        recipes = Recipe.objects.filter(user=request.user)
-        return render(request, 'recipesAdd.html', {'recipe_page': 'active', 'recipes': recipes, 'form': form})
-
-@login_required
 def rsearch(request):
+    message=""
     if request.method == "POST": 
         ingredients = request.POST.get("search")
         querystring = {"query":ingredients,"offset":"0","number":"3"}
@@ -66,14 +52,20 @@ def rsearch(request):
             nutinfo.append(res)
         ressearch = {"ids":str(id)}
         temp = json.loads(requests.request("GET", url2, headers=headers, params=ressearch).text)
-        align(temp, nutinfo)
-        context = {'list': temp,'ingredients':ingredients}
+        if 'code' in temp:
+            message = "Sorry, one of the search parameters couldn't be found, try a different search \n"
+            return render(request, "apisearch.html", {'message':message, 'ingredients':ingredients})
+        else:
+            align(temp, nutinfo)
+            context = {'list': temp,'ingredients':ingredients}
         if request.POST.get('save')!=None:
             i = int(request.POST.get('save'))-1
             recipe = saverecipeapi(context['list'][i])
             srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], estimated_time=int(recipe['maketime']), user=request.user)
             srecipe.save()
+            message = recipe['title']+" was saved to recipes! \n"
         context['recipe_page'] = 'active'
+        context['message']=message
         return render(request, "apisearch.html",  context)
 
     else:
@@ -136,11 +128,17 @@ def saverecipeapi(recipe):
     title = recipe['title']
     maketime = recipe['readyInMinutes']#str(recipe['readyInMinutes'])+" minutes"
     ingredients = ""
-    for i in recipe['extendedIngredients']:
-        ingredients = ingredients+" "+i['original']+"\n"
+    if len(recipe['extendedIngredients'])!=0:
+        for i in recipe['extendedIngredients']:
+            ingredients = ingredients+" "+i['original']+"\n"
+    else:
+        ingredients = "ingredients not found in recipe"
     steps = ""
-    for s in recipe['analyzedInstructions'][0]['steps']:
-        steps = steps+" "+str(s['number'])+": "+s['step']+"\n"
+    if len(recipe['analyzedInstructions'])!=0:
+        for s in recipe['analyzedInstructions'][0]['steps']:
+            steps = steps+" "+str(s['number'])+": "+s['step']+"\n"
+    else:
+        steps = "instructions not found in recipe \n"
     creator = recipe['sourceUrl']
     ret = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":creator}
     return ret

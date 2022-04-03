@@ -9,7 +9,7 @@
     <form method = "POST">
         {%csrf_token%}
       
-      <input type="text" placeholder="search here" name = "search" value={{ingredients}}>
+      <input type="text" placeholder="search here" name = "search" value={{ingredients}}> &nbsp; &nbsp; &nbsp; {{message}} <br>
       <button type = "submit" name="send" value = "submit"> submit </button>
     {%for i in list%}
     <h2>{{i.title}}</h2> 
