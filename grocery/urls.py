@@ -19,7 +19,7 @@ urlpatterns = [
     #path('groceryEdit/', views.GroceryListView.as_view(), name='groceryEdit'),
     url(
         r'^ingredient-autocomplete/$',
-        IngredientAutocomplete.as_view(),
+        IngredientAutocomplete.as_view(create_field='name'),
         name='ingredient-autocomplete',
     ),
     path('edit/<int:id>/', views.edit, name='edit')
