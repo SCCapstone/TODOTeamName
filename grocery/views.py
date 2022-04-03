@@ -1,6 +1,7 @@
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from dal import autocomplete
 
 from .models import *
 from .forms import *
@@ -9,15 +10,27 @@ from .forms import *
 @login_required
 def groceryListMain(request):
     if request.method == 'POST':
-        form = GroceryAddItemForm(request.POST)
-        if form.is_valid():
-            form.instance.user = request.user
-            form.save()
+        form = GroceryItemsForm(request.POST)
+        if request.POST.get('edit')!=None:
+            i = int(request.POST.get("edit"))
+            return redirect("/grocery/editGroceryItem")
+        elif request.POST.get('delete')!=None:
+            i=int(request.POST.get('delete'))
+            all_grocery_items[i-1].delete()
+        elif form.is_valid():
+            if not groceryItems.objects.filter(user = request.user, item_name = form.instance.item_name):
+                form.instance.user = request.user
+                form.save()
+            else:
+                item = groceryItems.objects.get(user = request.user, item_name = form.instance.item_name)
+                item.quantity = item.quantity + form.instance.quantity
+                item.save()
             return redirect('grocery:groceryMain')
     else:
-        form = GroceryAddItemForm()
+        form = GroceryItemsForm()
     all_grocery_items = groceryItems.objects.filter(user=request.user)
-    return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items, 'form': form})
+    return render(request, 'grocery/groceryListMain.html', {'grocery_page': 'active', 'all_grocery_items': all_grocery_items, 'form': form})
+
 
 #@login_required
 #def groceryListMain(request):
