@@ -107,7 +107,7 @@ def sched(request):
     if(request.method=="POST"):
         schedrec=ScheduledRecipe.objects.create(scheduled_date=request.POST.get("date"), user=request.user, recipe=temp)
         schedrec.save()
-        messages.success(request, "success! your recipe was scheduled for "+str(request.POST.get("date"))+"!")
+        messages.success(request, "Success! your recipe was scheduled for "+str(request.POST.get("date"))+"!")
         return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
     else:
         return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
