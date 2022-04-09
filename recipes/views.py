@@ -79,6 +79,7 @@ def rcreate(request):
         recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":request.user.username}
         srecipe=Recipe.objects.create(recipe_name=title, recipe_ingredients=ingredients, recipe_directions=steps, estimated_time=int(maketime), user=request.user)
         srecipe.save()
+        messages.success(request, "Recipe added!")
         return redirect("/recipes/recipeMain")
     else:
         return render(request, 'recipecreation.html', {'recipe_page': 'active'})

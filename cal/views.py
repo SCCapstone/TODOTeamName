@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.utils.safestring import mark_safe
@@ -159,6 +160,7 @@ def scheduled_recipe(request, scheduled_recipe_id=None):
     if request.POST and form.is_valid():
         form.instance.user = request.user
         form.save()
+        messages.success(request, "Recipe scheduled!")
         return HttpResponseRedirect(reverse('cal:calMain'))
 
     return render(request, 'cal/scheduled_recipe.html', {'cal_page': 'active', 'form': form})
