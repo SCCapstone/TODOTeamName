@@ -37,7 +37,7 @@ def recipes(request):
 
 @login_required
 def rsearch(request):
-    message=""
+    # message=""
     if request.method == "POST": 
         ingredients = request.POST.get("search")
         querystring = {"query":ingredients,"offset":"0","number":"5"}
@@ -52,8 +52,8 @@ def rsearch(request):
         ressearch = {"ids":str(id)}
         temp = json.loads(requests.request("GET", url2, headers=headers, params=ressearch).text)
         if 'code' in temp:
-            message = "Sorry, one of the search parameters couldn't be found, try a different search \n"
-            return render(request, "apisearch.html", {'message':message, 'ingredients':ingredients})
+            messages.error(request, "Sorry, one of the search parameters couldn't be found, try a different search")
+            return render(request, "apisearch.html", {'ingredients':ingredients})
         else:
             align(temp, nutinfo)
             context = {'list': temp,'ingredients':ingredients}
@@ -62,9 +62,8 @@ def rsearch(request):
             recipe = saverecipeapi(context['list'][i])
             srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], estimated_time=int(recipe['maketime']), user=request.user)
             srecipe.save()
-            message = recipe['title']+" was saved to recipes! \n"
+            messages.success(request, recipe['title'] + " was saved to recipes!")
         context['recipe_page'] = 'active'
-        context['message']=message
         return render(request, "apisearch.html",  context)
 
     else:
@@ -107,7 +106,7 @@ def sched(request):
     if(request.method=="POST"):
         schedrec=ScheduledRecipe.objects.create(scheduled_date=request.POST.get("date"), user=request.user, recipe=temp)
         schedrec.save()
-        messages.success(request, "Success! your recipe was scheduled for "+str(request.POST.get("date"))+"!")
+        messages.success(request, "Success! Your recipe was scheduled for "+str(request.POST.get("date"))+"!")
         return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})
     else:
         return render(request, 'sched.html', {'recipe_page': 'active','rec':temp})

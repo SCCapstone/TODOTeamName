@@ -9,7 +9,7 @@
         {% csrf_token %}
         <h2>Log in to your account</h2>
         <div>
-            {{form}}
+            {{ form }}
         </div>
         <div>
             <input class="btn btn-primary" type="submit" value="Submit">
@@ -17,8 +17,7 @@
     </form>
 </div>
 <div>
-    Need to sign up first? <a class="btn btn-secondary" href="{%url 'account:register' %}">Register here</a>
+    Need to sign up first? <a class="btn btn-secondary" href="{% url 'account:register' %}">Register here</a>
 </div>
 
-
-{% endblock content %} 
+{% endblock content %}
