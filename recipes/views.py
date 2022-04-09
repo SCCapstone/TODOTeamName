@@ -37,7 +37,6 @@ def recipes(request):
 
 @login_required
 def rsearch(request):
-    # message=""
     if request.method == "POST": 
         ingredients = request.POST.get("search")
         querystring = {"query":ingredients,"offset":"0","number":"5"}

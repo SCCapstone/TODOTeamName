@@ -30,6 +30,7 @@ def groceryListMain(request):
                 item = groceryItems.objects.get(user = request.user, item_name = form.instance.item_name)
                 item.quantity = item.quantity + form.instance.quantity
                 item.save()
+            messages.success(request, "Item added.")
             return redirect('grocery:groceryMain')
     else:
         form = GroceryItemsForm()
@@ -47,6 +48,7 @@ def editdelete(request):
         elif request.POST.get('delete')!=None:
             i=int(request.POST.get('delete'))
             all_grocery_items[i-1].delete()
+            messages.success(request, "Item deleted.")
         elif request.POST.get('sendtopantry')!=None:
             i = int(request.POST.get('sendtopantry'))
             g = all_grocery_items[i-1]
@@ -56,6 +58,7 @@ def editdelete(request):
                 item = pantryItems.objects.get(user = request.user, name = g.item_name)
                 item.quantity = item.quantity + g.quantity
                 item.save()
+            messages.success(request, "Sent " + str(g) + " to pantry!")
             
     return redirect('grocery:groceryMain')
 
@@ -84,6 +87,7 @@ def edit(request, id=None, template_name='grocery/edit.html'):
 
         # Save was successful, so redirect to another page
         redirect_url = reverse('grocery:groceryMain')
+        messages.success(request, "Item saved!")
         return redirect(redirect_url)
 
     return render(request, template_name, {

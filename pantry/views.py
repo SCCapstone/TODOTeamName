@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -12,6 +13,7 @@ def pantry(request):
         if form.is_valid():
             form.instance.user = request.user
             form.save()
+            messages.success(request, "Item saved.")
             return redirect('pantry:pantryMain')
     else:
         form = PantryAddItemForm()
@@ -29,6 +31,7 @@ def pantryeditdelete(request):
         if request.POST.get('delete')!=None:
             i=int(request.POST.get('delete'))
             all_pantry_items[i-1].delete()
+            messages.success(request, "Item deleted.")
     return redirect('pantry:pantryMain')
     #return render(request, 'pantry/pantryMain.html',{'all_pantry_items': all_pantry_items})    
         
@@ -56,7 +59,8 @@ def edit(request, id=None, template_name='pantry/edit.html'):
                 pantryItems.objects.filter(user=request.user, name = foodIngredient.objects.get(id=id)).delete()
 
         # Save was successful, so redirect to another page
-        redirect_url = reverse('pantry:pantryMain')               
+        redirect_url = reverse('pantry:pantryMain')        
+        messages.success(request, "Item saved!")       
         return redirect(redirect_url)
 
     return render(request, template_name, {  
