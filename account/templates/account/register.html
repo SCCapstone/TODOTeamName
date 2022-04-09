@@ -1,6 +1,6 @@
 {% extends "meal_planner_main/base.html" %}
 
-{% block title %}Registration{% endblock title %}
+{% block title %}Register{% endblock title %}
 
 {% block content %}
 
@@ -9,7 +9,7 @@
         {% csrf_token %}
         <h2>Create an account</h2>
         <div>
-            {{form}}
+            {{ form }}
         </div>
         <div>
             <input class="btn btn-primary" type="submit" value="Submit">
@@ -17,8 +17,7 @@
     </form>
 </div>
 <div>
-    Already have an account? <a class="btn btn-secondary" href="{%url 'account:login' %}">Sign in here</a>
+    Already have an account? <a class="btn btn-secondary" href="{% url 'account:login' %}">Sign in here</a>
 </div>
-
 
 {% endblock content %} 
