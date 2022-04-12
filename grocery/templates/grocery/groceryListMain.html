@@ -24,7 +24,7 @@
     </form>
 	<form action="editdelete" method="post">
 		{% csrf_token %}
-		<u1>
+		<ul>
 			{% for i in all_grocery_items %}
             <br>
 			<li>
@@ -34,7 +34,7 @@
                 <button class="btn btn-secondary" type="submit" name="sendtopantry" value="{{ forloop.counter }}">Send to pantry</button>
             </li>
 			{% endfor %}
-		</u1>
+		</ul>
 	</form>
 </div>
 {% endblock %}
