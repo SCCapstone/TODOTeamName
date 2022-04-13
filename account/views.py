@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import Permission, User
+from django.contrib.contenttypes.models import ContentType
+from grocery.models import foodIngredient
 from .forms import *
 
 
@@ -12,6 +14,9 @@ def register(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Account created for {username}!')
+            permission = Permission.objects.get(name = 'Can add food ingredient')
+            user = User.objects.get(username= username)
+            user.user_permissions.add(permission)
             return redirect('account:login')
     else:
         form = UserRegisterForm()
