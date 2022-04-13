@@ -8,13 +8,72 @@
 #F76A0C
 */
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+/* new color scheme?? */
+:root {
+    --c1: #a65111;
+    --c2: #ddaa00;
+    --c3: #7c5d3d;
+    --c4: #90dfe6;
+    --c5: #173f4e;
 }
 
-#content {
-    padding: 10px;
+/* .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
+    background-color: var(--c1) !important;
+    border-color: var(--c1) !important;
 }
+
+.btn-secondary, .btn-secondary:hover, .btn-secondary:active, .btn-secondary:visited {
+    background-color: var(--c4) !important;
+    border-color: var(--c4) !important;
+}
+
+.btn-info, .btn-info:hover, .btn-info:active, .btn-info:visited {
+    background-color: var(--c5) !important;
+    border-color: var(--c5) !important;
+    color: #fff;
+} */
+
+body {
+    /* font-family: Arial, Helvetica, sans-serif; */
+    font-family:'Franklin Gothic', Arial, sans-serif;
+}
+
+#cook-it:link, #cook-it:visited, #cook-it:hover, #cook-it:active {
+    font-family: Rockwell, "Courier Bold", Georgia, Times, serif;
+    white-space: nowrap;
+    font-size: 30px;
+    padding: 0px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--c1);
+}
+
+.nav-link {
+    font-size: 20px;
+}
+
+.navbar {
+    background-color: white;
+}
+
+#home-image {
+    position: relative;
+}
+
+#home-image-text {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    padding: 20px;
+  }
+
+/* .nav-tabs {
+    padding: 4px;
+} */
+
+/* #content {
+    padding: 10px;
+} */
 
 /* .btn-info {
     background-color: #C1E05A;
