@@ -4,38 +4,47 @@
 {% block title %}Grocery{% endblock title %}
 
 {% block content %}
-<h1>Grocery List</h1>
-<p>Welcome to the grocery list! Click to add items</p>
-<div>
-    <form action="" method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
+<!-- <p>Welcome to the grocery list! Click to add items</p> -->
+<div class="row">
+    <h1>My Grocery List</h1>
+    <div class="column left">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
 
-        <table style="display: none">
-            {{ view.formset.empty_form }}
-        </table>
+            <table style="display: none">
+                {{ view.formset.empty_form }}
+            </table>
 
-        <table>
-            {{ view.formset }}
-        </table>
+            <table>
+                {{ view.formset }}
+            </table>
 
-        <input id="add-form" class="btn btn-primary" type="submit" value="Add item" />
+            <input id="add-form" class="btn btn-primary" type="submit" value="Add item" />
 
-    </form>
-	<form action="editdelete" method="post">
-		{% csrf_token %}
-		<ul>
-			{% for i in all_grocery_items %}
-            <br>
-			<li>
-                {{ i }}
-                <button class="btn btn-secondary" type="submit" name="edit" value="{{ forloop.counter }}">Edit</button>&nbsp;
-                <button class="btn btn-secondary" type="submit" name="delete" value="{{ forloop.counter }}">Delete</button>&nbsp;
-                <button class="btn btn-secondary" type="submit" name="sendtopantry" value="{{ forloop.counter }}">Send to pantry</button>
-            </li>
-			{% endfor %}
-		</ul>
-	</form>
+        </form>
+        <form action="editdelete" method="post">
+            {% csrf_token %}
+            <ul>
+                {% for i in all_grocery_items %}
+                <br>
+                <li>
+                    {{ i }}
+                    <button class="btn btn-secondary" type="submit" name="edit"
+                        value="{{ forloop.counter }}">Edit</button>&nbsp;
+                    <button class="btn btn-secondary" type="submit" name="delete"
+                        value="{{ forloop.counter }}">Delete</button>&nbsp;
+                    <button class="btn btn-secondary" type="submit" name="sendtopantry"
+                        value="{{ forloop.counter }}">Send to pantry</button>
+                </li>
+                {% endfor %}
+            </ul>
+        </form>
+    </div>
+    <div class="column right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food5.jpg' %}" alt="food"
+            style="max-width: 100%;" />
+    </div>
 </div>
 {% endblock %}
 
@@ -45,23 +54,23 @@
 {{ form.media }}
 
 <script>
-(function($) {
-    $('#add-form').click(function() {
-        var index = $('#id_inline_test_models-TOTAL_FORMS').val()
-        var newTable = $('#id_inline_test_models-__prefix__-DELETE').parents('table').clone()
-        newTable.find(':input').each(function() {
-            for (attr of ['name', 'id'])
-                $(this).attr(
-                    attr,
-                    $(this).attr(attr).replace('__prefix__', index)
-                )
+    (function ($) {
+        $('#add-form').click(function () {
+            var index = $('#id_inline_test_models-TOTAL_FORMS').val()
+            var newTable = $('#id_inline_test_models-__prefix__-DELETE').parents('table').clone()
+            newTable.find(':input').each(function () {
+                for (attr of ['name', 'id'])
+                    $(this).attr(
+                        attr,
+                        $(this).attr(attr).replace('__prefix__', index)
+                    )
+            })
+            newTable.insertBefore($(this))
+            $('#id_inline_test_models-TOTAL_FORMS').val(
+                parseInt($('#id_inline_test_models-TOTAL_FORMS').val()) + 1
+            )
+            newTable.slideDown()
         })
-        newTable.insertBefore($(this))
-        $('#id_inline_test_models-TOTAL_FORMS').val(
-            parseInt($('#id_inline_test_models-TOTAL_FORMS').val()) + 1
-        )
-        newTable.slideDown()
-    })
-})($)
+    })($)
 </script>
 {% endblock %}

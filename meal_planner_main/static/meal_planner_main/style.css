@@ -67,6 +67,14 @@ body {
     font-family: 'Franklin Gothic', Arial, sans-serif;
 }
 
+#content {
+    padding: 20px;
+}
+
+.navbar {
+    padding-bottom: 0px;
+}
+
 #cook-it:link,
 #cook-it:visited,
 #cook-it:hover,
@@ -85,6 +93,10 @@ body {
     color: var(--c5) !important;
 }
 
+.nav-link.disabled {
+    color: gray !important;
+}
+
 .navbar {
     background-color: white;
 }
@@ -98,6 +110,29 @@ body {
     top: 12px;
     right: 16px;
     padding: 20px;
+}
+
+.row {
+    margin-left: 10px;
+}
+
+.column {
+    float: left;
+}
+
+.column.left {
+    width: 45%;
+}
+
+.column.right {
+    width: 55%;
+    padding-left: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
 }
 
 h1 {

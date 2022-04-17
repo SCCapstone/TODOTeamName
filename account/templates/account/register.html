@@ -4,20 +4,26 @@
 
 {% block content %}
 
-<div>
-    <form method="POST">
-        {% csrf_token %}
-        <h2>Create an account</h2>
+<div class="row">
+    <div class="column left">
+        <form method="POST">
+            {% csrf_token %}
+            <h1>Create an Account</h1>
+            <div>
+                {{ form.as_p }}
+            </div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
         <div>
-            {{ form }}
+            Already have an account? <a class="btn btn-secondary" href="{% url 'account:login' %}">Sign in here</a>
         </div>
-        <div>
-            <input class="btn btn-primary" type="submit" value="Submit">
-        </div>
-    </form>
-</div>
-<div>
-    Already have an account? <a class="btn btn-secondary" href="{% url 'account:login' %}">Sign in here</a>
+    </div>
+    <div class="column right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food14.jpg' %}" alt="food"
+            style="max-width: 100%;" />
+    </div>
 </div>
 
-{% endblock content %} 
+{% endblock content %}

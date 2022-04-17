@@ -3,10 +3,16 @@
 {% block title %}Logout{% endblock title %}
 
 {% block content %}
-
-<h2>You have been logged out</h2>
-<div>
-    <a class="btn btn-primary" href="{% url 'account:login' %}">Log in again?</a>
+<div class="row">
+    <div class="column left">
+        <h2>You have been logged out</h2>
+        <a class="btn btn-primary" href="{% url 'account:login' %}">Log in again?</a>
+    </div>
+    <div class="column right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food17.jpg' %}" alt="food"
+            style="max-width: 100%;" />
+    </div>
 </div>
 
-{% endblock content %} 
+
+{% endblock content %}

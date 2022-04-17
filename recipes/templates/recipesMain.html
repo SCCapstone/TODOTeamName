@@ -4,30 +4,36 @@
 
 {% block content %}
 
-<h1>This is the Recipes Page!</h1>
-<div>
-   <a class='btn btn-primary' href="search">Search recipes</a>
-   <a class='btn btn-primary' href="createRecipe">Create a recipe</a>
-   <br><br>
-</div>
-<div>
-	<h2>My Recipes</h2>
-	<form method = POST>
-		{% csrf_token %}
-		{% for r in recipes %}
-		{{ r }}
-		<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>&nbsp;
-		<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
-		<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}}>Delete</button><br>
-		Ready in {{ r.estimated_time }} minutes
-		<details>
-			<summary>More information:</summary>
-			<div style="white-space: pre-line;">
-				<p style="font-weight:bold">Ingredients:</p>{{ r.recipe_ingredients }}
-				<p style="font-weight:bold">Directions:</p>{{ r.recipe_directions }}
-			</div>
-		</details><br><br>
-		{% endfor %}
-	</form>
+<!-- <h1>This is the Recipes Page!</h1> -->
+<div class="row">
+	<div class="column left">
+		<a class='btn btn-primary' href="search">Search recipes</a>
+		<a class='btn btn-primary' href="createRecipe">Create a recipe</a>
+		<br><br>
+		<h1>My Recipes</h1>
+		<form method=POST>
+			{% csrf_token %}
+			{% for r in recipes %}
+			<h5>{{ r }}</h5>
+			<button class="btn btn-secondary" type="submit" name="sched"
+				value={{forloop.counter}}>Schedule</button>&nbsp;
+			<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
+			<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}}>Delete</button><br>
+			Ready in {{ r.estimated_time }} minutes
+			<details>
+				<summary>More information:</summary>
+				<div style="white-space: pre-line;">
+					<p style="font-weight:bold">Ingredients:</p>{{ r.recipe_ingredients }}
+					<p style="font-weight:bold">Directions:</p>{{ r.recipe_directions }}
+				</div>
+			</details>
+			<hr><br><br>
+			{% endfor %}
+		</form>
+	</div>
+	<div class="column right">
+		{% load static %} <img src="{% static 'meal_planner_main/images/food4.jpg' %}" alt="food"
+			style="max-width: 100%;" />
+	</div>
 </div>
 {% endblock content %}

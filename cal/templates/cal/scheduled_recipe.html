@@ -23,7 +23,14 @@
     {% csrf_token %}
     <table class="form form-table">
         {{ form }}
-        <tr><td colspan="2"><button class="btn btn-primary" type="submit"> Submit </button></td></tr>
+        <tr>
+            <td colspan="2"><button class="btn btn-primary" type="submit"> Submit </button></td>
+        </tr>
     </table>
 </form>
+<br>
+<div>
+    {% load static %} <img src="{% static 'meal_planner_main/images/food9.jpg' %}" alt="food"
+        style="max-width: 100%;" />
+</div>
 {% endblock %}
