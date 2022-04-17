@@ -112,6 +112,12 @@ body {
     padding: 20px;
 }
 
+iframe {
+    display: block;
+    margin: auto;
+    /* border-style:none; */
+}
+
 .row {
     margin-left: 10px;
 }
