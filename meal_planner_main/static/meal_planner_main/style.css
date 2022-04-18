@@ -184,6 +184,7 @@ table.calendar td {
     width: 100%;
 }
 
+/* Forum styles */
 .post-block {
     position: relative;
     padding: 20px;
@@ -219,6 +220,8 @@ table.calendar td {
     height: 200px;
     width: 200px;
     float: left;
+    background: #D3F369;
+    margin: 10px;
 }
 
 .all-content {
@@ -239,7 +242,15 @@ table.calendar td {
 
 .gallery-post {
     display: block;
+    margin-top: 10px;
     margin-left: auto;
     margin-right: auto;
     width: 90%;
+    height: 65%
+}
+/* Forum post detail */
+
+.post-detail-image {
+    height: 200px;
+    width: auto;
 }
