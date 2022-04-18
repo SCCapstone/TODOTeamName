@@ -37,6 +37,7 @@
         <div class = "gallery">
             {% if imgpost.image %}
                 <img src = "{{ imgpost.image.url }}"  class = "gallery-post"/>
+                <h4 style = "text-align:center;padding:10px;">{{ imgpost.title }}</h4>
             {% endif %}
         </div>
         {% endfor %}
