@@ -12,7 +12,6 @@
         <form method="POST">
             {% csrf_token %}
             <legend>Profile Info</legend>
-            <div>{{ u_form.as_p }}</div>
             <div>{{ p_form.as_p }}</div>
             <div>
                 <input class="btn btn-primary" type="submit" value="Submit">
