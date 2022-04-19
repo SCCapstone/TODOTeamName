@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.db import models
+from django.core.validators import MaxValueValidator, MinValueValidator 
 
 
 class foodIngredient(models.Model):
@@ -9,7 +10,7 @@ class foodIngredient(models.Model):
 
 class groceryItems(models.Model):
     item_name = models.ForeignKey(foodIngredient, on_delete=models.CASCADE)
-    quantity = models.PositiveSmallIntegerField(default=0)
+    quantity = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000)])
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def __str__(self):

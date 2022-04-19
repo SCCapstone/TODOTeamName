@@ -26,14 +26,11 @@ def register(request):
 @login_required
 def profile(request):
     if request.method == 'POST':
-        u_form = UserUpdateForm(request.POST, instance=request.user)
         p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
-        if u_form.is_valid() and p_form.is_valid():
-            u_form.save()
+        if p_form.is_valid():
             p_form.save()
             messages.success(request, f'Your account has been updated')
             return redirect('account:profile')
     else:
-        u_form = UserUpdateForm(instance=request.user)
         p_form = ProfileUpdateForm(instance=request.user.profile)
-    return render(request, 'account/profile.html', {'profile_page': 'active', 'u_form': u_form, 'p_form': p_form})
+    return render(request, 'account/profile.html', {'profile_page': 'active', 'p_form': p_form})

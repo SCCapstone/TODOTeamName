@@ -25,7 +25,7 @@
         </form>
         <form action="editdelete" method="post">
             {% csrf_token %}
-            <ul>
+	    <ul>
                 {% for i in all_grocery_items %}
                 <br>
                 <li>
@@ -39,6 +39,11 @@
                 </li>
                 {% endfor %}
             </ul>
+	    <button class="btn btn-primary" type="submit" name="sendalltopantry"
+                        >Send list to pantry</button>
+	     <button class="btn btn-primary" type="submit" name="deletelist"
+                        >Delete grocery list</button>
+
         </form>
     </div>
     <div class="column right">

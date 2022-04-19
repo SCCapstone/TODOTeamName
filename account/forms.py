@@ -13,14 +13,6 @@ class UserRegisterForm(UserCreationForm):
         fields = ['username', 'email', 'password1', 'password2']
 
 
-class UserUpdateForm(forms.ModelForm):
-    email = forms.EmailField()
-
-    class Meta:
-        model = User
-        fields = ['username', 'email']
-
-
 class ProfileUpdateForm(forms.ModelForm):
     name = forms.CharField(max_length=50)
     allergy_list = forms.CharField(max_length=100)
