@@ -59,6 +59,20 @@ def editdelete(request):
                 item.quantity = item.quantity + g.quantity
                 item.save()
             messages.success(request, "Sent " + str(g) + " to pantry!")
+        elif request.POST.get('sendalltopantry')!=None:
+            for g in all_grocery_items:
+                if not pantryItems.objects.filter(user = request.user, name = g.item_name):
+                    p = pantryItems.objects.create(name = g.item_name, quantity = g.quantity, user = g.user)
+                else:
+                    item = pantryItems.objects.get(user = request.user, name = g.item_name)
+                    item.quantity = item.quantity + g.quantity
+                    item.save()
+            messages.success(request, "Send entire list to pantry!")
+        elif request.POST.get('deletelist')!=None:
+            for g in all_grocery_items:
+                g.delete()
+            messages.success(request, "Cleared grocery list.")
+
             
     return redirect('grocery:groceryMain')
 
