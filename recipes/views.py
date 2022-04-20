@@ -131,7 +131,7 @@ def sched(request):
 
 def saverecipeapi(recipe):
     title = recipe['title']
-    maketime = recipe['readyInMinutes']#str(recipe['readyInMinutes'])+" minutes"
+    maketime = recipe['readyInMinutes']
     ingredients = ""
     if len(recipe['extendedIngredients'])!=0:
         for i in recipe['extendedIngredients']:
