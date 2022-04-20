@@ -5,7 +5,7 @@
 {% block content %}
 
 <h1>Input the date you would like to schedule this meal!</h1>
-<a class='btn btn-secondary' href="recipeMain">Go back</a><br><br>
+<a class="btn btn-secondary" href="javascript:history.back();">Go Back</a><br><br>
 <form method="POST">
     {% csrf_token %}
     <input type="date" name="date">

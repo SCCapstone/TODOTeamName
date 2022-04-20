@@ -1,10 +1,11 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import *
 import requests
 import json
 from cal.models import ScheduledRecipe
+from .models import *
 
 url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search"
 url2 = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/informationBulk"
@@ -59,7 +60,7 @@ def rsearch(request):
         if request.POST.get('save')!=None:
             i = int(request.POST.get('save'))-1
             recipe = saverecipeapi(context['list'][i])
-            srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], estimated_time=int(recipe['maketime']), user=request.user)
+            srecipe=Recipe.objects.create(recipe_name=recipe['title'], recipe_ingredients=recipe['ingredients'], recipe_directions=recipe['steps'], recipe_notes=recipe['notes'], estimated_time=int(recipe['maketime']), user=request.user)
             srecipe.save()
             messages.success(request, recipe['title'] + " was saved to recipes!")
         context['recipe_page'] = 'active'
@@ -76,13 +77,29 @@ def rcreate(request):
         maketime = request.POST.get("maketime")
         ingredients = request.POST.get("ingredients")
         steps = request.POST.get("steps")
-        recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":request.user.username}
-        srecipe=Recipe.objects.create(recipe_name=title, recipe_ingredients=ingredients, recipe_directions=steps, estimated_time=int(maketime), user=request.user)
+        etc=request.POST.get("etc")
+        #recipe = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":request.user.username}
+        srecipe=Recipe.objects.create(recipe_name=title, recipe_ingredients=ingredients, recipe_directions=steps, recipe_notes=etc, estimated_time=int(maketime), user=request.user)
         srecipe.save()
         messages.success(request, "Recipe added!")
         return redirect("/recipes/recipeMain")
     else:
         return render(request, 'recipecreation.html', {'recipe_page': 'active'})
+
+@login_required
+def rview(request, recipe_id):
+    context = get_object_or_404(Recipe, pk=recipe_id)
+    if request.method == "POST":
+        global recipe
+        if request.POST.get("sched")=="sched":
+            recipe={'recipe':context}
+            return redirect("/recipes/scheduleRecipe")
+        if request.POST.get("edit")=="edit":
+            recipe={'recipe':context}
+            return redirect("/recipes/editRecipe")
+        if request.POST.get("delete")=="delete":
+            context.delete()
+    return render(request, 'view.html', {'recipe':context})
 
 @login_required
 def redit(request):
@@ -127,8 +144,16 @@ def saverecipeapi(recipe):
             steps = steps+" "+str(s['number'])+": "+s['step']+"\n"
     else:
         steps = "instructions not found in recipe \n"
+    etc=""
+    if len(recipe['nutrition'])!=0:
+        for i in recipe['nutrition']['bad']:
+            etc = etc+" "+i['title']+": "+str(i['amount'])+" "+str(i['percentOfDailyNeeds'])+"\n"
+        for i in recipe['nutrition']['good']:
+            etc = etc+" "+i['title']+": "+str(i['amount'])+" "+str(i['percentOfDailyNeeds'])+"\n"
+    else:
+        etc = "nutritional information not found in recipe"
     creator = recipe['sourceUrl']
-    ret = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "creator":creator}
+    ret = {"title":title, "maketime":maketime, "ingredients":ingredients, "steps":steps, "notes":etc, "creator":creator}
     return ret
 
 def align(temp, info):

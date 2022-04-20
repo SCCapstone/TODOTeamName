@@ -9,11 +9,13 @@
     <label for="title">Recipe title:</label><br>
     <textarea id="title" name="title" placeholder="Delicious food" required></textarea><br>
     <label for="maketime">Expected time to make:</label><br>
-    <input type="number" id="maketime" name="maketime"> minutes<br>
+    <input type="number" id="maketime" name="maketime" required> minutes<br>
     <label for="ingredients">Ingredients:</label><br>
-    <textarea id="ingredients" name="ingredients" rows="4" cols="50" placeholder="1 cup flour"></textarea><br>
+    <textarea id="ingredients" name="ingredients" rows="4" cols="50" placeholder="1 cup flour" required></textarea><br>
     <label for="steps">Steps:</label><br>
-    <textarea id="steps" name="steps" rows="4" cols="50" placeholder="Bake at 250 for an hour"></textarea><br>
+    <textarea id="steps" name="steps" rows="4" cols="50" placeholder="Bake at 250 for an hour" required></textarea><br>
+    <label for="etc">Additional Information:</label><br>
+    <textarea id="etc" name="etc" rows="4" cols="50" placeholder="e.g. nutritional information, tips & tricks, etc."></textarea><br>
     <br>
     <input class="btn btn-primary" type="submit" value="Submit">
 </form>
