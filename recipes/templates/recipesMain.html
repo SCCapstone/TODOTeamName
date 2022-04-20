@@ -44,7 +44,7 @@
 				Ready in {{ r.estimated_time }} minutes
 			</div>
 			<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>
-			<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
+			<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>
 			<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}} onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
 			</div>
 				{% endfor %}
