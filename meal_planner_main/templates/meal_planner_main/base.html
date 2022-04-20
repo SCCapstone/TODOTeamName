@@ -9,27 +9,16 @@
     <title>{% block title %}Title{% endblock title %}</title>
 </head>
 <body>
-    <header>
-        <nav>
+    <header class="sticky-top">
+        <nav class="navbar">
             <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <h1><a id="cook-it" href="{% url 'meal_planner_main:home' %}">Cook-it!</a></h1>
+                </li>
                 <li class="nav-item">
                     <a class="nav-link {{ home_page }}" href="{% url 'meal_planner_main:home' %}">Home</a>
                 </li>
-                {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link {{ profile_page }}" href="{% url 'account:profile' %}">Profile</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ logout_page }}" href="{% url 'account:logout' %}">Logout</a>
-                </li>
-                {% else %}
-                <li class="nav-item">
-                    <a class="nav-link {{ register_page }}" href="{% url 'account:register' %}">Register</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link {{ login_page }}" href="{% url 'account:login' %}">Login</a>
-                </li>
-                {% endif %} 
+                
                 <li class="nav-item">
                     <a class="nav-link {{ forum_page }}" href="{% url 'forum:healthForumMain' %}">Forum</a>
                 </li>
@@ -47,7 +36,7 @@
                     <a class="nav-link {{ pantry_page }}" href="{% url 'pantry:pantryMain' %}">Pantry</a>
                 </li>
                 {% else %}
-                <li class="nav-item" title="Log in first">
+                <!-- <li class="nav-item" title="Log in first">
                     <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Recipes</a>
                 </li>
                 <li class="nav-item" title="Log in first">
@@ -58,8 +47,25 @@
                 </li>
                 <li class="nav-item" title="Log in first">
                     <a class="nav-link disabled" tabindex="-1" aria-disabled="true">Pantry</a>
-                </li>
+                </li> -->
                 {% endif %}
+            </ul>
+            <ul class="nav nav-tabs">
+                {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link {{ profile_page }}" href="{% url 'account:profile' %}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ logout_page }}" href="{% url 'account:logout' %}">Logout</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link {{ register_page }}" href="{% url 'account:register' %}">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ login_page }}" href="{% url 'account:login' %}">Login</a>
+                </li>
+                {% endif %} 
             </ul>
         </nav>
         {% for message in messages %}

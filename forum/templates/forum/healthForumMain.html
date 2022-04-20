@@ -24,7 +24,7 @@
 
             <p class ="intro">{{ post.intro }}</p>
 
-            <a class="btn btn-secondary" href= "{% url 'forum:post_detail' post.slug %}" class="read-more">Read more</a>
+            <a class="btn btn-info" href= "{% url 'forum:post_detail' post.slug %}" class="read-more">Read more</a>
 
         </div>
         {%empty%}
@@ -37,6 +37,7 @@
         <div class = "gallery">
             {% if imgpost.image %}
                 <img src = "{{ imgpost.image.url }}"  class = "gallery-post"/>
+                <h4 style = "text-align:center;padding:10px;">{{ imgpost.title }}</h4>
             {% endif %}
         </div>
         {% endfor %}

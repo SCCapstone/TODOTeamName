@@ -3,21 +3,24 @@
 {% block title %}Profile{% endblock title %}
 
 {% block content %}
-
-<div>
-    <h2>{{ user.profile.name }}</h2>
-    <p>{{ user.username }}</p>
-    <p>{{ user.email }}</p>
-    <p>Allergies: {{ user.profile.allergy_list }}</p>
-    <form method="POST">
-        {% csrf_token %} 
-        <legend>Profile Info</legend>
-        <div>{{ u_form }}</div>
-        <div>{{ p_form }}</div>
-        <div>
-            <input class="btn btn-primary" type="submit" value="Submit">
-        </div>
-    </form>
+<div class="row">
+    <div class="column left">
+        <h2>{{ user.profile.name }}</h2>
+        <p>{{ user.username }}</p>
+        <p>{{ user.email }}</p>
+        <p>Allergies: {{ user.profile.allergy_list }}</p>
+        <form method="POST">
+            {% csrf_token %}
+            <legend>Profile Info</legend>
+            <div>{{ p_form.as_p }}</div>
+            <div>
+                <input class="btn btn-primary" type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+    <div class="column right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food16.jpg' %}" alt="food"
+            style="max-width: 100%;" />
+    </div>
 </div>
-
-{% endblock content %} 
+{% endblock content %}

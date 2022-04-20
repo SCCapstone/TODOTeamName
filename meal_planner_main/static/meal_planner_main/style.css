@@ -8,26 +8,143 @@
 #F76A0C
 */
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+/* new color scheme?? */
+:root {
+    --c1: #a62c11;
+    --c2: #ee8e2d;
+    --c3: #eec43b;
+    --c4: #90dfe6;
+    --c5: #0d64e6;
+    --c1-bright: #ca3615;
+    --c2-bright: #f09a44;
+    --c3-bright: #f0cb52;
+    --c4-bright: #9ce2e9;
+    --c5-bright: #2276f2;
+    --c1-dark: #92270f;
+    --c2-dark: #e47b13;
+    --c3-dark: #ebba19;
+    --c4-dark: #6ad4dd;
+    --c5-dark: #0c59cc;
 }
 
-#content {
-    padding: 10px;
+.btn-primary,
+.btn-primary:active,
+.btn-primary:visited {
+    background-color: var(--c1) !important;
+    border-color: var(--c1) !important;
 }
 
-/* .btn-info {
-    background-color: #C1E05A;
-    border-color: #C1E05A;
+.btn-primary:hover {
+    background-color: var(--c1-bright) !important;
+    border-color: var(--c1-bright) !important;
+}
+
+.btn-secondary,
+.btn-secondary:active,
+.btn-secondary:visited {
+    background-color: var(--c2) !important;
+    border-color: var(--c2) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--c2-dark) !important;
+    border-color: var(--c2-dark) !important;
+}
+
+.btn-info,
+.btn-info:active,
+.btn-info:visited {
+    background-color: var(--c3) !important;
+    border-color: var(--c3) !important;
 }
 
 .btn-info:hover {
-    background-color: #D3F369;
-    border-color: #D3F369;
-} */
-h1 {
- width:50%;
+    background-color: var(--c3-bright) !important;
+    border-color: var(--c3-bright) !important;
 }
+
+body {
+    font-family: 'Franklin Gothic', Arial, sans-serif;
+}
+
+#content {
+    padding: 20px;
+}
+
+.navbar {
+    padding-bottom: 0px;
+}
+
+#cook-it:link,
+#cook-it:visited,
+#cook-it:hover,
+#cook-it:active {
+    font-family: Rockwell, "Courier Bold", Georgia, Times, serif;
+    white-space: nowrap;
+    font-size: 30px;
+    padding: 0px 10px;
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--c1);
+}
+
+.nav-link {
+    font-size: 20px;
+    color: var(--c5) !important;
+}
+
+.nav-link.disabled {
+    color: gray !important;
+}
+
+.navbar {
+    background-color: white;
+}
+
+#home-image {
+    position: relative;
+}
+
+#home-image-text {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    padding: 20px;
+}
+
+iframe {
+    display: block;
+    margin: auto;
+    /* border-style:none; */
+}
+
+.row {
+    margin-left: 10px;
+}
+
+.column {
+    float: left;
+}
+
+.column.left {
+    width: 45%;
+}
+
+.column.right {
+    width: 55%;
+    padding-left: 20px;
+}
+
+@media screen and (max-width: 600px) {
+    .column {
+        width: 100%;
+    }
+}
+
+h1 {
+    width: 50%;
+}
+
 table.calendar {
     table-layout: fixed;
     width: 100%;
@@ -108,62 +225,73 @@ table.calendar td {
     width: 100%;
 }
 
-.post-block{
-  position: relative;
-  padding: 20px;
-  margin-top: 30px;
-  margin-left: 30px;
-  border-bottom: 1px solid gray;
+/* Forum styles */
+.post-block {
+    position: relative;
+    padding: 20px;
+    margin-top: 30px;
+    margin-left: 30px;
+    border-bottom: 1px solid gray;
 
 
 }
 
-.post-block:hover{
+.post-block:hover {
     background: #EEFFBF;
 }
 
-.img-thumbnail{
-  float: left;
-  width: 100px;
-  height: 100px;
-  margin-right: 20px;
+.img-thumbnail {
+    float: left;
+    width: 100px;
+    height: 100px;
+    margin-right: 20px;
 }
 
-.read-more{
+.read-more {
     position: absolute;
     padding: 10px;
     bottom: 0;
 }
 
-.intro{
+.intro {
     padding: 20px;
 }
 
-.gallery{
+.gallery {
     height: 200px;
     width: 200px;
     float: left;
+    background: #D3F369;
+    margin: 10px;
 }
 
-.all-content{
-    display:flex;
+.all-content {
+    display: flex;
 }
 
-.all-posts{
+.all-posts {
     margin: 10px;
     width: 50%;
     float: left;
 }
 
-.all-images{
+.all-images {
     margin: 10px;
     width: 50%;
     float: right;
 }
 
-.gallery-post{
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 90%;
+.gallery-post {
+    display: block;
+    margin-top: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 90%;
+    height: 65%
+}
+/* Forum post detail */
+
+.post-detail-image {
+    height: 200px;
+    width: auto;
 }

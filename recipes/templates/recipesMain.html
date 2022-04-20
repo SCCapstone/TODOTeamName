@@ -27,27 +27,34 @@
     </style>
   </head>
 
-<h1>This is the Recipes Page!</h1>
-<div>
-   <a class='btn btn-info' href="search">Search recipes</a>
-   <a class='btn btn-info' href="createRecipe">Create a recipe</a>
-   <br><br>
-</div>
-<div>
-	<h2>My Recipes</h2>
-	<form method = POST>
-		{% csrf_token %}
-		{% for r in recipes %}
-		<div class="all"> 
-		<div class="style" onclick="location.href='viewRecipe/{{r.id}}';">
-		<h2>{{r.recipe_name }}</h2><br>
-		Ready in {{ r.estimated_time }} minutes
+<!-- <h1>This is the Recipes Page!</h1> -->
+<div class="row">
+	<div class="column left">
+		<a class='btn btn-primary' href="search">Search recipes</a>
+		<a class='btn btn-primary' href="createRecipe">Create a recipe</a>
+		<br><br>
+		<div>
+			<h2>My Recipes</h2>
+			<form method = POST>
+				{% csrf_token %}
+				{% for r in recipes %}
+				<div class="all"> 
+				<div class="style" onclick="location.href='viewRecipe/{{r.id}}';">
+				<h2>{{r.recipe_name }}</h2><br>
+				Ready in {{ r.estimated_time }} minutes
+			</div>
+			<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>
+			<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
+			<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}} onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
+			</div>
+				{% endfor %}
+			</form>
+		</div>
 	</div>
-	<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>
-	<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>&nbsp;
-	<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}} onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
+	<div class="column right">
+		{% load static %} <img src="{% static 'meal_planner_main/images/food4.jpg' %}" alt="food"
+			style="max-width: 100%;" />
 	</div>
-		{% endfor %}
-	</form>
 </div>
-{% endblock content %}
+
+{%endblock content%}

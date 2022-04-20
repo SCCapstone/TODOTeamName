@@ -4,38 +4,48 @@
 
 {% block content %}
 
-<h1>Search Recipes!</h1> &nbsp;
-<a class='btn btn-secondary' href="recipeMain">Go back</a><br><br>
-<form method="POST">
-	{% csrf_token %}
-	<input type="text" placeholder="Search here" name="search" value="{{ ingredients }}"> &nbsp; &nbsp; &nbsp;
-	<button class='btn btn-primary' type="submit" name="send" value="submit"> Submit </button>
-	{% for i in list %}
-	<h2>{{ i.title }}</h2>
-	<img src="{{ i.image }}" style="width:128px;height:128px;">
-	<a class="btn btn-secondary" href="{{ i.sourceUrl }}" target="_blank"> Go to site </a> &nbsp; &nbsp; &nbsp;
-	<button class="btn btn-info" type="submit" name="save" value="{{ forloop.counter }}">Save</button>
-	<details>
-		<summary>More information</summary>
-		Ready in {{ i.readyInMinutes }} minutes
-		<h3>Ingredients:</h3>
-		{% for ingredient in i.extendedIngredients %}
-		{{ ingredient.original }}<br>
-		{% endfor %}
-		<h3>Instructions:</h3>
-		{% for inst in i.analyzedInstructions.0.steps %}
-		{{ inst.number }}: {{ inst.step }}<br><br><br>
-		{% endfor %}
-	</details>
-	<details>
-		<summary>Nutritional information</summary>
-		{% for b in i.nutrition.bad %}
-		{{ b.title }}: {{ b.amount }} {{ b.percentOfDailyNeeds }}%<br>
-		{% endfor %}
-		{% for g in i.nutrition.good %}
-		{{ g.title }}: {{ g.amount }} {{ g.percentOfDailyNeeds }}%<br>
-		{% endfor %}
-	</details>
-	{% endfor %}
-</form>
+<div class="row">
+	<div class="column left">
+		<h1>Search Recipes</h1>
+		<a class='btn btn-secondary' href="recipeMain">Go back</a><br><br>
+		<form method="POST">
+			{% csrf_token %}
+			<input type="text" placeholder="Search here" name="search" value="{{ ingredients }}"> &nbsp; &nbsp; &nbsp;
+			<button class='btn btn-primary' type="submit" name="send" value="submit"> Submit </button>
+			{% for i in list %}
+			<h2>{{ i.title }}</h2>
+			<img src="{{ i.image }}" style="width:128px;height:128px;">
+			<a class="btn btn-secondary" href="{{ i.sourceUrl }}" target="_blank"> Go to site </a> &nbsp; &nbsp; &nbsp;
+			<button class="btn btn-info" type="submit" name="save" value="{{ forloop.counter }}">Save</button>
+			<details>
+				<summary>More information</summary>
+				Ready in {{ i.readyInMinutes }} minutes
+				<h3>Ingredients:</h3>
+				{% for ingredient in i.extendedIngredients %}
+				{{ ingredient.original }}<br>
+				{% endfor %}
+				<h3>Instructions:</h3>
+				{% for inst in i.analyzedInstructions.0.steps %}
+				{{ inst.number }}: {{ inst.step }}<br><br><br>
+				{% endfor %}
+			</details>
+			<details>
+				<summary>Nutritional information</summary>
+				{% for b in i.nutrition.bad %}
+				{{ b.title }}: {{ b.amount }} {{ b.percentOfDailyNeeds }}%<br>
+				{% endfor %}
+				{% for g in i.nutrition.good %}
+				{{ g.title }}: {{ g.amount }} {{ g.percentOfDailyNeeds }}%<br>
+				{% endfor %}
+			</details>
+			<hr><br><br>
+			{% endfor %}
+		</form>
+	</div>
+	<div class="column right">
+		{% load static %} <img src="{% static 'meal_planner_main/images/food13.jpg' %}" alt="food"
+			style="max-width: 100%;" />
+	</div>
+</div>
+
 {% endblock content %}

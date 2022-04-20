@@ -3,13 +3,16 @@
 {% block title %}Recipes{% endblock title %}
 
 {% block content %}
-<a class="btn btn-secondary" href="recipeMain">Go back</a><br><br>
-<form method="POST">
+<div class="row">
+    <div class="column left">
+        <h1>Create a Recipe</h1>
+        <a class="btn btn-secondary" href="recipeMain">Go back</a><br><br>
+    <form method="POST">
     {% csrf_token %}
     <label for="title">Recipe title:</label><br>
     <textarea id="title" name="title" placeholder="Delicious food" required></textarea><br>
     <label for="maketime">Expected time to make:</label><br>
-    <input type="number" id="maketime" name="maketime" required> minutes<br>
+    <input type="number" id="maketime" name="maketime" min="0" required> minutes<br>
     <label for="ingredients">Ingredients:</label><br>
     <textarea id="ingredients" name="ingredients" rows="4" cols="50" placeholder="1 cup flour" required></textarea><br>
     <label for="steps">Steps:</label><br>
@@ -18,5 +21,11 @@
     <textarea id="etc" name="etc" rows="4" cols="50" placeholder="e.g. nutritional information, tips & tricks, etc."></textarea><br>
     <br>
     <input class="btn btn-primary" type="submit" value="Submit">
-</form>
+    </form>
+    </div>
+    <div class="column right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food11.jpg' %}" alt="food"
+            style="max-width: 100%;" />
+    </div>
+</div>
 {% endblock content %}

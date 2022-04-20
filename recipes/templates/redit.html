@@ -12,7 +12,7 @@
 	<label for="title">Recipe title:</label><br>
 	<textarea id="title" name="title" placeholder="Delicious food" required>{{ recipe.recipe_name }}</textarea><br>
 	<label for="maketime">Expected time to make:</label><br>
-	<input type="number" id="maketime" name="maketime" value="{{ recipe.estimated_time }}"> minutes<br>
+	<input type="number" id="maketime" name="maketime" min="0" value="{{ recipe.estimated_time }}"> minutes<br>
 	<label for="ingredients">Ingredients:</label><br>
 	<textarea id="ingredients" name="ingredients" rows="4" cols="50"
 		placeholder="1 cup flour">{{ recipe.recipe_ingredients }}</textarea><br>
