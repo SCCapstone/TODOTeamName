@@ -25,6 +25,13 @@
             <small>Posted at {{ post.date_added }} by
                 <a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a>
             </small>
+            {% if post.user == user %}
+            <form action="delete_post" method="post">
+                {% csrf_token %}
+                <button style="float: right;" class="btn-close btn-sm" type="submit" name="delete_post"
+                    value="{{ post.slug }}" title="Delete"></button>
+            </form>
+            {% endif %}
             {% if post.image %}
             <div>
                 <img src="{{ post.image.url }}" class="img-thumbnail" />
@@ -49,9 +56,8 @@
             {% endif %}
         </div>
         <br>
-        <!-------------------------------------------------------------------------------->
-        <form action="delete" method="post">
-            {% csrf_token %} 
+        <form action="delete_imgpost" method="post">
+            {% csrf_token %}
             {% for imgpost in imgposts %}
             <div class="gallery">
                 {% if imgpost.image %}
@@ -61,24 +67,13 @@
                     by <a href="{% url 'forum:userPage' uName=imgpost.user %}">{{ imgpost.user }}</a>
                 </small>
                 {% if imgpost.user == user %}
-                <button style="float: right;" class="btn-close btn-sm" type="submit" name="delete_imgpost" value="{{ imgpost.slug }}"></button>
+                <button style="float: right;" class="btn-close btn-sm" type="submit" name="delete_imgpost"
+                    value="{{ imgpost.slug }}" title="Delete"></button>
                 {% endif %}
                 {% endif %}
-                <!-- <button type="button" class="btn-close" aria-label="Close"></button> -->
             </div>
             {% endfor %}
         </form>
-        <!-- {% for imgpost in imgposts %}
-        <div class="gallery">
-            {% if imgpost.image %}
-            <img src="{{ imgpost.image.url }}" class="gallery-post" />
-            <h4 style="text-align:center;padding:10px;margin-bottom:0px;">{{ imgpost.title }}</h4>
-            <small style="margin:10px;">
-                by <a href="{% url 'forum:userPage' uName=imgpost.user %}">{{ imgpost.user }}</a>
-            </small>
-            {% endif %}
-        </div>
-        {% endfor %} -->
     </div>
 </div>
 
