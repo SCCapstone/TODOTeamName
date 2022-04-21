@@ -146,9 +146,9 @@ iframe {
     }
 }
 
-h1 {
+/* h1 {
     width: 50%;
-}
+} */
 
 table.calendar {
     table-layout: fixed;
@@ -274,13 +274,13 @@ table.calendar td {
     display: flex;
 }
 
-.all-posts {
+.forum-left {
     margin: 10px;
     width: 50%;
     float: left;
 }
 
-.all-images {
+.forum-right {
     margin: 10px;
     width: 50%;
     float: right;

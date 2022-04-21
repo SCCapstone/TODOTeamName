@@ -5,55 +5,60 @@
 {% block title %}Forum{% endblock title %}
 
 {% block content %}
-{% block conTitle %}
-{% endblock conTitle %}
 <div class="all-content">
-    <div class = "all-posts">
+    <div class="forum-left">
+        {% block conTitle %}
+        {% endblock conTitle %}
+        <br><br>
+        {% if user.is_authenticated %}
+        <a href="{% url 'forum:valid_post' %}" class="btn btn-primary">Add a new post</a>
+        {% else %}
+        <p>
+            <a href="{% url 'account:login' %}">Login </a>
+            or <a href="{% url 'account:register' %}">Register</a>
+            in order to make a post.
+        </p>
+        {% endif %}
         {% for post in posts %}
         <div class="post-block">
             <h3 class="subtitle">{{ post.title }}</h3>
-
             <small>Posted at {{ post.date_added }} by
-            <a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a></small>
-
+                <a href="{% url 'forum:userPage' uName=post.user %}">{{ post.user }}</a>
+            </small>
             {% if post.image %}
             <div>
-                <img src = "{{ post.image.url }}"  class = "img-thumbnail"/>
+                <img src="{{ post.image.url }}" class="img-thumbnail" />
             </div>
             {% endif %}
-
-            <p class ="intro">{{ post.intro }}</p>
-
-            <a class="btn btn-info" href= "{% url 'forum:post_detail' post.slug %}" class="read-more">Read more</a>
-
+            <p class="intro">{{ post.intro }}</p>
+            <a class="btn btn-info" href="{% url 'forum:post_detail' post.slug %}" class="read-more">Read more</a>
         </div>
-        {%empty%}
+        {% empty %}
         <p>Be the first to make a post!</p>
         {% endfor %}
     </div>
-    <div class = "all-images">
-        {% load static %} <img src="{% static 'meal_planner_main/images/food18.jpg' %}" alt="food" style="max-width: 90%; display: block; margin: auto;" />
+    <div class="forum-right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food18.jpg' %}" alt="food"
+            style="max-width: 90%; display: block; margin: auto;" />
         <br>
-        <h2 style="text-align:center;"> See what others are cooking! </h2>
+        <div style="text-align: center;">
+            <h3 style="display: inline;"> See what others are cooking! </h3>
+            {% if user.is_authenticated %}
+            <a href="{% url 'forum:valid_image_post' %}" class="btn btn-primary" style="vertical-align: top;">Post
+                an image</a>
+            {% endif %}
+        </div>
+        <br>
         {% for imgpost in imgposts %}
-        <div class = "gallery">
+        <div class="gallery">
             {% if imgpost.image %}
-                <img src = "{{ imgpost.image.url }}"  class = "gallery-post"/>
-                <h4 style = "text-align:center;padding:10px;">{{ imgpost.title }}</h4>
+            <img src="{{ imgpost.image.url }}" class="gallery-post" />
+            <h4 style="text-align:center;padding:10px;">{{ imgpost.title }}</h4>
             {% endif %}
         </div>
         {% endfor %}
     </div>
 </div>
 
-{% if user.is_authenticated %}
- <a href="{% url 'forum:valid_post' %}"  class="btn btn-primary new-post" >Add a new post!</a>
- <a href="{% url 'forum:valid_image_post' %}" class ="btn btn-primary new-img-post">Post an image!</a>
-{% else %}
-  <p>
-      <a href="{% url 'account:login' %}">Login </a>
-      or <a  href="{% url 'account:register' %}">Register</a>
-      in order to make a post!</p>
 
-{% endif %}
-{% endblock content %} 
+{% endblock content %}
