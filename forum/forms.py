@@ -10,6 +10,9 @@ class PostForm(forms.ModelForm):
 
 
 class ImagePostForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['image'].required = True
     class Meta:
         model = ImagePost
         fields = ['title', 'image']
