@@ -3,57 +3,31 @@
 {% block title %}Recipes{% endblock title %}
 
 {% block content %}
-<head>
-    <style>
-    div .style{
-      width: 320px;
-      padding: 10px;
-      margin: 0;
-	  white-space: nowrap;
-	  overflow: hidden;
-	  text-overflow: ellipsis;
-    }
 
-	div .all{
-		width: 350px;
-      padding: 10px;
-      border: 5px solid gray;
-      margin: 2px;
-	  margin-bottom: 4px;
-	  display: inline-block;
-	  background-color: white;
-	}
-
-    </style>
-  </head>
-
-<!-- <h1>This is the Recipes Page!</h1> -->
-<!--<div class="row">-->
-	<!--<div class="column left">-->
+<div class="recipespage">
+	<div class="left">
 		<a class='btn btn-primary' href="search">Search recipes</a>
 		<a class='btn btn-primary' href="createRecipe">Create a recipe</a>
 		<br><br>
-		<div>
-			<h2>My Recipes</h2>
-			<form method = POST>
-				{% csrf_token %}
-				{% for r in recipes %}
-				<div class="all"> 
-				<div class="style" onclick="location.href='viewRecipe/{{r.id}}';">
-				<h2>{{r.recipe_name }}</h2><br>
-				Ready in {{ r.estimated_time }} minutes
+		<h1>My Recipes</h1>
+		<form method=POST>
+			{% csrf_token %}
+			{% for r in recipes %}
+			<div class="recipes">
+				<div class="recipe-link" onclick="location.href='viewRecipe/{{r.id}}';">
+					<h4 class="recipe-title">{{r.recipe_name }}</h4>
+					Ready in {{ r.estimated_time }} minutes
+				</div>
+				<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>
+				<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>
+				<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}}
+					onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
 			</div>
-			<button class="btn btn-secondary" type="submit" name="sched" value={{forloop.counter}}>Schedule</button>
-			<button class="btn btn-secondary" type="submit" name="edit" value={{forloop.counter}}>Edit</button>
-			<button class="btn btn-secondary" type="submit" name="delete" value={{forloop.counter}} onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
-			</div>
-				{% endfor %}
-			</form>
-		<!--</div>-->
-	<!--</div>-->
-	<div lass="column right">
-		{% load static %} <img src="{% static 'meal_planner_main/images/food4.jpg' %}" alt="food"
-			style="max-width: 100%;" />
+			{% endfor %}
+		</form>
+	</div>
+	<div class="right">
+		{% load static %} <img src="{% static 'meal_planner_main/images/food4.jpg' %}" alt="food" />
 	</div>
 </div>
 

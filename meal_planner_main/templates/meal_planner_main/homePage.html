@@ -1,22 +1,17 @@
 {% extends "meal_planner_main/base.html" %}
 
-
 {% block title %}Meal Planner{% endblock title %}
 
 {% block content %}
-
-<!-- <h1>Meal Planner Home Page</h1> -->
-<!-- <p>Welcome to our Meal Planner app!</p> -->
 <div id="home-image">
-    {% load static %} <img src="{% static 'meal_planner_main/images/food1.jpg' %}" alt="home"
-        style="max-width: 100%;" />
+    {% load static %} <img src="{% static 'meal_planner_main/images/food1.jpg' %}" alt="home" />
     <div id="home-image-text">
-        <p class="btn-light btn-lg" style="font-size: 28px;">Cook-it! A website for easy meal planning</p>
+        <p class="btn-light btn-lg">Cook-it! A website for easy meal planning</p>
     </div>
 </div>
 <br>
-<div>
-    <h2 style="text-align: center;">Placeholder for Final Demo Video</h2>
+<div id="home-video">
+    <h2>Placeholder for Final Demo Video</h2>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/ScMzIvxBSi4" title="YouTube video player"
         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe>
@@ -76,5 +71,4 @@
         arcu non sodales neque sodales. Non tellus orci ac auctor.
     </p>
 </div>
-
 {% endblock content %}

@@ -12,8 +12,9 @@
 			{% csrf_token %}
 			<input type="text" placeholder="Search here" name="search" value="{{ ingredients }}"> &nbsp; &nbsp; &nbsp;
 			<button class='btn btn-primary' type="submit" name="send" value="submit"> Submit </button>
+			<br><br>
 			{% for i in list %}
-			<h2>{{ i.title }}</h2>
+			<h4>{{ i.title }}</h4>
 			<img src="{{ i.image }}" style="width:128px;height:128px;">
 			<a class="btn btn-secondary" href="{{ i.sourceUrl }}" target="_blank"> Go to site </a> &nbsp; &nbsp; &nbsp;
 			<button class="btn btn-info" type="submit" name="save" value="{{ forloop.counter }}">Save</button>
@@ -43,8 +44,7 @@
 		</form>
 	</div>
 	<div class="column right">
-		{% load static %} <img src="{% static 'meal_planner_main/images/food13.jpg' %}" alt="food"
-			style="max-width: 100%;" />
+		{% load static %} <img src="{% static 'meal_planner_main/images/food13.jpg' %}" alt="food" />
 	</div>
 </div>
 

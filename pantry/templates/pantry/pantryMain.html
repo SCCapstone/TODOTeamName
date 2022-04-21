@@ -6,8 +6,8 @@
 {% block content %}
 
 <!-- <p> Here you can see the items in your pantry!</p> -->
-<div class="row">
-    <div class="column left">
+<div class="pantry">
+    <div class="left">
         <h1>My Pantry</h1>
         <form action="" method="post">
             {% csrf_token %}
@@ -39,9 +39,8 @@
             </ul>
         </form>
     </div>
-    <div class="column right">
-        {% load static %} <img src="{% static 'meal_planner_main/images/food6.jpg' %}" alt="food"
-            style="max-width: 100%;" />
+    <div class="right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food6.jpg' %}" alt="food" />
     </div>
 </div>
 

@@ -1,23 +1,22 @@
-<!DOCTYPE html>
 {% extends "meal_planner_main/base.html" %}
 
 {% block content %}
 
 <p>
-<h1>{{recipe.recipe_name}}</h1>
-<form method="POST">
-    {%csrf_token%}
-<button class="btn btn-secondary" type="button" onclick="location.href='/recipes/recipeMain';">return</button>
-<button class="btn btn-secondary" type="submit" name="sched" value="sched">Schedule</button>
-<button class="btn btn-secondary" type="submit" name="edit" value="edit">Edit</button>
-<button class="btn btn-secondary" type="submit" name="delete" value="delete" onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
-
-</form>
-<div style="white-space: pre-line;">
-    <p style="font-weight:bold">Ingredients:</p>{{ recipe.recipe_ingredients }}<br>
-    <p style="font-weight:bold">Directions:</p>{{ recipe.recipe_directions }}<br>
-    <p style="font-weight:bold">Extra Information:</p>{{ recipe.recipe_notes }}<br>
-</div>
+    <button class="btn btn-primary" type="button" onclick="location.href='/recipes/recipeMain';">Go Back</button>
+    <h1>{{recipe.recipe_name}}</h1>
+    <form method="POST">
+        {%csrf_token%}
+        <button class="btn btn-secondary" type="submit" name="sched" value="sched">Schedule</button>
+        <button class="btn btn-secondary" type="submit" name="edit" value="edit">Edit</button>
+        <button class="btn btn-secondary" type="submit" name="delete" value="delete"
+            onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
+    </form>
+    <div style="white-space: pre-line;">
+        <p style="font-weight:bold">Ingredients:</p>{{ recipe.recipe_ingredients }}<br>
+        <p style="font-weight:bold">Directions:</p>{{ recipe.recipe_directions }}<br>
+        <p style="font-weight:bold">Extra Information:</p>{{ recipe.recipe_notes }}<br>
+    </div>
 </p>
 
 {%endblock content%}

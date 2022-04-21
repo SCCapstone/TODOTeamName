@@ -1,13 +1,13 @@
 {% extends "meal_planner_main/base.html" %}
+
 {% load static %}
 
 {% block title %}Grocery{% endblock title %}
 
 {% block content %}
-<!-- <p>Welcome to the grocery list! Click to add items</p> -->
-<div class="row">
-    <h1>My Grocery List</h1>
-    <div class="column left">
+<div class="grocery">
+    <div class="left">
+        <h1>My Grocery List</h1>
         <form action="" method="post">
             {% csrf_token %}
             {{ form.as_p }}
@@ -46,9 +46,8 @@
 
         </form>
     </div>
-    <div class="column right">
-        {% load static %} <img src="{% static 'meal_planner_main/images/food5.jpg' %}" alt="food"
-            style="max-width: 100%;" />
+    <div class="right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food5.jpg' %}" alt="food" />
     </div>
 </div>
 {% endblock %}

@@ -5,8 +5,8 @@
 {% block title %}Forum{% endblock title %}
 
 {% block content %}
-<div class="all-content">
-    <div class="forum-left">
+<div class="forum">
+    <div class="left">
         {% block conTitle %}
         {% endblock conTitle %}
         <br><br>
@@ -14,8 +14,8 @@
         <a href="{% url 'forum:valid_post' %}" class="btn btn-primary">Add a new post</a>
         {% else %}
         <p>
-            <a href="{% url 'account:login' %}">Login </a>
-            or <a href="{% url 'account:register' %}">Register</a>
+            <a href="{% url 'account:login' %}">Login</a>
+             or <a href="{% url 'account:register' %}">Register</a>
             in order to make a post.
         </p>
         {% endif %}
@@ -45,9 +45,9 @@
         <p>Be the first to make a post!</p>
         {% endfor %}
     </div>
-    <div class="forum-right">
+    <div class="right">
         {% load static %} <img src="{% static 'meal_planner_main/images/food18.jpg' %}" alt="food"
-            style="max-width: 90%; display: block; margin: auto;" />
+            style="display: block; margin: auto;" />
         <br>
         <div style="text-align: center;">
             <h3 style="display: inline;"> See what others are cooking! </h3>
@@ -78,6 +78,4 @@
         </form>
     </div>
 </div>
-
-
 {% endblock content %}
