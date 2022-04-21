@@ -294,6 +294,21 @@ table.calendar td {
     width: 90%;
     height: 65%
 }
+
+.add-post {
+    margin: 10px;
+}
+
+.add-post-left {
+    float: left;
+    width: 35%;
+}
+
+.add-post-right {
+    float: left;
+    width: 65%;
+}
+
 /* Forum post detail */
 
 .post-detail-image {

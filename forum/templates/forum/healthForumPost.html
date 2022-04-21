@@ -3,15 +3,19 @@
 {% block title %}Forum Post{% endblock title %}
 
 {% block content %}
-<h1>Make a post below</h1>
-
-<h2 class ="subtitle">Add a new post</h2>
-<form method = "post" action = "." enctype='multipart/form-data'>
-  {% csrf_token %}
-
-  {{ form.as_p }}
-  <div class = "field">
-    <button class="btn btn-primary">Submit</button>
+<div class="add-post">
+  <div class="add-post-left">
+      <h2 class="subtitle">Add a new post</h2>
+      <form method="post" action="." enctype="multipart/form-data">
+          {% csrf_token %}
+          {{ form.as_p }}
+          <div class="field">
+              <button class="btn btn-primary">Submit</button>
+          </div>
+      </form>
   </div>
-</form>
+  <div class="add-post-right">
+      {% load static %} <img src="{% static 'meal_planner_main/images/food2.jpg' %}" alt="food" style="max-width: 100%; display: block; margin: auto;" />
+  </div>
+</div>
 {% endblock content %} 

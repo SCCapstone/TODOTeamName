@@ -32,6 +32,8 @@
         {% endfor %}
     </div>
     <div class = "all-images">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food18.jpg' %}" alt="food" style="max-width: 90%; display: block; margin: auto;" />
+        <br>
         <h2 style="text-align:center;"> See what others are cooking! </h2>
         {% for imgpost in imgposts %}
         <div class = "gallery">
