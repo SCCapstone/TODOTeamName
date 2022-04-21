@@ -20,6 +20,11 @@
     --c3-bright: #f0cb52;
     --c4-bright: #9ce2e9;
     --c5-bright: #2276f2;
+    --c1-brighter: #f7bcaf;
+    --c2-brighter: #fae0c6;
+    --c3-brighter: #faefca;
+    --c4-brighter: #e1f6f8;
+    --c5-brighter: #bbd5fb;
     --c1-dark: #92270f;
     --c2-dark: #e47b13;
     --c3-dark: #ebba19;
@@ -141,9 +146,9 @@ iframe {
     }
 }
 
-h1 {
+/* h1 {
     width: 50%;
-}
+} */
 
 table.calendar {
     table-layout: fixed;
@@ -237,7 +242,7 @@ table.calendar td {
 }
 
 .post-block:hover {
-    background: #EEFFBF;
+    background: var(--c3-brighter);
 }
 
 .img-thumbnail {
@@ -258,10 +263,10 @@ table.calendar td {
 }
 
 .gallery {
-    height: 200px;
+    height: 240px;
     width: 200px;
     float: left;
-    background: #D3F369;
+    background: var(--c3-brighter);
     margin: 10px;
 }
 
@@ -269,13 +274,13 @@ table.calendar td {
     display: flex;
 }
 
-.all-posts {
+.forum-left {
     margin: 10px;
     width: 50%;
     float: left;
 }
 
-.all-images {
+.forum-right {
     margin: 10px;
     width: 50%;
     float: right;
@@ -289,6 +294,21 @@ table.calendar td {
     width: 90%;
     height: 65%
 }
+
+.add-post {
+    margin: 10px;
+}
+
+.add-post-left {
+    float: left;
+    width: 35%;
+}
+
+.add-post-right {
+    float: left;
+    width: 65%;
+}
+
 /* Forum post detail */
 
 .post-detail-image {
