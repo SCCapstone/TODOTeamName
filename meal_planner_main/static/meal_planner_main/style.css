@@ -263,7 +263,7 @@ table.calendar td {
 }
 
 .gallery {
-    height: 200px;
+    height: 240px;
     width: 200px;
     float: left;
     background: var(--c3-brighter);

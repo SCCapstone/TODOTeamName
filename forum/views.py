@@ -3,6 +3,7 @@ import math
 from django.shortcuts import render, redirect
 from django.utils.crypto import get_random_string
 from itertools import chain
+from django.contrib import messages
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 
@@ -30,19 +31,26 @@ def profilepage(request, uName):
         following = the_user in profile.following.all()
         if request.method == 'POST':
             if following:
+                messages.success(request, "Unfollowed " + str(the_user))
                 profile.following.remove(the_user)
             else: 
+                messages.success(request, "Followed " + str(the_user))
                 profile.following.add(the_user)
+            # flip boolean so that if you follow someone, the page will then show "unfollow";
+            # whereas if you unfollow someone, the page should show "follow" as an option:
+            following = not following
     
     posts = Post.objects.filter(user = User.objects.get(username=uName))
-    return render(request, 'forum/UserFeed.html', {'forum_page': 'active', 'posts': posts, 'uName': uName, 'following': following})
+    imgposts = ImagePost.objects.filter(user = User.objects.get(username=uName))
+    return render(request, 'forum/UserFeed.html', {'forum_page': 'active', 'posts': posts, 'uName': uName, 'following': following, 'imgposts': imgposts})
 
 @login_required
 def followingpage(request):
     userProfile = Profile.objects.get(user = request.user)
     following = userProfile.following.all()
     posts = Post.objects.filter(user__in=following)
-    return render(request, 'forum/healthForumFollowingPage.html', {'forum_page': 'active', 'posts': posts})
+    imgposts = ImagePost.objects.filter(user__in=following)
+    return render(request, 'forum/healthForumFollowingPage.html', {'forum_page': 'active', 'posts': posts, 'imgposts': imgposts})
 
 def valid_post(request):
     posts = Post.objects.all()
