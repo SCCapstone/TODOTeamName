@@ -20,6 +20,11 @@
     --c3-bright: #f0cb52;
     --c4-bright: #9ce2e9;
     --c5-bright: #2276f2;
+    --c1-brighter: #f7bcaf;
+    --c2-brighter: #fae0c6;
+    --c3-brighter: #faefca;
+    --c4-brighter: #e1f6f8;
+    --c5-brighter: #bbd5fb;
     --c1-dark: #92270f;
     --c2-dark: #e47b13;
     --c3-dark: #ebba19;
@@ -237,7 +242,7 @@ table.calendar td {
 }
 
 .post-block:hover {
-    background: #EEFFBF;
+    background: var(--c3-brighter);
 }
 
 .img-thumbnail {
@@ -261,7 +266,7 @@ table.calendar td {
     height: 200px;
     width: 200px;
     float: left;
-    background: #D3F369;
+    background: var(--c3-brighter);
     margin: 10px;
 }
 
