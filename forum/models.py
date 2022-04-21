@@ -33,7 +33,7 @@ class Comment(models.Model):
         Post, related_name='comments', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)
     email = models.EmailField()
-    body = models.TextField()
+    body = models.TextField(max_length=1500)
     date_added = models.DateTimeField(auto_now_add=True)
 
     class Meta:
