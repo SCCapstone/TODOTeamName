@@ -13,4 +13,5 @@ urlpatterns = [
     path('post/', valid_post, name = 'valid_post'),
     path('imgpost/', valid_image_post, name = 'valid_image_post'),
     path('<slug:slug>/', post_detail, name = 'post_detail'),
+    path('delete', views.delete_imgpost, name='delete_imgpost'),
 ]

@@ -49,7 +49,26 @@
             {% endif %}
         </div>
         <br>
-        {% for imgpost in imgposts %}
+        <!-------------------------------------------------------------------------------->
+        <form action="delete" method="post">
+            {% csrf_token %} 
+            {% for imgpost in imgposts %}
+            <div class="gallery">
+                {% if imgpost.image %}
+                <img src="{{ imgpost.image.url }}" class="gallery-post" />
+                <h4 style="text-align:center;padding:10px;margin-bottom:0px;">{{ imgpost.title }}</h4>
+                <small style="margin:10px;">
+                    by <a href="{% url 'forum:userPage' uName=imgpost.user %}">{{ imgpost.user }}</a>
+                </small>
+                {% if imgpost.user == user %}
+                <button style="float: right;" class="btn-close btn-sm" type="submit" name="delete_imgpost" value="{{ imgpost.slug }}"></button>
+                {% endif %}
+                {% endif %}
+                <!-- <button type="button" class="btn-close" aria-label="Close"></button> -->
+            </div>
+            {% endfor %}
+        </form>
+        <!-- {% for imgpost in imgposts %}
         <div class="gallery">
             {% if imgpost.image %}
             <img src="{{ imgpost.image.url }}" class="gallery-post" />
@@ -59,7 +78,7 @@
             </small>
             {% endif %}
         </div>
-        {% endfor %}
+        {% endfor %} -->
     </div>
 </div>
 

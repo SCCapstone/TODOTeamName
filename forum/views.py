@@ -102,3 +102,53 @@ def post_detail(request, slug):
         form = CommentForm()
 
     return render(request, 'forum/healthForumPost_detail.html', {'forum_page': 'active', 'post': post, 'form': form})
+
+def delete_imgpost(request):
+    all_image_posts = ImagePost.objects.filter(user=request.user)
+    if request.method == 'POST':
+        if request.POST.get('delete_imgpost') != None:
+            i = int(request.POST.get('delete_imgpost'))
+            imgpost = all_image_posts.filter(slug=i) # TODO fix logic?
+            imgpost.delete()
+            messages.success(request, "Image post deleted.")
+    return redirect('forum:healthForumMain')
+
+# def editdelete(request):
+#     all_grocery_items = groceryItems.objects.filter(user=request.user)
+#     global groceryitem
+#     if request.method == 'POST':
+#         if request.POST.get('edit')!=None:
+#             i = int(request.POST.get("edit"))
+#             groceryitem = all_grocery_items[i-1]
+#             return redirect('grocery:edit', id = groceryitem.item_name.id)
+#             #return redirect("/grocery/editGroceryItem")
+#         elif request.POST.get('delete')!=None:
+#             i=int(request.POST.get('delete'))
+#             all_grocery_items[i-1].delete()
+#             messages.success(request, "Item deleted.")
+#         elif request.POST.get('sendtopantry')!=None:
+#             i = int(request.POST.get('sendtopantry'))
+#             g = all_grocery_items[i-1]
+#             if not pantryItems.objects.filter(user = request.user, name = g.item_name):
+#                 p = pantryItems.objects.create(name = g.item_name, quantity = g.quantity, user = g.user)
+#             else:
+#                 item = pantryItems.objects.get(user = request.user, name = g.item_name)
+#                 item.quantity = item.quantity + g.quantity
+#                 item.save()
+#             messages.success(request, "Sent " + str(g) + " to pantry!")
+#         elif request.POST.get('sendalltopantry')!=None:
+#             for g in all_grocery_items:
+#                 if not pantryItems.objects.filter(user = request.user, name = g.item_name):
+#                     p = pantryItems.objects.create(name = g.item_name, quantity = g.quantity, user = g.user)
+#                 else:
+#                     item = pantryItems.objects.get(user = request.user, name = g.item_name)
+#                     item.quantity = item.quantity + g.quantity
+#                     item.save()
+#             messages.success(request, "Send entire list to pantry!")
+#         elif request.POST.get('deletelist')!=None:
+#             for g in all_grocery_items:
+#                 g.delete()
+#             messages.success(request, "Cleared grocery list.")
+
+            
+#     return redirect('grocery:groceryMain')
