@@ -127,16 +127,123 @@ img {
     text-align: center;
 }
 
+#home-content {
+    padding: 20px;
+}
+
 iframe {
     display: block;
     margin: auto;
     max-width: 100%;
 }
 
+.carousel {
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
+}
+
+.slides {
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+}
+
+.slides::-webkit-scrollbar {
+    display: none;
+}
+
+.slides-item {
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 100px;
+    height: 600px;
+    justify-content: center;
+    margin: 0 1rem;
+    position: relative;
+    scroll-snap-align: start;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform .5s;
+    width: 100%;
+}
+
+.carousel__nav {
+    padding: 1.25rem .5rem;
+}
+
+.slider-nav {
+    align-items: center;
+    background-color: #ddd;
+    border-radius: 50%;
+    color: #000;
+    display: inline-flex;
+    height: 1.5rem;
+    justify-content: center;
+    padding: .5rem;
+    position: relative;
+    text-decoration: none;
+    width: 1.5rem;
+}
+
+.slider-nav:hover,
+.slider-nav:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.slide-1 {
+    background-color: var(--c1-brighter);
+}
+
+.slide-2 {
+    background-color: var(--c2-brighter);
+}
+
+.slide-3 {
+    background-color: var(--c3-brighter);
+}
+
+.slide-4 {
+    background-color: var(--c4-brighter);
+}
+
+.carousel__skip-link {
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+.carousel__skip-link:focus {
+    align-items: center;
+    background-color: #ddd;
+    color: #fff;
+    display: flex;
+    height: 600px;
+    justify-content: center;
+    opacity: .8;
+    width: 100%;
+    z-index: 10;
+}
+
+.carousel__skip-message {
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem;
+    width: 100%;
+}
+
 /* SPLIT PAGE */
 
 /* stack left/right sides if small screen width */
 @media screen and (max-width: 600px) {
+
     .forum,
     .grocery,
     .pantry,
@@ -278,8 +385,8 @@ table.calendar td {
     position: relative;
     padding: 20px;
     margin-top: 30px;
-    border-bottom: 1px solid gray;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    border-top: 1px solid gray;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     transition-property: color, background-color, border-color, box-shadow;
     transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
     transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
@@ -346,7 +453,7 @@ div .recipes {
     margin: 2px;
     margin-bottom: 4px;
     display: inline-block;
-    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
     transition-property: color, background-color, border-color, box-shadow;
     transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
     transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
