@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="add-post">
-    <div class="add-post-left">
+    <div class="left">
         <h2 class="subtitle">Post an image</h2>
         <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
@@ -14,8 +14,8 @@
             </div>
         </form>
     </div>
-    <div class="add-post-right">
-        {% load static %} <img src="{% static 'meal_planner_main/images/food20.jpg' %}" alt="food" style="max-width: 100%; display: block; margin: auto;" />
+    <div class="right">
+        {% load static %} <img src="{% static 'meal_planner_main/images/food20.jpg' %}" alt="food" style="display: block; margin: auto;" />
     </div>
 </div>
 {% endblock content %}

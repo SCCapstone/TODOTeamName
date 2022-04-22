@@ -1,39 +1,34 @@
 {% extends "meal_planner_main/base.html" %}
 
-
 {% block title %}Meal Planner{% endblock title %}
 
 {% block content %}
-
-<!-- <h1>Meal Planner Home Page</h1> -->
-<!-- <p>Welcome to our Meal Planner app!</p> -->
 <div id="home-image">
-    {% load static %} <img src="{% static 'meal_planner_main/images/food1.jpg' %}" alt="home"
-        style="max-width: 100%;" />
+    {% load static %} <img src="{% static 'meal_planner_main/images/food1.jpg' %}" alt="home" />
     <div id="home-image-text">
-        <p class="btn-light btn-lg" style="font-size: 28px;">Cook-it! A website for easy meal planning</p>
+        <p class="btn-light btn-lg">Cook-it! A website for easy meal planning</p>
     </div>
 </div>
 <br>
-<div>
-    <h2 style="text-align: center;">Placeholder for Final Demo Video</h2>
+<div id="home-video">
+    <h2>Placeholder for Final Demo Video</h2>
     <iframe width="560" height="315" src="https://www.youtube.com/embed/ScMzIvxBSi4" title="YouTube video player"
         frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
         allowfullscreen></iframe>
 </div>
 <br>
-<div>
-    <h3>Why Cook-It?</h3>
+<div id="home-content">
+    <h3>Why Cook-it?</h3>
     <p>
-        Cook-It is a health and fitness app built for your lifestyle! Ensuring that you have the food you need,
-        when you need it is our goal. With Cook-It you can quickly and easily find recipes with the ingredients you
+        Cook-it is a health and fitness app built for your lifestyle! Ensuring that you have the food you need,
+        when you need it is our goal. With Cook-it you can quickly and easily find recipes with the ingredients you
         already have at home. That means <strong>minimizing waste</strong> and <strong>saving money</strong>! Not only
-        that, Cook-It can also help you meal plan and find new recipes. Eating delicious new meals couldn't
+        that, Cook-it can also help you meal plan and find new recipes. Eating delicious new meals couldn't
         be easier!
     </p>
-    <h3>How to use Cook-It</h3>
+    <h3>How to use Cook-it</h3>
     <p>
-        Using Cook-It is easy!
+        Using Cook-it is easy!
         <ol>
         <li>Register with your name and email</li>
         <li>Visit your profile and add any dietary restrictions</li>
@@ -42,19 +37,35 @@
         And just like that you're ready to get cooking! From here you can look for new recipes (or add your own)
         in the recipes tab or see how your friends are doing in the forum.
     </p>
-    <h3>Screenshots of app (at least 3)</h3>
-    <p>
-        Eget nunc lobortis mattis aliquam. Dignissim convallis aenean et tortor at risus viverra adipiscing. Velit
-        egestas dui id ornare arcu odio ut. At volutpat diam ut venenatis tellus in metus. Odio aenean sed adipiscing
-        diam donec adipiscing tristique risus nec. Lacus viverra vitae congue eu consequat. Diam maecenas sed enim ut
-        sem viverra aliquet eget sit. Mus mauris vitae ultricies leo integer malesuada nunc. Ut placerat orci nulla
-        pellentesque dignissim enim sit amet. Dictum varius duis at consectetur lorem donec massa sapien. In ornare quam
-        viverra orci sagittis eu volutpat odio. Potenti nullam ac tortor vitae purus faucibus ornare suspendisse sed.
-        Amet aliquam id diam maecenas ultricies. Fermentum dui faucibus in ornare. Malesuada fames ac turpis egestas
-        maecenas pharetra. Etiam non quam lacus suspendisse faucibus interdum posuere. Feugiat in ante metus dictum at
-        tempor commodo ullamcorper.
-    </p>
-    <h3>Cook-It was designed and created by:</h3>
+    <h3>Screenshots of the app</h3>
+    <!-- Carousel code from https://levelup.gitconnected.com/how-to-make-a-fully-accessible-css-only-carousel-40e8bd62032b -->
+    <div class="carousel">
+        <div class="slides">
+            <div class="slides-item slide-1" id="slide-1">
+                {% load static %} <img src="{% static 'meal_planner_main/images/screenshot1.png' %}" alt="screenshot 1" 
+                style="max-height: 600px;" />
+            </div>
+            <div class="slides-item slide-2" id="slide-2">
+                {% load static %} <img src="{% static 'meal_planner_main/images/screenshot2.png' %}" alt="screenshot 2"
+                style="max-height: 600px;" />
+            </div>
+            <div class="slides-item slide-3" id="slide-3">
+                {% load static %} <img src="{% static 'meal_planner_main/images/screenshot3.png' %}" alt="screenshot 3"
+                style="max-height: 600px;" />
+            </div>
+            <div class="slides-item slide-4" id="slide-4">
+                {% load static %} <img src="{% static 'meal_planner_main/images/screenshot4.png' %}" alt="screenshot 4"
+                style="max-height: 600px;" />
+            </div>    
+          </div>
+          <div class="carousel__nav">
+            <a class="slider-nav" href="#slide-1">1</a>
+            <a class="slider-nav" href="#slide-2">2</a>
+            <a class="slider-nav" href="#slide-3">3</a>
+            <a class="slider-nav" href="#slide-4">4</a>
+          </div>
+    </div>
+    <h3>Cook-it was designed and created by:</h3>
     <p>
         &ensp; Carol Juneau</br>
         &ensp; Isaac Luther</br>
@@ -63,7 +74,5 @@
         &ensp; Eiman Najjar
     </p>
     <h4><a href=https://github.com/SCCapstone/TODOTeamName target="_blank">Visit our Github</a></h4>
-
 </div>
-
 {% endblock content %}

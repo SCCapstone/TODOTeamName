@@ -1,14 +1,7 @@
 /* stylesheet */
 
-/* color scheme: 
-#EEFFBF
-#D3F369
-#C1E05A
-#F7AC0C
-#F76A0C
-*/
+/* COLOR SCHEME */
 
-/* new color scheme?? */
 :root {
     --c1: #a62c11;
     --c2: #ee8e2d;
@@ -31,6 +24,8 @@
     --c4-dark: #6ad4dd;
     --c5-dark: #0c59cc;
 }
+
+/* BUTTONS */
 
 .btn-primary,
 .btn-primary:active,
@@ -68,6 +63,8 @@
     border-color: var(--c3-bright) !important;
 }
 
+/* GENERAL */
+
 body {
     font-family: 'Franklin Gothic', Arial, sans-serif;
 }
@@ -75,6 +72,12 @@ body {
 #content {
     padding: 20px;
 }
+
+img {
+    max-width: 100%;
+}
+
+/* NAVIGATION BAR */
 
 .navbar {
     padding-bottom: 0px;
@@ -106,6 +109,8 @@ body {
     background-color: white;
 }
 
+/* HOME PAGE */
+
 #home-image {
     position: relative;
 }
@@ -115,40 +120,191 @@ body {
     top: 12px;
     right: 16px;
     padding: 20px;
+    font-size: 28px;
+}
+
+#home-video h2 {
+    text-align: center;
+}
+
+#home-content {
+    padding: 20px;
 }
 
 iframe {
     display: block;
     margin: auto;
-    /* border-style:none; */
+    max-width: 100%;
 }
 
-.row {
-    margin-left: 10px;
+.carousel {
+    margin: 0 auto;
+    overflow: hidden;
+    text-align: center;
 }
 
-.column {
-    float: left;
+.slides {
+    display: flex;
+    overflow-x: scroll;
+    scrollbar-width: none;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
 }
 
-.column.left {
-    width: 45%;
+.slides::-webkit-scrollbar {
+    display: none;
 }
 
-.column.right {
-    width: 55%;
-    padding-left: 20px;
+.slides-item {
+    align-items: center;
+    border-radius: 10px;
+    display: flex;
+    flex-shrink: 0;
+    font-size: 100px;
+    height: 600px;
+    justify-content: center;
+    margin: 0 1rem;
+    position: relative;
+    scroll-snap-align: start;
+    transform: scale(1);
+    transform-origin: center center;
+    transition: transform .5s;
+    width: 100%;
 }
 
+.carousel__nav {
+    padding: 1.25rem .5rem;
+}
+
+.slider-nav {
+    align-items: center;
+    background-color: #ddd;
+    border-radius: 50%;
+    color: #000;
+    display: inline-flex;
+    height: 1.5rem;
+    justify-content: center;
+    padding: .5rem;
+    position: relative;
+    text-decoration: none;
+    width: 1.5rem;
+}
+
+.slider-nav:hover,
+.slider-nav:active {
+    background-color: #000;
+    color: #fff;
+}
+
+.slide-1 {
+    background-color: var(--c1-brighter);
+}
+
+.slide-2 {
+    background-color: var(--c2-brighter);
+}
+
+.slide-3 {
+    background-color: var(--c3-brighter);
+}
+
+.slide-4 {
+    background-color: var(--c4-brighter);
+}
+
+.carousel__skip-link {
+    height: 1px;
+    overflow: hidden;
+    position: absolute;
+    top: auto;
+    width: 1px;
+}
+
+.carousel__skip-link:focus {
+    align-items: center;
+    background-color: #ddd;
+    color: #fff;
+    display: flex;
+    height: 600px;
+    justify-content: center;
+    opacity: .8;
+    width: 100%;
+    z-index: 10;
+}
+
+.carousel__skip-message {
+    background-color: #000;
+    color: #fff;
+    padding: 0.5rem;
+    width: 100%;
+}
+
+/* SPLIT PAGE */
+
+/* stack left/right sides if small screen width */
 @media screen and (max-width: 600px) {
-    .column {
-        width: 100%;
+
+    .forum,
+    .grocery,
+    .pantry,
+    .add-post,
+    .recipespage {
+        flex-direction: column;
     }
 }
 
-/* h1 {
-    width: 50%;
-} */
+.forum,
+.grocery,
+.pantry,
+.add-post,
+.recipespage {
+    box-sizing: border-box;
+    display: flex;
+}
+
+.left {
+    flex: 50%;
+    padding: 10px;
+}
+
+.right {
+    flex: 50%;
+    padding: 10px;
+}
+
+.add-post .left {
+    flex: 30%;
+}
+
+.add-post .right {
+    flex: 70%;
+}
+
+.pantry .left {
+    flex: 40%;
+}
+
+.pantry .right {
+    flex: 60%;
+}
+
+.grocery .left {
+    flex: 40%;
+}
+
+.grocery .right {
+    flex: 60%;
+}
+
+.recipespage .left {
+    flex: 60%;
+}
+
+.recipespage .right {
+    flex: 40%;
+}
+
+/* CALENDAR */
 
 table.calendar {
     table-layout: fixed;
@@ -157,34 +313,29 @@ table.calendar {
     font-size: 13px;
 }
 
-/* grid */
 table.calendar tr,
 table.calendar td {
     border: 1px solid black;
 }
 
-/* table header cells */
 .calendar th {
     padding: 10px;
     text-align: center;
     font-size: 18px;
 }
 
-/* table cells */
 .calendar td {
     height: 150px;
     padding: 5px;
     vertical-align: top;
 }
 
-/* table cell list */
 .calendar td ul {
     list-style: inside;
     padding-inline-start: 5px;
     margin-bottom: 5px;
 }
 
-/* recipe links in month calendar */
 .calendar li span.recipe_url {
     max-width: calc(100% - 40px);
     display: inline-block;
@@ -194,14 +345,12 @@ table.calendar td {
     vertical-align: middle;
 }
 
-/* recipe links */
 .calendar li a:link,
 .calendar li a:visited {
     text-decoration: none;
     color: black;
 }
 
-/* recipe links hovered */
 .calendar li a:hover,
 .calendar li a:active {
     text-decoration: underline;
@@ -230,15 +379,18 @@ table.calendar td {
     width: 100%;
 }
 
-/* Forum styles */
+/* FORUM */
+
 .post-block {
     position: relative;
     padding: 20px;
     margin-top: 30px;
-    margin-left: 30px;
-    border-bottom: 1px solid gray;
-
-
+    border-top: 1px solid gray;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    transition-delay: 0s, 0s, 0s, 0s;
 }
 
 .post-block:hover {
@@ -270,22 +422,6 @@ table.calendar td {
     margin: 10px;
 }
 
-.all-content {
-    display: flex;
-}
-
-.forum-left {
-    margin: 10px;
-    width: 50%;
-    float: left;
-}
-
-.forum-right {
-    margin: 10px;
-    width: 50%;
-    float: right;
-}
-
 .gallery-post {
     display: block;
     margin-top: 10px;
@@ -295,23 +431,41 @@ table.calendar td {
     height: 65%
 }
 
-.add-post {
-    margin: 10px;
-}
-
-.add-post-left {
-    float: left;
-    width: 35%;
-}
-
-.add-post-right {
-    float: left;
-    width: 65%;
-}
-
-/* Forum post detail */
-
 .post-detail-image {
     height: 200px;
     width: auto;
+}
+
+/* RECIPES */
+
+div .recipe-link {
+    width: 320px;
+    padding: 10px;
+    margin: 0;
+    cursor: pointer;
+
+}
+
+div .recipes {
+    width: 350px;
+    padding: 10px;
+    border: 5px solid var(--c1);
+    margin: 2px;
+    margin-bottom: 4px;
+    display: inline-block;
+    transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+    transition-property: color, background-color, border-color, box-shadow;
+    transition-duration: 0.15s, 0.15s, 0.15s, 0.15s;
+    transition-timing-function: ease-in-out, ease-in-out, ease-in-out, ease-in-out;
+    transition-delay: 0s, 0s, 0s, 0s;
+}
+
+div .recipes:hover {
+    background-color: var(--c3-brighter);
+}
+
+.recipe-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
