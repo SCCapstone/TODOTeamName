@@ -161,13 +161,13 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'bootstrap'),
 ]
 
+MEDIA_URL = '/media/'
 """Comment these lines out for use on Heroku!!"""
-# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-# MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 """Comment these lines out for local use!!"""
-MEDIA_ROOT = f"https://herokubucket492.s3.amazonaws.com/media"
-MEDIA_URL = f"https://herokubucket492.s3.amazonaws.com/media/"
+#MEDIA_ROOT = f"https://herokubucket492.s3.amazonaws.com/media"
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
