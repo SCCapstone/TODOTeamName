@@ -4,7 +4,7 @@ from django.urls import reverse
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Table, TableStyle, Image
 import textwrap 
 
 from .models import ScheduledRecipe
@@ -132,6 +132,7 @@ class PdfPrint():
             ('FONTSIZE', (0, 0), (0, -1), 12)
         ]))
         elements = []
+        elements.append(Image("meal_planner_main/static/meal_planner_main/images/cookit.png", width=200, height=37))
         elements.append(Paragraph('My Meal Plan, Week of ' + day.strftime('%m-%d-%Y'), styles['Title']))
         elements.append(t)
         doc.build(elements)
