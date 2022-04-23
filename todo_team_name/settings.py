@@ -162,10 +162,10 @@ STATICFILES_DIRS = [
 ]
 
 MEDIA_URL = '/media/'
-"""Comment these lines out for use on Heroku!!"""
+"""Comment this line out for use on Heroku!!"""
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-"""Comment these lines out for local use!!"""
+"""Comment this line out for local use!!"""
 #MEDIA_ROOT = f"https://herokubucket492.s3.amazonaws.com/media"
 
 
