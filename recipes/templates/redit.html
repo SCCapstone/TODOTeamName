@@ -19,6 +19,9 @@
 	<label for="steps">Steps:</label><br>
 	<textarea id="steps" name="steps" rows="4" cols="50"
 		placeholder="Bake at 250 for an hour">{{ recipe.recipe_directions }}</textarea><br>
+	<label for="etc">Additional Information:</label><br>
+	<textarea id="etc" name="etc" rows="4" cols="50"
+		placeholder="e.g. nutritional information, tips & tricks, etc.">{{ recipe.recipe_notes }}</textarea><br>
 	<br>
 	<input class="btn btn-primary" type="submit" value="Submit">
 </form>

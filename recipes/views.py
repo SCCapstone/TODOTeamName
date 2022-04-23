@@ -99,6 +99,7 @@ def rview(request, recipe_id):
             return redirect("/recipes/editRecipe")
         if request.POST.get("delete")=="delete":
             context.delete()
+            return redirect("/recipes/recipeMain")
     return render(request, 'view.html', {'recipe':context})
 
 @login_required
