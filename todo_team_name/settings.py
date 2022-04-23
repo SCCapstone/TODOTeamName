@@ -153,11 +153,21 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
+
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
     os.path.join(BASE_DIR, 'bootstrap'),
 ]
+
+"""Comment these lines out for use on Heroku!!"""
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+# MEDIA_URL = '/media/'
+
+"""Comment these lines out for local use!!"""
+MEDIA_ROOT = f"https://herokubucket492.s3.amazonaws.com/media"
+MEDIA_URL = f"https://herokubucket492.s3.amazonaws.com/media/"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
