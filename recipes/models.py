@@ -8,7 +8,7 @@ class allergies(models.Model):
 
 
 class Recipe(models.Model):
-    #author = models.ManyToManyField(User, related_name='recipe_list')
+    """Recipe object, keeps track of recipe related data"""
     recipe_name = models.CharField(max_length=200)
     recipe_ingredients = models.TextField(max_length=100)
     recipe_directions = models.TextField(max_length=100)
@@ -19,6 +19,3 @@ class Recipe(models.Model):
 
     def __str__(self):
         return self.recipe_name
-    #allergens_in_item = models.ManyToManyField(
-    #    allergies, related_name='recipes_with_allergens')
-    # TODO- allergy flags?
