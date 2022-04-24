@@ -8,13 +8,13 @@
 <h1 class = 'title'>{{ post.title }}</h1>
 <small>Posted at {{ post.date_added }}</small>
 
-<p><strong>{{ post.intro }}</strong></p>
+<h3><strong>{{ post.intro }}</strong></h3>
 
 {% if post.image %}
-  <img src = "{{ post.image.url }}" class="post-detail-image"/>
+  <img src = "{{ post.image.url }}" class="post-detail-image" style="margin: 10px;"/>
 {% endif %}
 
-<p>{{ post.body }}</p>
+<h5><p>{{ post.body }}</p></h5>
 
 
 <hr>

@@ -1,5 +1,5 @@
 from django.urls import path
-
+""" Handles URL navigation for the webpage"""
 
 from . import views
 from forum.views import *

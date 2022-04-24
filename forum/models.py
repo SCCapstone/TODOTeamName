@@ -3,6 +3,7 @@ from django.db import models
 
 
 class Post(models.Model):
+    """Makes a post tuple"""
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     intro = models.TextField()
@@ -18,6 +19,7 @@ class Post(models.Model):
 # TODO : Seperate page for Image Posts
 
 class ImagePost(models.Model):
+    """Makes an image post tuple"""
     title = models.CharField(max_length=255)
     slug = models.SlugField()
     image = models.ImageField()
@@ -29,6 +31,7 @@ class ImagePost(models.Model):
 
 
 class Comment(models.Model):
+    "Makes a comment tuple"
     post = models.ForeignKey(
         Post, related_name='comments', on_delete=models.CASCADE)
     name = models.CharField(max_length=255)

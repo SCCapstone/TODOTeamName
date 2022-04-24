@@ -5,7 +5,7 @@
 {% block content %}
 <div class="add-post">
     <div class="left">
-        <h2 class="subtitle">Add a new post</h2>
+        <h2 class="subtitle">Tell us how you've been!</h2>
         <form method="post" action="." enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
