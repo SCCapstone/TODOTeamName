@@ -10,11 +10,14 @@ from io import BytesIO
 from recipes.models import Recipe
 import calendar
 
-from .forms import *
-from .models import *
-from .utils import *
+from .forms import ScheduledRecipeForm
+from .models import ScheduledRecipe, Recipe
+from .utils import Calendar, WeekCalendar, DayCalendar, PdfPrint
+
 
 class CalendarView(generic.ListView):
+    """A view with a monthly calendar."""
+
     model = ScheduledRecipe
     template_name = 'cal/calendar.html'
 
@@ -22,7 +25,6 @@ class CalendarView(generic.ListView):
         context = super().get_context_data(**kwargs)
         d = get_date(self.request.GET.get('month', None))
         cal = Calendar(d.year, d.month)
-        #cal.setUser(self.request.user)
         html_cal = cal.formatmonth(self.request.user, withyear=True)
         context['calendar'] = mark_safe(html_cal)
         context['prev_month'] = prev_month(d)
@@ -32,8 +34,11 @@ class CalendarView(generic.ListView):
         context['cal_page'] = 'active'
         return context
 
+
 class WeekView(generic.ListView):
-    model = ScheduledRecipe 
+    """A view with a weekly calendar."""
+
+    model = ScheduledRecipe
     template_name = 'cal/week.html'
 
     def get_context_data(self, **kwargs):
@@ -50,8 +55,11 @@ class WeekView(generic.ListView):
         context['cal_page'] = 'active'
         return context
 
+
 class DayView(generic.ListView):
-    model = ScheduledRecipe 
+    """A view with a daily calendar."""
+
+    model = ScheduledRecipe
     template_name = 'cal/day.html'
 
     def get_context_data(self, **kwargs):
@@ -65,9 +73,12 @@ class DayView(generic.ListView):
         context['the_week'] = the_week(d)
         context['the_month'] = the_month(d)
         context['cal_page'] = 'active'
-        return context 
+        return context
+
 
 class DeleteView(generic.DeleteView):
+    """A view for deleting a scheduled recipe."""
+
     model = ScheduledRecipe
     template_name = 'cal/delete_view.html'
     success_url = '/cal/'
@@ -75,20 +86,44 @@ class DeleteView(generic.DeleteView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['cal_page'] = 'active'
-        return context 
+        return context
+
+
+@login_required
+def scheduled_recipe(request, scheduled_recipe_id=None):
+    """A view with a form for adding a new scheduled recipe."""
+
+    instance = ScheduledRecipe()
+    if scheduled_recipe_id:
+        instance = get_object_or_404(ScheduledRecipe, pk=scheduled_recipe_id)
+    else:
+        instance = ScheduledRecipe()
+
+    form = ScheduledRecipeForm(request.POST or None, instance=instance)
+    form.fields['recipe'].queryset = Recipe.objects.all().filter(
+        user=request.user)
+    if request.POST and form.is_valid():
+        form.instance.user = request.user
+        form.save()
+        messages.success(request, "Recipe scheduled!")
+        return HttpResponseRedirect(reverse('cal:calMain'))
+
+    return render(request, 'cal/scheduled_recipe.html', {'cal_page': 'active', 'form': form})
+
 
 def cal_pdf_view(request):
+    """A view to generate a pdf for a week"""
+
     response = HttpResponse(content_type='application/pdf')
-    d = date.today().strftime('%Y-%m-%d')
-    filename = 'Meal_Plan_' + d.__str__()  # TODO fix
-    response['Content-Disposition'] = f'inline; filename="{filename}.pdf"'
     buffer = BytesIO()
     report = PdfPrint(request.user, buffer)
     path = request.get_full_path()
     week = path.split('week=', 1)[1]
-    pdf = report.report(week)
+    (pdf, filename) = report.report(week)
+    response['Content-Disposition'] = f'inline; filename="{filename}.pdf"'
     response.write(pdf)
     return response
+
 
 def get_date(req_month):
     if req_month:
@@ -96,12 +131,13 @@ def get_date(req_month):
         return date(year, month, day=1)
     return date.today()
 
+
 def get_date_week(req_week):
     if req_week:
         year, week = (int(x) for x in req_week.split('-'))
-        d = date.fromisocalendar(year, week, day=1)
-        return d 
+        return date.fromisocalendar(year, week, day=1)
     return date.today()
+
 
 def get_date_day(req_day):
     if req_day:
@@ -109,11 +145,13 @@ def get_date_day(req_day):
         return date(year, month, day)
     return date.today()
 
+
 def prev_month(d):
     first = d.replace(day=1)
     prev_month = first - timedelta(days=1)
     month = 'month=' + str(prev_month.year) + '-' + str(prev_month.month)
     return month
+
 
 def next_month(d):
     days_in_month = calendar.monthrange(d.year, d.month)[1]
@@ -122,45 +160,34 @@ def next_month(d):
     month = 'month=' + str(next_month.year) + '-' + str(next_month.month)
     return month
 
+
 def prev_week(d):
     prev_week = d - timedelta(days=7)
     return 'week=' + str(prev_week.year) + '-' + str(prev_week.isocalendar()[1])
+
 
 def next_week(d):
     next_week = d + timedelta(days=7)
     return 'week=' + str(next_week.year) + '-' + str(next_week.isocalendar()[1])
 
+
 def prev_day(d):
     prev_day = d - timedelta(days=1)
     return 'day=' + str(prev_day.year) + '-' + str(prev_day.month) + '-' + str(prev_day.day)
+
 
 def next_day(d):
     next_day = d + timedelta(days=1)
     return 'day=' + str(next_day.year) + '-' + str(next_day.month) + '-' + str(next_day.day)
 
+
 def the_month(d):
     return 'month=' + str(d.year) + '-' + str(d.month)
+
 
 def the_week(d):
     return 'week=' + str(d.year) + '-' + str(d.isocalendar()[1])
 
+
 def the_day(d):
     return 'day=' + str(d.year) + '-' + str(d.month) + '-' + str(d.day)
-
-@login_required
-def scheduled_recipe(request, scheduled_recipe_id=None):
-    instance = ScheduledRecipe()
-    if scheduled_recipe_id:
-        instance = get_object_or_404(ScheduledRecipe, pk=scheduled_recipe_id)
-    else:
-        instance = ScheduledRecipe()
-
-    form = ScheduledRecipeForm(request.POST or None, instance=instance)
-    form.fields['recipe'].queryset = Recipe.objects.all().filter(user=request.user)
-    if request.POST and form.is_valid():
-        form.instance.user = request.user
-        form.save()
-        messages.success(request, "Recipe scheduled!")
-        return HttpResponseRedirect(reverse('cal:calMain'))
-
-    return render(request, 'cal/scheduled_recipe.html', {'cal_page': 'active', 'form': form})
