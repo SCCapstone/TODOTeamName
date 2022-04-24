@@ -5,6 +5,7 @@ from .forms import *
 import requests
 import json
 from cal.models import ScheduledRecipe
+from account.models import *
 from .models import *
 
 url = "https://spoonacular-recipe-food-nutrition-v1.p.rapidapi.com/recipes/search"
@@ -40,7 +41,8 @@ def recipes(request):
 def rsearch(request):
     if request.method == "POST": 
         ingredients = request.POST.get("search")
-        querystring = {"query":ingredients,"offset":"0","number":"5"}
+        profile=Profile.objects.get(user=request.user)
+        querystring = {"query":ingredients,"offset":"0","number":"5", "excludeIngredients":profile.allergy_list}
         response ={'list': json.loads(requests.request("GET", url, headers=headers, params=querystring).text)}
         id=""
         nutinfo=[]
@@ -51,7 +53,7 @@ def rsearch(request):
             nutinfo.append(res)
         ressearch = {"ids":str(id)}
         temp = json.loads(requests.request("GET", url2, headers=headers, params=ressearch).text)
-        if 'code' in temp:
+        if 'code' in temp or len(temp)==0:
             messages.error(request, "Sorry, one of the search parameters couldn't be found, try a different search")
             return render(request, "apisearch.html", {'ingredients':ingredients})
         else:
