@@ -5,18 +5,18 @@
 {% block content %}
 
 {% if form.errors %}
-    {% for field in form %}
-        {% for error in field.errors %}
-            <div>
-                {{ field.label }} <strong>{{ error|escape }}</strong>
-            </div>
-        {% endfor %}
-    {% endfor %}
-    {% for error in form.non_field_errors %}
-        <div>
-            {{ field.label }} <strong>{{ error|escape }}</strong>
-        </div>
-    {% endfor %}
+{% for field in form %}
+{% for error in field.errors %}
+<div>
+    {{ field.label }} <strong>{{ error|escape }}</strong>
+</div>
+{% endfor %}
+{% endfor %}
+{% for error in form.non_field_errors %}
+<div>
+    {{ field.label }} <strong>{{ error|escape }}</strong>
+</div>
+{% endfor %}
 {% endif %}
 
 <form method="post">

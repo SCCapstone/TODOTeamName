@@ -10,9 +10,9 @@ urlpatterns = [
     path('weekview', login_required(views.WeekView.as_view()), name='calWeek'),
     path('dayview', login_required(views.DayView.as_view()), name='calDay'),
     path('scheduled_recipe/new/', views.scheduled_recipe,
-        name='scheduled_recipe_new'),
+         name='scheduled_recipe_new'),
     path('scheduled_recipe/edit/<int:scheduled_recipe_id>/',
-        views.scheduled_recipe, name='scheduled_recipe_edit'),
+         views.scheduled_recipe, name='scheduled_recipe_edit'),
     path('scheduled_recipe/delete/<int:pk>/',
-        views.DeleteView.as_view(), name='scheduled_recipe_delete')
+         views.DeleteView.as_view(), name='scheduled_recipe_delete')
 ]
