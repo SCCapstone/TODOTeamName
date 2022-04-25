@@ -32,8 +32,18 @@ To launch the local server you need to type `python manage.py runserver` into th
 After this visit your localhost in a webbrowser of choice. 
 
 # Deployment
-This section is pending
-
+This app was deployed using Heroku. Create a Heroku account and follow the instructions to setup and deploy the app https://devcenter.heroku.com/articles/git
+After it's been deployed, run
+heroku addons:create heroku-postgresql:hobby-dev 
+to add the database. 
+To deploy new changes that have been committed locally, run 
+```
+git push heroku main
+```
+To create a superuser for your newly deployed website, run
+```
+heroku run python manage.py createsuperuser
+```
 # Testing
 Behavioral tests for this app are located in the Tests directory.  Unit tests are found in the tests.py file in their respective directory.
 
