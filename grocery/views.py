@@ -12,6 +12,7 @@ from pantry.models import pantryItems
 
 @login_required
 def groceryListMain(request):
+    """routes request if user is using the form"""
     all_grocery_items = groceryItems.objects.filter(user=request.user)
     global groceryitem
     if request.method == 'POST':
@@ -37,6 +38,7 @@ def groceryListMain(request):
     return render(request, 'grocery/groceryListMain.html', {'grocery_page': 'active', 'all_grocery_items': all_grocery_items, 'form': form})
 
 def editdelete(request):
+    """routes request if the request is either editing/deleting information"""
     all_grocery_items = groceryItems.objects.filter(user=request.user)
     global groceryitem
     if request.method == 'POST':
@@ -78,6 +80,7 @@ def editdelete(request):
 
 @login_required
 def edit(request, id=None, template_name='grocery/edit.html'):
+    """page to edit a pantry item"""
     if id:
         groceryitem = get_object_or_404(groceryItems, item_name = foodIngredient.objects.get(id = id), user = request.user)
         if groceryitem.user != request.user:
@@ -142,6 +145,7 @@ def edit(request, id=None, template_name='grocery/edit.html'):
 #    return render(request, 'grocery/groceryListMain.html', {'all_grocery_items': all_grocery_items, 'form': form})
 
 class IngredientAutocomplete(autocomplete.Select2QuerySetView):
+    """autocomplete view that allows for entering ingredients"""
     def get_queryset(self):
         # Don't forget to filter out results depending on the visitor ! 
         if not self.request.user.is_authenticated:

@@ -8,6 +8,7 @@ from .forms import *
 
 
 def register(request):
+    """view for new users to create an account"""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
@@ -25,6 +26,7 @@ def register(request):
 
 @login_required
 def profile(request):
+    """view for users to edit their account"""
     if request.method == 'POST':
         p_form = ProfileUpdateForm(request.POST, instance=request.user.profile)
         if p_form.is_valid():
