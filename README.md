@@ -12,6 +12,8 @@ In order to build this project you first have to install:
 * [Python](https://www.python.org/downloads/)
 * [PostgreSQL](https://www.postgresql.org/download/)
 
+You will also need to pip install the python requirements; you may want to use a virtual environment. Run `pip install -r requirements.txt`
+
 ## Setup
 
 In order to log in as an admin you will need to execute the following commands in the console:
