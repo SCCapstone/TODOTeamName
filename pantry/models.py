@@ -4,6 +4,7 @@ from grocery.models import foodIngredient
 from django.core.validators import MaxValueValidator, MinValueValidator
 
 class pantryItems(models.Model):
+    """contains foodIngredients in pantry, with associated quantity and expiration dates"""
     name = models.ForeignKey(foodIngredient, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000)])
     expiration = models.DateField(default=None, null=True)

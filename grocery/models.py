@@ -4,11 +4,13 @@ from django.core.validators import MaxValueValidator, MinValueValidator
 
 
 class foodIngredient(models.Model):
+    """contains food items, used for the autocomplete view for groceryItems and pantryItems"""
     name = models.CharField(max_length=50)
     def __str__(self):
         return self.name
 
 class groceryItems(models.Model):
+    """Users can store foodIngredients in their grocery list, and then edit, delete, and send them to the pantry"""
     item_name = models.ForeignKey(foodIngredient, on_delete=models.CASCADE)
     quantity = models.PositiveSmallIntegerField(default=1, validators=[MinValueValidator(1), MaxValueValidator(1000)])
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)

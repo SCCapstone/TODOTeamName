@@ -8,6 +8,7 @@ from .models import *
 
 @login_required
 def pantry(request):
+    """form to add item to pantry"""
     if request.method == 'POST':
         form = PantryAddItemForm(request.POST)
         if form.is_valid():
@@ -22,6 +23,7 @@ def pantry(request):
 
 @login_required
 def pantryeditdelete(request):
+    """routes requests to edit/delete pantry items"""
     all_pantry_items = pantryItems.objects.filter(user=request.user)
     if request.method == 'POST':
         if request.POST.get('edit')!=None:
@@ -37,6 +39,7 @@ def pantryeditdelete(request):
         
 @login_required                 
 def edit(request, id=None, template_name='pantry/edit.html'):
+    """brings up view for editing a pantry item"""
     if id:
         pantryitem = get_object_or_404(pantryItems, name = foodIngredient.objects.get(id = id), user = request.user)
         if pantryitem.user != request.user:

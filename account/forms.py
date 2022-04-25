@@ -6,6 +6,7 @@ from .models import Profile
 
 
 class UserRegisterForm(UserCreationForm):
+    """form for user to create an account"""
     email = forms.EmailField()
 
     class Meta:
@@ -14,6 +15,7 @@ class UserRegisterForm(UserCreationForm):
 
 
 class ProfileUpdateForm(forms.ModelForm):
+    """form for user to add information to their profile"""
     name = forms.CharField(max_length=50)
     allergy_list = forms.CharField(max_length=100)
 
