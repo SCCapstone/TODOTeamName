@@ -31,7 +31,7 @@
                 {% csrf_token %}
                 <button style="float: right;" class="btn-close btn-sm" type="submit" name="delete_post"
                     value="{{ post.slug }}" title="Delete"
-                    onclick="return confirm('Are you sure you want to delete this image post?')"></button>
+                    onclick="return confirm('Are you sure you want to delete this forum post?')"></button>
             </form>
             {% endif %}
             {% if post.image %}

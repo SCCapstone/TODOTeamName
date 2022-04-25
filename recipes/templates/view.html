@@ -10,7 +10,7 @@
         <button class="btn btn-secondary" type="submit" name="sched" value="sched">Schedule</button>
         <button class="btn btn-secondary" type="submit" name="edit" value="edit">Edit</button>
         <button class="btn btn-secondary" type="submit" name="delete" value="delete"
-            onclick="return confirm('Are you sure you want to delete')">Delete</button><br>
+            onclick="return confirm('Are you sure you want to delete this recipe?')">Delete</button><br>
     </form>
     <div style="white-space: pre-line;">
         <p style="font-weight:bold">Ingredients:</p>{{ recipe.recipe_ingredients }}<br>
