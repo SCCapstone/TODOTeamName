@@ -3,7 +3,9 @@ from time import sleep
 from tests import AllTests 
 
 def main():
-    """Tests the main account functionality"""
+    """Tests the main recipe functionality.
+    Adds a new recipe, schedules it to the calendar, edits it, then deletes it.
+    """
 
     # Construct the tester
     tester = AllTests()
@@ -14,9 +16,8 @@ def main():
     password = "Gener1cP@ss!"
     tester.register(username, email, password)
     tester.login(username, password)
-    sleep(1)
 
-    # Add a recipe and add it to calendar
+    # Create a recipe
     title = "This is a fake title"
     time = 300
     ingredients = "Cake mix"

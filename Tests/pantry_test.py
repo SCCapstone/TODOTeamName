@@ -3,7 +3,9 @@ from time import sleep
 from tests import AllTests 
 
 def main():
-    """Tests the main account functionality"""
+    """Tests the main pantry functionality.
+    Adds, then removes, pantry items.
+    """
 
     # Construct the tester
     tester = AllTests()
